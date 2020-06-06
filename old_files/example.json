@@ -1,0 +1,199 @@
+[
+    {
+        "winner": false,
+        "isRanked": false,
+        "isCustomServer": false,
+        "lobbyId": "6366780818960891384",
+        "isTitans": true,
+        "serverMods": [
+            {
+                "identifier": "community-mods-server",
+                "display_name": "Community Mods Server",
+                "version": "0"
+            },
+            {
+                "identifier": "com.pa.grandhomie.simplebiomes.server",
+                "display_name": "Simple Biomes - Server",
+                "version": "1.5"
+            },
+            {
+                "identifier": "com.pa.grandhomie.metalbalance",
+                "display_name": "Advanced MEX producing 14 metal / sec (instead of 20)",
+                "version": "1.0"
+            },
+            {
+                "identifier": "uk.pa.tetctree.server",
+                "display_name": "multiple Biomes for System Designers",
+                "version": "0.4.7"
+            },
+            {
+                "identifier": "com.pa.dissonant.dissonant",
+                "display_name": "Improved Balance",
+                "version": "1.0.0"
+            }
+        ],
+        "participatingIds": [
+            "684500440454974208",
+            "5498116095014251271",
+            "6570301984719577492",
+            "234707396568411571",
+            "11920796015689347787",
+            "15649555569098449556",
+            "8698244049596773907",
+            "5821912012546007431",
+            "16457295172991136123",
+            "3429006449258398706"
+        ],
+        "gameEndTime": false,
+        "gameStartTime": 1577749892169,
+        "tournamentInfo": {
+            "isTournament": false
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "The Iron Cross 5v5 NS",
+            "planets": [
+                {
+                    "name": "Seb's Fantasy",
+                    "radius": 560,
+                    "biome": "moon",
+                    "halleys": false,
+                    "starting": true,
+                    "metalSpots": 216
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 25048,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "【W】xAlienXxPR",
+                        "uberId": "684500440454974208"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 25050,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Ŧคςเlเtא",
+                        "uberId": "5498116095014251271"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 25052,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Chow",
+                        "uberId": "6570301984719577492"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 25054,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Cuyto The Immortal",
+                        "uberId": "234707396568411571"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 25056,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "☁ТУЧА™",
+                        "uberId": "11920796015689347787"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 25058,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "AncientFlames",
+                        "uberId": "15649555569098449556"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 25060,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "PSHH YOBA",
+                        "uberId": "8698244049596773907"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 25062,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Gamma360",
+                        "uberId": "5821912012546007431"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 25064,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "eirschele.jake",
+                        "uberId": "16457295172991136123"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 25066,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "【W】ematarkus",
+                        "uberId": "3429006449258398706"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            }
+        ]
+    }
+]

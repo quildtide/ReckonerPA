@@ -1,0 +1,26 @@
+main_player_type,main_player_id,alt_player_type,alt_player_id,note
+pa inc,8665259548474200874,pa inc,9477202197835013106,diss
+pa inc,15480553480394300430,pa inc,5482623919298936256,nimzo
+pa inc,2822981449101800342,pa inc,4157943590563995343,bry
+pa inc,2822981449101800342,pa inc,6312096069777205216,bry
+pa inc,3045326806294249940,pa inc,16521708536071068509,mfdoom
+pa inc,3045326806294249940,pa inc,1584103441895137001,mfdoom
+pa inc,3045326806294249940,pa inc,13139129267973318889,mfdoom
+pa inc,3045326806294249940,pa inc,18024577054607733372,mfdoom
+pa inc,3045326806294249940,pa inc,15664817421777017454,mfdoom
+pa inc,3045326806294249940,pa inc,13471768110994182657,mfdoom
+aiDiff,Q-Casual,aiDiff,Q-Casual QBE,
+aiDiff,Q-Bronze,aiDiff,Q-Bronze QBE,
+aiDiff,Q-Silver,aiDiff,Q-Silver QBE,
+aiDiff,Q-Gold,aiDiff,Q-Gold QBE,
+aiDiff,Q-Platinum,aiDiff,Q-Platinum QBE,
+aiDiff,Q-Uber,aiDiff,Q-Uber QBE,
+aiDiff,Q-Uber Free For All,aiDiff,Q-Uber Free For All QBE,
+aiDiff,Q-Uber Air,aiDiff,Q-Uber Air QBE,
+aiDiff,Q-Uber 1v1,aiDiff,Q-Uber 1v1 QBE,
+aiDiff,Q-Uber Aggressive,aiDiff,Q-Uber Aggressive QBE,
+aiDiff,Q-Uber Tank,aiDiff,Q-Uber Tank QBE,
+aiDiff,Q-Uber Rush,aiDiff,Q-Uber Rush QBE,
+aiDiff,Q-Uber Bot,aiDiff,Q-Uber Bot QBE,
+aiDiff,Q-Uber Naval,aiDiff,Q-Uber Naval QBE,
+aiDiff,Q-Uber Turtle,aiDiff,Q-Uber Turtle QBE,

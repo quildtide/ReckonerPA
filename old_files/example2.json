@@ -1,0 +1,196 @@
+[
+    {
+        "winner": 1,
+        "isRanked": false,
+        "isCustomServer": false,
+        "lobbyId": "7236488843735906771",
+        "isTitans": true,
+        "serverMods": [
+            {
+                "identifier": "community-mods-server",
+                "display_name": "Community Mods Server",
+                "version": "0"
+            },
+            {
+                "identifier": "uk.pa.tetctree.server",
+                "display_name": "multiple Biomes for System Designers",
+                "version": "0.4.7"
+            },
+            {
+                "identifier": "com.pa.mikeyh.display-ranks",
+                "display_name": "Display Ranks for Titans & Classic",
+                "version": "1.1.5"
+            },
+            {
+                "identifier": "com.pa.quitch.qAIModCompatibilityPatch",
+                "display_name": "AI Mod Compatibility Framework",
+                "version": "1.8.0"
+            },
+            {
+                "identifier": "com.pa.grandhomie.simplebiomes.server",
+                "display_name": "Simple Biomes - Server",
+                "version": "1.5"
+            },
+            {
+                "identifier": "com.pa.anonemous2.alienworlds.released.server",
+                "display_name": "AlienWorlds",
+                "version": "0.3.1.0"
+            },
+            {
+                "identifier": "com.pa.fabberking.gashybrid.server",
+                "display_name": "Gas Hybrid Server",
+                "version": "1.0"
+            },
+            {
+                "identifier": "com.wondible.pa.junkyard_biome.server",
+                "display_name": "Junkyard Biome",
+                "version": "1.1.0"
+            },
+            {
+                "identifier": "com.pa.quitch.qQuellerAI",
+                "display_name": "Queller AI",
+                "version": "4.56.1"
+            },
+            {
+                "identifier": "com.pa.mikeyh.ready-up",
+                "display_name": "Ready Up for Titans & Classic",
+                "version": "1.1.2"
+            }
+        ],
+        "participatingIds": [
+            "11982563662366963306",
+            "14058329051163695342",
+            "3662048256008121731",
+            "10166400640798416329",
+            "6771998214457256221",
+            "2599256968225646622",
+            "16443909994517587657",
+            "5328243153722132725"
+        ],
+        "gameEndTime": 1577750027651,
+        "gameStartTime": 1577749452076,
+        "tournamentInfo": {
+            "isTournament": false
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "Blitzkrieg Bot 4v4 NS",
+            "planets": [
+                {
+                    "name": "Blitzkrieg Bot 4v4 NS",
+                    "radius": 500,
+                    "biome": "moon",
+                    "halleys": false,
+                    "starting": true,
+                    "metalSpots": 200
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 26453,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "[FRAP] Dartmars",
+                        "uberId": "11982563662366963306"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 26455,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "[FRAP] Sundance63",
+                        "uberId": "14058329051163695342"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 26457,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "[FRAP]Reynald",
+                        "uberId": "3662048256008121731"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 26459,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Scolyar",
+                        "uberId": "10166400640798416329"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 26461,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "noses",
+                        "uberId": "6771998214457256221"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 26463,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "barnabas (2)",
+                        "uberId": "2599256968225646622"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 26465,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "[Gigants]Button",
+                        "uberId": "16443909994517587657"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 26467,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "IVPathfinder",
+                        "uberId": "5328243153722132725"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            }
+        ]
+    }
+]

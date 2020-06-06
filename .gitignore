@@ -1,0 +1,8 @@
+secrets.jl
+pa_output.csv
+continuous_update_pid.txt
+continuous_update.log
+last_superstats_update
+last_recorder_timestamp
+*.log
+static_data_sources/pastats/backup.db

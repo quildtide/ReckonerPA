@@ -1,0 +1,23 @@
+
+signal (15): Terminated
+in expression starting at /home/reckoner/code/reckoner/0.1/get_gamefeed.jl:25
+epoll_pwait at /usr/bin/../lib64/libc.so.6 (unknown line)
+uv__io_poll at /usr/bin/../lib64/libjulia.so.1 (unknown line)
+uv_run at /usr/bin/../lib64/libjulia.so.1 (unknown line)
+jl_task_get_next at /usr/bin/../lib64/libjulia.so.1 (unknown line)
+unknown function (ip: 0x7f42b8fd743c)
+unknown function (ip: 0x7f42b8fd7d34)
+unknown function (ip: 0x7f42b8fe6a0b)
+unknown function (ip: 0x7f42b9362684)
+eof at ./stream.jl:48
+unknown function (ip: 0x7f42b2d9cbff)
+jl_apply_generic at /usr/bin/../lib64/libjulia.so.1 (unknown line)
+wait_for_encrypted_data at /home/reckoner/.julia/packages/MbedTLS/a1JFn/src/ssl.jl:366
+wait_for_decrypted_data at /home/reckoner/.julia/packages/MbedTLS/a1JFn/src/ssl.jl:286
+macro expansion at /home/reckoner/.julia/packages/MbedTLS/a1JFn/src/ssl.jl:93 [inlined]
+#37 at ./task.jl:333
+jl_apply_generic at /usr/bin/../lib64/libjulia.so.1 (unknown line)
+unknown function (ip: 0x7f42cc768039)
+unknown function (ip: 0xffffffffffffffff)
+unknown function (ip: 0xffffffffffffffff)
+Allocations: 8977266 (Pool: 8975257; Big: 2009); GC: 11

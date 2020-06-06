@@ -1,0 +1,147 @@
+[
+    {
+        "winner": 103876,
+        "isRanked": false,
+        "isCustomServer": true,
+        "lobbyId": "custom_myumng25hilx0jcaaa0bbi0trnkmhlpg_a595fc",
+        "isTitans": true,
+        "serverMods": [
+            {
+                "identifier": "community-mods-server",
+                "display_name": "Community Mods Server",
+                "version": "0"
+            },
+            {
+                "identifier": "com.flubbateios.unpause",
+                "display_name": "Who Unpaused That?",
+                "version": "1.0.0"
+            },
+            {
+                "identifier": "com.pa.mikeyh.display-ranks",
+                "display_name": "Display Ranks for Titans & Classic",
+                "version": "1.1.5"
+            },
+            {
+                "identifier": "com.pa.mikeyh.meteors-server",
+                "display_name": "Meteors for Community Dedicated Server",
+                "version": "1.0.1"
+            }
+        ],
+        "participatingIds": [
+            "13529427931658771700",
+            "4014737893745176725",
+            "15693800376421696028",
+            "4135547607774131587",
+            "8665259548474200874",
+            "11314403746646385988",
+            "15739124029549883001",
+            "18228394466718388067",
+            "18296721131591049184",
+            "8710695788823644673"
+        ],
+        "gameEndTime": 1530990525682,
+        "gameStartTime": 1530988831675,
+        "tournamentInfo": {
+            "isTournament": true,
+            "identifier": "PEs2"
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "War of the Worlds Minus One",
+            "planets": [
+                {
+                    "name": "Ichaerus",
+                    "radius": 600,
+                    "biome": "moon",
+                    "halleys": 3,
+                    "starting": true,
+                    "metalSpots": 98
+                },
+                {
+                    "name": "Webway",
+                    "radius": 604,
+                    "biome": "lava",
+                    "halleys": false,
+                    "starting": true,
+                    "metalSpots": 70
+                },
+                {
+                    "name": "Death Stare",
+                    "radius": 597,
+                    "biome": "metal",
+                    "halleys": false,
+                    "starting": false,
+                    "metalSpots": 0
+                },
+                {
+                    "name": "Furry Yet Moist",
+                    "radius": 705,
+                    "biome": "earth",
+                    "halleys": false,
+                    "starting": true,
+                    "metalSpots": 122
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 103876,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "billthebluebot",
+                        "uberId": "13529427931658771700"
+                    },
+                    {
+                        "displayName": "[SUB] Bot 1",
+                        "uberId": "4014737893745176725"
+                    },
+                    {
+                        "displayName": "[ICARUS] Neiro-MCMLXXXIV",
+                        "uberId": "15693800376421696028"
+                    },
+                    {
+                        "displayName": "[ICARUS] MonkeySoldier",
+                        "uberId": "4135547607774131587"
+                    },
+                    {
+                        "displayName": "[ICARUS] Dissonant",
+                        "uberId": "8665259548474200874"
+                    }
+                ],
+                "teamId": 103876,
+                "aiDiff": false
+            },
+            {
+                "ai": false,
+                "armyId": 103882,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "[WAF] Viroo",
+                        "uberId": "11314403746646385988"
+                    },
+                    {
+                        "displayName": "[WAF]Fhuj",
+                        "uberId": "15739124029549883001"
+                    },
+                    {
+                        "displayName": "[WAF] Falke^",
+                        "uberId": "18228394466718388067"
+                    },
+                    {
+                        "displayName": "[WAF] Kimberlee",
+                        "uberId": "18296721131591049184"
+                    },
+                    {
+                        "displayName": "[WAF] fjf",
+                        "uberId": "8710695788823644673"
+                    }
+                ],
+                "teamId": 103882,
+                "aiDiff": false
+            }
+        ]
+    }
+]

@@ -1,0 +1,1291 @@
+[
+    {
+        "winner": 12265,
+        "isRanked": true,
+        "isCustomServer": false,
+        "lobbyId": "15130509637119696352",
+        "isTitans": true,
+        "serverMods": [],
+        "participatingIds": [
+            "14274858178143957856",
+            "6626916956991237384"
+        ],
+        "gameEndTime": 1577576703721,
+        "gameStartTime": 1577576128647,
+        "tournamentInfo": {
+            "isTournament": false
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "Gargantuan",
+            "planets": [
+                {
+                    "name": "Gargantuan",
+                    "radius": 610,
+                    "biome": "earth",
+                    "halleys": false,
+                    "starting": true,
+                    "metalSpots": 108
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 12265,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Academia",
+                        "uberId": "14274858178143957856"
+                    }
+                ],
+                "teamId": 12265,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 12267,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "? (8)",
+                        "uberId": "6626916956991237384"
+                    }
+                ],
+                "teamId": 12267,
+                "aiDiff": ""
+            }
+        ]
+    },
+    {
+        "winner": 15019,
+        "isRanked": true,
+        "isCustomServer": false,
+        "lobbyId": "7618913132310050391",
+        "isTitans": true,
+        "serverMods": [],
+        "participatingIds": [
+            "8057305219048417618",
+            "14274858178143957856"
+        ],
+        "gameEndTime": 1577575659650,
+        "gameStartTime": 1577574953570,
+        "tournamentInfo": {
+            "isTournament": false
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "Threshold",
+            "planets": [
+                {
+                    "name": "Threshold",
+                    "radius": 500,
+                    "biome": "tropical",
+                    "halleys": false,
+                    "starting": true,
+                    "metalSpots": 88
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 15017,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Magos_Cybernetica",
+                        "uberId": "8057305219048417618"
+                    }
+                ],
+                "teamId": 15017,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 15019,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Academia",
+                        "uberId": "14274858178143957856"
+                    }
+                ],
+                "teamId": 15019,
+                "aiDiff": ""
+            }
+        ]
+    },
+    {
+        "winner": 1,
+        "isRanked": false,
+        "isCustomServer": false,
+        "lobbyId": "10014588063427830096",
+        "isTitans": true,
+        "serverMods": [
+            {
+                "identifier": "community-mods-server",
+                "display_name": "Community Mods Server",
+                "version": "0"
+            },
+            {
+                "identifier": "com.pa.mikeyh.display-ranks",
+                "display_name": "Display Ranks for Titans & Classic",
+                "version": "1.1.5"
+            },
+            {
+                "identifier": "com.pa.mikeyh.lobby-system-preview",
+                "display_name": "Lobby System Preview for Titans & Classic",
+                "version": "1.1.3"
+            },
+            {
+                "identifier": "com.flubbateios.unpause",
+                "display_name": "Who Unpaused That?",
+                "version": "1.0.0"
+            },
+            {
+                "identifier": "com.pa.quitch.qAIModCompatibilityPatch",
+                "display_name": "AI Mod Compatibility Framework",
+                "version": "1.8.0"
+            },
+            {
+                "identifier": "com.pa.grandhomie.simplebiomes.server",
+                "display_name": "Simple Biomes - Server",
+                "version": "1.5"
+            },
+            {
+                "identifier": "uk.pa.tetctree.server",
+                "display_name": "multiple Biomes for System Designers",
+                "version": "0.4.7"
+            },
+            {
+                "identifier": "com.pa.anonemous2.alienworlds.released.server",
+                "display_name": "AlienWorlds",
+                "version": "0.3.1.0"
+            },
+            {
+                "identifier": "com.pa.fabberking.gashybrid.server",
+                "display_name": "Gas Hybrid Server",
+                "version": "1.0"
+            },
+            {
+                "identifier": "com.wondible.pa.junkyard_biome.server",
+                "display_name": "Junkyard Biome",
+                "version": "1.1.0"
+            },
+            {
+                "identifier": "com.pa.quitch.qQuellerAI",
+                "display_name": "Queller AI",
+                "version": "4.56.1"
+            },
+            {
+                "identifier": "com.pa.mikeyh.ready-up",
+                "display_name": "Ready Up for Titans & Classic",
+                "version": "1.1.2"
+            }
+        ],
+        "participatingIds": [
+            "1334896172832291141",
+            "3989915271285217577",
+            "3429006449258398706",
+            "11920796015689347787",
+            "12843243012199263522",
+            "15792335072029438928",
+            "10891632732190348092",
+            "10328666479413014042",
+            "484627989766533573",
+            "3012285558613883075"
+        ],
+        "gameEndTime": 1577574817848,
+        "gameStartTime": 1577573836000,
+        "tournamentInfo": {
+            "isTournament": false
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "Lune 5v5 NS",
+            "planets": [
+                {
+                    "name": "Lune 5v5 NS",
+                    "radius": 550,
+                    "biome": "moon",
+                    "halleys": false,
+                    "starting": true,
+                    "metalSpots": 420
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 30737,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "【W】Zyroo",
+                        "uberId": "1334896172832291141"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 30739,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "[W] Thee_Noib",
+                        "uberId": "3989915271285217577"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 30741,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "【W】ematarkus",
+                        "uberId": "3429006449258398706"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 30743,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "☁ТУЧА™",
+                        "uberId": "11920796015689347787"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 30745,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Sipharty",
+                        "uberId": "12843243012199263522"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 30747,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Di-Ferr",
+                        "uberId": "15792335072029438928"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 30749,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "blakewalkernz",
+                        "uberId": "10891632732190348092"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 30751,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Oke MEng",
+                        "uberId": "10328666479413014042"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 30753,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Gone fishin'",
+                        "uberId": "484627989766533573"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 30755,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "matt_shadowwing",
+                        "uberId": "3012285558613883075"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            }
+        ]
+    },
+    {
+        "winner": 15017,
+        "isRanked": true,
+        "isCustomServer": false,
+        "lobbyId": "7143722091689823810",
+        "isTitans": true,
+        "serverMods": [],
+        "participatingIds": [
+            "15823568260832540527",
+            "4379012099145338969"
+        ],
+        "gameEndTime": 1577574367132,
+        "gameStartTime": 1577573516621,
+        "tournamentInfo": {
+            "isTournament": false
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "Threshold",
+            "planets": [
+                {
+                    "name": "Threshold",
+                    "radius": 500,
+                    "biome": "tropical",
+                    "halleys": false,
+                    "starting": true,
+                    "metalSpots": 88
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 15017,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "[BSE] Diskraip",
+                        "uberId": "15823568260832540527"
+                    }
+                ],
+                "teamId": 15017,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 15019,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Uber department check",
+                        "uberId": "4379012099145338969"
+                    }
+                ],
+                "teamId": 15019,
+                "aiDiff": ""
+            }
+        ]
+    },
+    {
+        "winner": 54331,
+        "isRanked": true,
+        "isCustomServer": false,
+        "lobbyId": "17662546828438439856",
+        "isTitans": true,
+        "serverMods": [],
+        "participatingIds": [
+            "4379012099145338969",
+            "15823568260832540527"
+        ],
+        "gameEndTime": 1577573309425,
+        "gameStartTime": 1577572927880,
+        "tournamentInfo": {
+            "isTournament": false
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "Fulcrum",
+            "planets": [
+                {
+                    "name": "Fulcrum",
+                    "radius": 775,
+                    "biome": "desert",
+                    "halleys": false,
+                    "starting": false,
+                    "metalSpots": 110
+                },
+                {
+                    "name": "Point A",
+                    "radius": 250,
+                    "biome": "moon",
+                    "halleys": 2,
+                    "starting": true,
+                    "metalSpots": 14
+                },
+                {
+                    "name": "Point B",
+                    "radius": 250,
+                    "biome": "moon",
+                    "halleys": 2,
+                    "starting": true,
+                    "metalSpots": 14
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 54331,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Uber department check",
+                        "uberId": "4379012099145338969"
+                    }
+                ],
+                "teamId": 54331,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 54333,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "[BSE] Diskraip",
+                        "uberId": "15823568260832540527"
+                    }
+                ],
+                "teamId": 54333,
+                "aiDiff": ""
+            }
+        ]
+    },
+    {
+        "winner": false,
+        "isRanked": false,
+        "isCustomServer": false,
+        "lobbyId": "10588954464828412061",
+        "isTitans": true,
+        "serverMods": [
+            {
+                "identifier": "community-mods-server",
+                "display_name": "Community Mods Server",
+                "version": "0"
+            },
+            {
+                "identifier": "com.pa.mikeyh.ready-up",
+                "display_name": "Ready Up for Titans & Classic",
+                "version": "1.1.2"
+            },
+            {
+                "identifier": "com.pa.quitch.qAIModCompatibilityPatch",
+                "display_name": "AI Mod Compatibility Framework",
+                "version": "1.8.0"
+            },
+            {
+                "identifier": "com.pa.quitch.qQuellerAI",
+                "display_name": "Queller AI",
+                "version": "4.56.1"
+            }
+        ],
+        "participatingIds": [
+            "5972528376655473762",
+            "2138542387396584487",
+            "10328666479413014042",
+            "-2",
+            "18360807506944073876",
+            "15281660620908125058",
+            "2740808012323199855"
+        ],
+        "gameEndTime": false,
+        "gameStartTime": 1577572480204,
+        "tournamentInfo": {
+            "isTournament": false
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "Cake Storm",
+            "planets": [
+                {
+                    "name": "Meringue Pie",
+                    "radius": 509,
+                    "biome": "desert",
+                    "halleys": 5,
+                    "starting": true,
+                    "metalSpots": 133
+                },
+                {
+                    "name": "Cherry Pie",
+                    "radius": 500,
+                    "biome": "lava",
+                    "halleys": 5,
+                    "starting": true,
+                    "metalSpots": 101
+                },
+                {
+                    "name": "Space Cake",
+                    "radius": 620,
+                    "biome": "tropical",
+                    "halleys": 5,
+                    "starting": true,
+                    "metalSpots": 110
+                },
+                {
+                    "name": "Truffle Cake",
+                    "radius": 500,
+                    "biome": "metal",
+                    "halleys": 5,
+                    "starting": false,
+                    "metalSpots": 88
+                },
+                {
+                    "name": "Ice Cream Cake",
+                    "radius": 500,
+                    "biome": "earth",
+                    "halleys": 3,
+                    "starting": false,
+                    "metalSpots": 46
+                },
+                {
+                    "name": "Fart Sweet Fart",
+                    "radius": 1300,
+                    "biome": "gas",
+                    "halleys": false,
+                    "starting": false,
+                    "metalSpots": 0
+                },
+                {
+                    "name": "Strobe Candle",
+                    "radius": 538,
+                    "biome": "metal",
+                    "halleys": false,
+                    "starting": false,
+                    "metalSpots": 101
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 48356,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "_ScAryTErrY",
+                        "uberId": "5972528376655473762"
+                    }
+                ],
+                "teamId": 48356,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 48358,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "ernim69",
+                        "uberId": "2138542387396584487"
+                    }
+                ],
+                "teamId": 48358,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 48360,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Oke MEng",
+                        "uberId": "10328666479413014042"
+                    }
+                ],
+                "teamId": 48360,
+                "aiDiff": ""
+            },
+            {
+                "ai": true,
+                "armyId": 48362,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "AI: Giskard",
+                        "uberId": "-2"
+                    }
+                ],
+                "teamId": 48362,
+                "aiDiff": "Q-Uber Free For All"
+            },
+            {
+                "ai": false,
+                "armyId": 48363,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "kenzozum",
+                        "uberId": "18360807506944073876"
+                    }
+                ],
+                "teamId": 48363,
+                "aiDiff": ""
+            },
+            {
+                "ai": true,
+                "armyId": 48365,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "AI: Frey",
+                        "uberId": "-2"
+                    }
+                ],
+                "teamId": 48365,
+                "aiDiff": "Q-Uber Free For All"
+            },
+            {
+                "ai": false,
+                "armyId": 48366,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "The_Director",
+                        "uberId": "15281660620908125058"
+                    }
+                ],
+                "teamId": 48366,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 48368,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "kyle123",
+                        "uberId": "2740808012323199855"
+                    }
+                ],
+                "teamId": 48368,
+                "aiDiff": ""
+            }
+        ]
+    },
+    {
+        "winner": 1,
+        "isRanked": true,
+        "isCustomServer": false,
+        "lobbyId": "14648074534684195289",
+        "isTitans": true,
+        "serverMods": [],
+        "participatingIds": [
+            "2612617597594124690",
+            "17431011844503635312"
+        ],
+        "gameEndTime": 1577572894513,
+        "gameStartTime": 1577572468094,
+        "tournamentInfo": {
+            "isTournament": false
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "Divide",
+            "planets": [
+                {
+                    "name": "Divide",
+                    "radius": 600,
+                    "biome": "lava",
+                    "halleys": false,
+                    "starting": true,
+                    "metalSpots": 76
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 1,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "NeoValence",
+                        "uberId": "2612617597594124690"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 3,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "qrtz",
+                        "uberId": "17431011844503635312"
+                    }
+                ],
+                "teamId": 3,
+                "aiDiff": ""
+            }
+        ]
+    },
+    {
+        "winner": 12265,
+        "isRanked": true,
+        "isCustomServer": false,
+        "lobbyId": "10664023964786158767",
+        "isTitans": true,
+        "serverMods": [],
+        "participatingIds": [
+            "1584666650168547141",
+            "5442010605325217451"
+        ],
+        "gameEndTime": 1577573683892,
+        "gameStartTime": 1577572455674,
+        "tournamentInfo": {
+            "isTournament": false
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "Gargantuan",
+            "planets": [
+                {
+                    "name": "Gargantuan",
+                    "radius": 610,
+                    "biome": "earth",
+                    "halleys": false,
+                    "starting": true,
+                    "metalSpots": 108
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 12265,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "[ICARUS] smurf",
+                        "uberId": "1584666650168547141"
+                    }
+                ],
+                "teamId": 12265,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 12267,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Mirdinka",
+                        "uberId": "5442010605325217451"
+                    }
+                ],
+                "teamId": 12267,
+                "aiDiff": ""
+            }
+        ]
+    },
+    {
+        "winner": 21772,
+        "isRanked": true,
+        "isCustomServer": false,
+        "lobbyId": "4310022339249188798",
+        "isTitans": true,
+        "serverMods": [],
+        "participatingIds": [
+            "1584666650168547141",
+            "15823568260832540527"
+        ],
+        "gameEndTime": 1577572238261,
+        "gameStartTime": 1577571477212,
+        "tournamentInfo": {
+            "isTournament": false
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "Hopper",
+            "planets": [
+                {
+                    "name": "Hopper",
+                    "radius": 610,
+                    "biome": "earth",
+                    "halleys": false,
+                    "starting": true,
+                    "metalSpots": 90
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 21770,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "[ICARUS] smurf",
+                        "uberId": "1584666650168547141"
+                    }
+                ],
+                "teamId": 21770,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 21772,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "[BSE] Diskraip",
+                        "uberId": "15823568260832540527"
+                    }
+                ],
+                "teamId": 21772,
+                "aiDiff": ""
+            }
+        ]
+    },
+    {
+        "winner": 1,
+        "isRanked": false,
+        "isCustomServer": false,
+        "lobbyId": "14434440428840045070",
+        "isTitans": true,
+        "serverMods": [
+            {
+                "identifier": "community-mods-server",
+                "display_name": "Community Mods Server",
+                "version": "0"
+            },
+            {
+                "identifier": "com.pa.mikeyh.display-ranks",
+                "display_name": "Display Ranks for Titans & Classic",
+                "version": "1.1.5"
+            },
+            {
+                "identifier": "com.pa.mikeyh.lobby-system-preview",
+                "display_name": "Lobby System Preview for Titans & Classic",
+                "version": "1.1.3"
+            },
+            {
+                "identifier": "com.flubbateios.unpause",
+                "display_name": "Who Unpaused That?",
+                "version": "1.0.0"
+            },
+            {
+                "identifier": "com.pa.quitch.qAIModCompatibilityPatch",
+                "display_name": "AI Mod Compatibility Framework",
+                "version": "1.8.0"
+            },
+            {
+                "identifier": "com.pa.grandhomie.simplebiomes.server",
+                "display_name": "Simple Biomes - Server",
+                "version": "1.5"
+            },
+            {
+                "identifier": "uk.pa.tetctree.server",
+                "display_name": "multiple Biomes for System Designers",
+                "version": "0.4.7"
+            },
+            {
+                "identifier": "com.pa.anonemous2.alienworlds.released.server",
+                "display_name": "AlienWorlds",
+                "version": "0.3.1.0"
+            },
+            {
+                "identifier": "com.pa.fabberking.gashybrid.server",
+                "display_name": "Gas Hybrid Server",
+                "version": "1.0"
+            },
+            {
+                "identifier": "com.wondible.pa.junkyard_biome.server",
+                "display_name": "Junkyard Biome",
+                "version": "1.1.0"
+            },
+            {
+                "identifier": "com.pa.quitch.qQuellerAI",
+                "display_name": "Queller AI",
+                "version": "4.56.1"
+            },
+            {
+                "identifier": "com.pa.mikeyh.ready-up",
+                "display_name": "Ready Up for Titans & Classic",
+                "version": "1.1.2"
+            }
+        ],
+        "participatingIds": [
+            "1334896172832291141",
+            "3429006449258398706",
+            "8119679270093692194",
+            "3989915271285217577",
+            "-1",
+            "10825950495408263551",
+            "18360807506944073876",
+            "3564788769871882985",
+            "15395514461048772253",
+            "9242733100989636471"
+        ],
+        "gameEndTime": 1577572440721,
+        "gameStartTime": 1577571429720,
+        "tournamentInfo": {
+            "isTournament": false
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "Stykadès",
+            "planets": [
+                {
+                    "name": "Stykadès",
+                    "radius": 650,
+                    "biome": "moon",
+                    "halleys": false,
+                    "starting": true,
+                    "metalSpots": 408
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 46484,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "【W】Zyroo",
+                        "uberId": "1334896172832291141"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 46486,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "【W】ematarkus",
+                        "uberId": "3429006449258398706"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 46488,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "【W】[DC] Solumath",
+                        "uberId": "8119679270093692194"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 46490,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "[W] Thee_Noib",
+                        "uberId": "3989915271285217577"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 46492,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "__Lumi__",
+                        "uberId": "-1"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 46494,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "rickyma10",
+                        "uberId": "10825950495408263551"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 46496,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "kenzozum",
+                        "uberId": "18360807506944073876"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 46498,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Annox (1)",
+                        "uberId": "3564788769871882985"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 46500,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "ravadja",
+                        "uberId": "15395514461048772253"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 46502,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Magna0pera",
+                        "uberId": "9242733100989636471"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            }
+        ]
+    },
+    {
+        "winner": 22021,
+        "isRanked": true,
+        "isCustomServer": false,
+        "lobbyId": "11120220649697121175",
+        "isTitans": true,
+        "serverMods": [],
+        "participatingIds": [
+            "11710306920402487438",
+            "4379012099145338969"
+        ],
+        "gameEndTime": 1577572577765,
+        "gameStartTime": 1577571321916,
+        "tournamentInfo": {
+            "isTournament": false
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "A-SAT",
+            "planets": [
+                {
+                    "name": "A-SAT",
+                    "radius": 450,
+                    "biome": "moon",
+                    "halleys": 3,
+                    "starting": true,
+                    "metalSpots": 54
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 22019,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "ST[N30N]",
+                        "uberId": "11710306920402487438"
+                    }
+                ],
+                "teamId": 22019,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 22021,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Uber department check",
+                        "uberId": "4379012099145338969"
+                    }
+                ],
+                "teamId": 22021,
+                "aiDiff": ""
+            }
+        ]
+    },
+    {
+        "winner": false,
+        "isRanked": false,
+        "isCustomServer": false,
+        "lobbyId": "1848310477476601090",
+        "isTitans": true,
+        "serverMods": [
+            {
+                "identifier": "community-mods-server",
+                "display_name": "Community Mods Server",
+                "version": "0"
+            },
+            {
+                "identifier": "com.pa.grandhomie.simplebiomes.server",
+                "display_name": "Simple Biomes - Server",
+                "version": "1.5"
+            }
+        ],
+        "participatingIds": [
+            "14869255666758594495",
+            "10418905163266635694",
+            "11920796015689347787",
+            "6626916956991237384",
+            "484627989766533573",
+            "10328666479413014042"
+        ],
+        "gameEndTime": false,
+        "gameStartTime": 1577570932748,
+        "tournamentInfo": {
+            "isTournament": false
+        },
+        "casts": [],
+        "systemInfo": {
+            "name": "The Somme 3v3 NS",
+            "planets": [
+                {
+                    "name": "The Somme 3v3 NS",
+                    "radius": 500,
+                    "biome": "moon",
+                    "halleys": false,
+                    "starting": true,
+                    "metalSpots": 174
+                }
+            ]
+        },
+        "armies": [
+            {
+                "ai": false,
+                "armyId": 24679,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Ezra12",
+                        "uberId": "14869255666758594495"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 24681,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Absolver",
+                        "uberId": "10418905163266635694"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 24683,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "☁ТУЧА™",
+                        "uberId": "11920796015689347787"
+                    }
+                ],
+                "teamId": 1,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 24685,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "? (8)",
+                        "uberId": "6626916956991237384"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 24687,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Gone fishin'",
+                        "uberId": "484627989766533573"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            },
+            {
+                "ai": false,
+                "armyId": 24689,
+                "econ_rate": 1,
+                "extendedPlayers": [
+                    {
+                        "displayName": "Oke MEng",
+                        "uberId": "10328666479413014042"
+                    }
+                ],
+                "teamId": 2,
+                "aiDiff": ""
+            }
+        ]
+    }
+]
