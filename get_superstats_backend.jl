@@ -329,8 +329,7 @@ function update_match(match::Match, conn::LibPQ.Connection)::Nothing
     end
 end
 
-function send_to_postgres(matches::Vector{Match})::Nothing
-    conn = LibPQ.Connection("dbname=reckoner user=reckoner")
+function send_to_postgres(matches::Vector{Match}, conn::LibPQ.Connection)::Nothing
     match_ids::Vector{Int64} = [match.match_id for match in matches]
     query::String = "   SELECT match_id
                         FROM reckoner.matches
@@ -384,6 +383,16 @@ function send_to_postgres(matches::Vector{Match})::Nothing
 
     # exclusion_set::Set{String} = {match
     nothing
+end
+
+function send_to_postgres(matches::Vector{Match})::Nothing
+    conn = LibPQ.Connection("dbname=reckoner user=reckoner")
+
+    try
+        send_to_postgres(matches, conn)
+    finally
+        LibPQ.close(conn)
+    end
 end
 
 function update_name_history(matches::Vector{Match})::Nothing

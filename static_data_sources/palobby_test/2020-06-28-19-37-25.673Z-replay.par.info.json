@@ -1,0 +1,353 @@
+{
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "armies": [
+                  {
+                      "players": [
+                                     "\u3010W\u3011Quality Housewife"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             186,
+                                             85,
+                                             211
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           18,
+                                           129
+                                       ],
+                      "name": "\u3010W\u3011Quality Housewife",
+                      "index": 0
+                  },
+                  {
+                      "players": [
+                                     "\u3010W\u3011fjf"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             255,
+                                             144,
+                                             47
+                                         ],
+                      "primary_color": [
+                                           255,
+                                           144,
+                                           47
+                                       ],
+                      "name": "\u3010W\u3011fjf",
+                      "index": 1
+                  },
+                  {
+                      "players": [
+                                     "FABBERKING"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             113,
+                                             52,
+                                             165
+                                         ],
+                      "primary_color": [
+                                           113,
+                                           52,
+                                           165
+                                       ],
+                      "name": "FABBERKING",
+                      "index": 2
+                  },
+                  {
+                      "players": [
+                                     "\u3010W\u3011 Mikoo"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             223,
+                                             0,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           0,
+                                           223
+                                       ],
+                      "name": "\u3010W\u3011 Mikoo",
+                      "index": 3
+                  },
+                  {
+                      "players": [
+                                     "[A_PA_A] theiban"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             92,
+                                             158
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           92,
+                                           158
+                                       ],
+                      "name": "[A_PA_A] theiban",
+                      "index": 4
+                  },
+                  {
+                      "players": [
+                                     "erikejf"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             176,
+                                             224,
+                                             230
+                                         ],
+                      "primary_color": [
+                                           176,
+                                           224,
+                                           230
+                                       ],
+                      "name": "erikejf",
+                      "index": 5
+                  },
+                  {
+                      "players": [
+                                     "i got the yop onme"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             206,
+                                             51,
+                                             122
+                                         ],
+                      "primary_color": [
+                                           70,
+                                           70,
+                                           70
+                                       ],
+                      "name": "i got the yop onme",
+                      "index": 6
+                  },
+                  {
+                      "players": [
+                                     "pea nuts"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             139,
+                                             69,
+                                             19
+                                         ],
+                      "primary_color": [
+                                           210,
+                                           50,
+                                           44
+                                       ],
+                      "name": "pea nuts",
+                      "index": 7
+                  },
+                  {
+                      "players": [
+                                     "Kermit The Fraud"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             210,
+                                             180,
+                                             140
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           223,
+                                           0
+                                       ],
+                      "name": "Kermit The Fraud",
+                      "index": 8
+                  },
+                  {
+                      "players": [
+                                     "[pXs] Grenadier"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             219,
+                                             217,
+                                             37
+                                         ],
+                      "primary_color": [
+                                           219,
+                                           217,
+                                           37
+                                       ],
+                      "name": "[pXs] Grenadier",
+                      "index": 9
+                  },
+                  {
+                      "players": [
+                                     "Witt"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           0,
+                                           0
+                                       ],
+                      "name": "Witt",
+                      "index": 10
+                  },
+                  {
+                      "players": [
+                                     "ST[KiwiJuice]"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             186,
+                                             85,
+                                             211
+                                         ],
+                      "primary_color": [
+                                           186,
+                                           85,
+                                           211
+                                       ],
+                      "name": "ST[KiwiJuice]",
+                      "index": 11
+                  },
+                  {
+                      "players": [
+                                     "B3L4L"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             206,
+                                             51,
+                                             122
+                                         ],
+                      "primary_color": [
+                                           206,
+                                           51,
+                                           122
+                                       ],
+                      "name": "B3L4L",
+                      "index": 12
+                  },
+                  {
+                      "players": [
+                                     "NneaowwPlane"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             200,
+                                             200,
+                                             200
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           0
+                                       ],
+                      "name": "NneaowwPlane",
+                      "index": 13
+                  },
+                  {
+                      "players": [
+                                     "ldrippincatl"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           0,
+                                           223
+                                       ],
+                      "name": "ldrippincatl",
+                      "index": 14
+                  },
+                  {
+                      "players": [
+                                     "JCswayer"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             151,
+                                             251,
+                                             152
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           128
+                                       ],
+                      "name": "JCswayer",
+                      "index": 15
+                  }
+              ],
+    "endOfTime": 2154.0999999999999,
+    "save": {
+                "type": "replay",
+                "name": "2020-06-28-19-37-25.673Z-replay",
+                "utc_timestamp": 1593373045,
+                "valid_range": [
+                                   77300,
+                                   -1
+                               ]
+            }
+}

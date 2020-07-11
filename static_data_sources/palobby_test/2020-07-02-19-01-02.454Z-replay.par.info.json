@@ -1,0 +1,353 @@
+{
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "armies": [
+                  {
+                      "players": [
+                                     "\u3010W\u3011Quality Housewife"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             128,
+                                             0,
+                                             128
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           18,
+                                           129
+                                       ],
+                      "name": "\u3010W\u3011Quality Housewife",
+                      "index": 0
+                  },
+                  {
+                      "players": [
+                                     "MorePrime"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             0,
+                                             100,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           210,
+                                           50,
+                                           44
+                                       ],
+                      "name": "MorePrime",
+                      "index": 1
+                  },
+                  {
+                      "players": [
+                                     "\u3010W\u3011GFXD"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             139,
+                                             69,
+                                             19
+                                         ],
+                      "primary_color": [
+                                           100,
+                                           149,
+                                           237
+                                       ],
+                      "name": "\u3010W\u3011GFXD",
+                      "index": 2
+                  },
+                  {
+                      "players": [
+                                     "SunTzu"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             0,
+                                             223,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           0,
+                                           0
+                                       ],
+                      "name": "SunTzu",
+                      "index": 3
+                  },
+                  {
+                      "players": [
+                                     "\u3010W\u3011blazingTortoise"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           219,
+                                           217,
+                                           37
+                                       ],
+                      "name": "\u3010W\u3011blazingTortoise",
+                      "index": 4
+                  },
+                  {
+                      "players": [
+                                     "KingSlayer (1)"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             0,
+                                             223,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           223,
+                                           0
+                                       ],
+                      "name": "KingSlayer (1)",
+                      "index": 5
+                  },
+                  {
+                      "players": [
+                                     "084"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           128
+                                       ],
+                      "name": "084",
+                      "index": 6
+                  },
+                  {
+                      "players": [
+                                     "KingFlames"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             147,
+                                             122,
+                                             219
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           92,
+                                           158
+                                       ],
+                      "name": "KingFlames",
+                      "index": 7
+                  },
+                  {
+                      "players": [
+                                     "Arcade"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             200,
+                                             200,
+                                             200
+                                         ],
+                      "primary_color": [
+                                           70,
+                                           70,
+                                           70
+                                       ],
+                      "name": "Arcade",
+                      "index": 8
+                  },
+                  {
+                      "players": [
+                                     "Limsicle"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             186,
+                                             85,
+                                             211
+                                         ],
+                      "primary_color": [
+                                           113,
+                                           52,
+                                           165
+                                       ],
+                      "name": "Limsicle",
+                      "index": 9
+                  },
+                  {
+                      "players": [
+                                     "[FRAP] Tirory"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             219,
+                                             217,
+                                             37
+                                         ],
+                      "primary_color": [
+                                           139,
+                                           69,
+                                           19
+                                       ],
+                      "name": "[FRAP] Tirory",
+                      "index": 10
+                  },
+                  {
+                      "players": [
+                                     "[FRAP] T\u00e9t\u00e951GaminG"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           0,
+                                           223
+                                       ],
+                      "name": "[FRAP] T\u00e9t\u00e951GaminG",
+                      "index": 11
+                  },
+                  {
+                      "players": [
+                                     "\u3010W\u3011fjf"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             128,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           0
+                                       ],
+                      "name": "\u3010W\u3011fjf",
+                      "index": 12
+                  },
+                  {
+                      "players": [
+                                     "\u3010W\u3011ill behaveiour"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             210,
+                                             180,
+                                             140
+                                         ],
+                      "primary_color": [
+                                           142,
+                                           107,
+                                           68
+                                       ],
+                      "name": "\u3010W\u3011ill behaveiour",
+                      "index": 13
+                  },
+                  {
+                      "players": [
+                                     "EllenT\u00e4ydellinen"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             176,
+                                             224,
+                                             230
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           168,
+                                           178
+                                       ],
+                      "name": "EllenT\u00e4ydellinen",
+                      "index": 14
+                  },
+                  {
+                      "players": [
+                                     "Mr. Noob"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             168,
+                                             178
+                                         ],
+                      "primary_color": [
+                                           200,
+                                           200,
+                                           200
+                                       ],
+                      "name": "Mr. Noob",
+                      "index": 15
+                  }
+              ],
+    "endOfTime": 1262.5,
+    "save": {
+                "type": "replay",
+                "name": "2020-07-02-19-01-02.454Z-replay",
+                "utc_timestamp": 1593716462,
+                "valid_range": [
+                                   57700,
+                                   -1
+                               ]
+            }
+}

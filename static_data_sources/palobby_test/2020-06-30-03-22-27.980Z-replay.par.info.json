@@ -1,0 +1,269 @@
+{
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "armies": [
+                  {
+                      "players": [
+                                     "Mr.Lol\u00f3"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             143,
+                                             188,
+                                             143
+                                         ],
+                      "primary_color": [
+                                           70,
+                                           70,
+                                           70
+                                       ],
+                      "name": "Mr.Lol\u00f3",
+                      "index": 0
+                  },
+                  {
+                      "players": [
+                                     "jerle-ape\u00f1o"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             151,
+                                             251,
+                                             152
+                                         ],
+                      "primary_color": [
+                                           151,
+                                           251,
+                                           152
+                                       ],
+                      "name": "jerle-ape\u00f1o",
+                      "index": 1
+                  },
+                  {
+                      "players": [
+                                     "ScubaSteve"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             139,
+                                             69,
+                                             19
+                                         ],
+                      "primary_color": [
+                                           100,
+                                           149,
+                                           237
+                                       ],
+                      "name": "ScubaSteve",
+                      "index": 2
+                  },
+                  {
+                      "players": [
+                                     "Miguel724"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           219,
+                                           217,
+                                           37
+                                       ],
+                      "name": "Miguel724",
+                      "index": 3
+                  },
+                  {
+                      "players": [
+                                     "ST[KiwiJuice]"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             223,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           142,
+                                           107,
+                                           68
+                                       ],
+                      "name": "ST[KiwiJuice]",
+                      "index": 4
+                  },
+                  {
+                      "players": [
+                                     "Cross Forth"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           200,
+                                           200,
+                                           200
+                                       ],
+                      "name": "Cross Forth",
+                      "index": 5
+                  },
+                  {
+                      "players": [
+                                     "Bernhard"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             128,
+                                             0,
+                                             128
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           92,
+                                           158
+                                       ],
+                      "name": "Bernhard",
+                      "index": 6
+                  },
+                  {
+                      "players": [
+                                     "[ICARUS] Twilight Sparkle"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             0,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           113,
+                                           52,
+                                           165
+                                       ],
+                      "name": "[ICARUS] Twilight Sparkle",
+                      "index": 7
+                  },
+                  {
+                      "players": [
+                                     "LoftyBunny"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             223,
+                                             18,
+                                             129
+                                         ],
+                      "primary_color": [
+                                           210,
+                                           50,
+                                           44
+                                       ],
+                      "name": "LoftyBunny",
+                      "index": 8
+                  },
+                  {
+                      "players": [
+                                     "Danny \"Pinhead\" Happyman"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             128,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           0
+                                       ],
+                      "name": "Danny \"Pinhead\" Happyman",
+                      "index": 9
+                  },
+                  {
+                      "players": [
+                                     "frahje"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             0,
+                                             100,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           100,
+                                           0
+                                       ],
+                      "name": "frahje",
+                      "index": 10
+                  },
+                  {
+                      "players": [
+                                     "[ICARUS] CyPunkPanda"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             210,
+                                             180,
+                                             140
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           168,
+                                           178
+                                       ],
+                      "name": "[ICARUS] CyPunkPanda",
+                      "index": 11
+                  }
+              ],
+    "endOfTime": 2297.5999999999999,
+    "save": {
+                "type": "replay",
+                "name": "2020-06-30-03-22-27.980Z-replay",
+                "utc_timestamp": 1593487347,
+                "valid_range": [
+                                   82200,
+                                   -1
+                               ]
+            }
+}

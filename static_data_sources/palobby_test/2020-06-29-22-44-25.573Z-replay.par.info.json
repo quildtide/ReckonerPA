@@ -1,0 +1,269 @@
+{
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "armies": [
+                  {
+                      "players": [
+                                     "Awassa"
+                                 ],
+                      "econ": 1.0499999523162842,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             223,
+                                             168,
+                                             178
+                                         ],
+                      "primary_color": [
+                                           83,
+                                           119,
+                                           48
+                                       ],
+                      "name": "Awassa",
+                      "index": 0
+                  },
+                  {
+                      "players": [
+                                     "Nomega Corgi"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             83,
+                                             119,
+                                             48
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           0,
+                                           223
+                                       ],
+                      "name": "Nomega Corgi",
+                      "index": 1
+                  },
+                  {
+                      "players": [
+                                     "nasdragon"
+                                 ],
+                      "econ": 1.0499999523162842,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             255,
+                                             144,
+                                             47
+                                         ],
+                      "primary_color": [
+                                           255,
+                                           144,
+                                           47
+                                       ],
+                      "name": "nasdragon",
+                      "index": 2
+                  },
+                  {
+                      "players": [
+                                     "Unicorgi"
+                                 ],
+                      "econ": 1.2499997615814209,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             223,
+                                             140,
+                                             107
+                                         ],
+                      "primary_color": [
+                                           219,
+                                           217,
+                                           37
+                                       ],
+                      "name": "Unicorgi",
+                      "index": 3
+                  },
+                  {
+                      "players": [
+                                     "Titan Arum"
+                                 ],
+                      "econ": 1.0499999523162842,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             128,
+                                             128
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           128,
+                                           128
+                                       ],
+                      "name": "Titan Arum",
+                      "index": 4
+                  },
+                  {
+                      "players": [
+                                     "Spartako"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           100,
+                                           0
+                                       ],
+                      "name": "Spartako",
+                      "index": 5
+                  },
+                  {
+                      "players": [
+                                     "Its Watermelons"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           0,
+                                           0
+                                       ],
+                      "name": "Its Watermelons",
+                      "index": 6
+                  },
+                  {
+                      "players": [
+                                     "Sakhado"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             223,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           223,
+                                           223
+                                       ],
+                      "name": "Sakhado",
+                      "index": 7
+                  },
+                  {
+                      "players": [
+                                     "MaximusS-Ecu"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             0,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           51,
+                                           151,
+                                           197
+                                       ],
+                      "name": "MaximusS-Ecu",
+                      "index": 8
+                  },
+                  {
+                      "players": [
+                                     "LoftyBunny"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             18,
+                                             129
+                                         ],
+                      "primary_color": [
+                                           210,
+                                           50,
+                                           44
+                                       ],
+                      "name": "LoftyBunny",
+                      "index": 9
+                  },
+                  {
+                      "players": [
+                                     "Alejandro41002"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             255,
+                                             144,
+                                             47
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           0,
+                                           223
+                                       ],
+                      "name": "Alejandro41002",
+                      "index": 10
+                  },
+                  {
+                      "players": [
+                                     "jaqemate"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             83,
+                                             119,
+                                             48
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           0
+                                       ],
+                      "name": "jaqemate",
+                      "index": 11
+                  }
+              ],
+    "endOfTime": 1482.5999999999999,
+    "save": {
+                "type": "replay",
+                "name": "2020-06-29-22-44-25.573Z-replay",
+                "utc_timestamp": 1593470665,
+                "valid_range": [
+                                   70400,
+                                   -1
+                               ]
+            }
+}

@@ -3,3 +3,6 @@ echo $! > continuous_update_pid.txt
 
 nohup julia get_gamefeed.jl > get_gamefeed.log 2>&1 &
 echo $! > get_gamefeed_pid.txt
+
+nohup julia site.jl > site.log 2>&1 &
+echo $! > site_pid.txt

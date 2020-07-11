@@ -1,0 +1,353 @@
+{
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "armies": [
+                  {
+                      "players": [
+                                     "Mr.Lol\u00f3"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             143,
+                                             188,
+                                             143
+                                         ],
+                      "primary_color": [
+                                           70,
+                                           70,
+                                           70
+                                       ],
+                      "name": "Mr.Lol\u00f3",
+                      "index": 0
+                  },
+                  {
+                      "players": [
+                                     "Spring"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             151,
+                                             251,
+                                             152
+                                         ],
+                      "primary_color": [
+                                           151,
+                                           251,
+                                           152
+                                       ],
+                      "name": "Spring",
+                      "index": 1
+                  },
+                  {
+                      "players": [
+                                     "pea nuts"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           113,
+                                           52,
+                                           165
+                                       ],
+                      "name": "pea nuts",
+                      "index": 2
+                  },
+                  {
+                      "players": [
+                                     "[FRAP] Tirory"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             219,
+                                             217,
+                                             37
+                                         ],
+                      "primary_color": [
+                                           219,
+                                           217,
+                                           37
+                                       ],
+                      "name": "[FRAP] Tirory",
+                      "index": 3
+                  },
+                  {
+                      "players": [
+                                     "[ICARUS] DennisProductYT"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             200,
+                                             200,
+                                             200
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           18,
+                                           129
+                                       ],
+                      "name": "[ICARUS] DennisProductYT",
+                      "index": 4
+                  },
+                  {
+                      "players": [
+                                     "Fhuj"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             0,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           100,
+                                           0
+                                       ],
+                      "name": "Fhuj",
+                      "index": 5
+                  },
+                  {
+                      "players": [
+                                     "foldy moldy"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             176,
+                                             224,
+                                             230
+                                         ],
+                      "primary_color": [
+                                           51,
+                                           151,
+                                           197
+                                       ],
+                      "name": "foldy moldy",
+                      "index": 6
+                  },
+                  {
+                      "players": [
+                                     "Mr. Noob"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             128,
+                                             128
+                                         ],
+                      "primary_color": [
+                                           176,
+                                           224,
+                                           230
+                                       ],
+                      "name": "Mr. Noob",
+                      "index": 7
+                  },
+                  {
+                      "players": [
+                                     "CRUNCH"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             113,
+                                             52,
+                                             165
+                                         ],
+                      "primary_color": [
+                                           255,
+                                           144,
+                                           47
+                                       ],
+                      "name": "CRUNCH",
+                      "index": 8
+                  },
+                  {
+                      "players": [
+                                     "jerle-ape\u00f1o"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             100,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           223,
+                                           0
+                                       ],
+                      "name": "jerle-ape\u00f1o",
+                      "index": 9
+                  },
+                  {
+                      "players": [
+                                     "B3L4L"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             128,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           0
+                                       ],
+                      "name": "B3L4L",
+                      "index": 10
+                  },
+                  {
+                      "players": [
+                                     "gentleman_monkey"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             59,
+                                             54,
+                                             182
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           0,
+                                           0
+                                       ],
+                      "name": "gentleman_monkey",
+                      "index": 11
+                  },
+                  {
+                      "players": [
+                                     "Spartako"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             168,
+                                             178
+                                         ],
+                      "primary_color": [
+                                           83,
+                                           119,
+                                           48
+                                       ],
+                      "name": "Spartako",
+                      "index": 12
+                  },
+                  {
+                      "players": [
+                                     "XDOAX"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             128,
+                                             0,
+                                             128
+                                         ],
+                      "primary_color": [
+                                           142,
+                                           107,
+                                           68
+                                       ],
+                      "name": "XDOAX",
+                      "index": 13
+                  },
+                  {
+                      "players": [
+                                     "antmelnik"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             100,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           143,
+                                           188,
+                                           143
+                                       ],
+                      "name": "antmelnik",
+                      "index": 14
+                  },
+                  {
+                      "players": [
+                                     "[FORGE]Ferretmaster"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             255,
+                                             144,
+                                             47
+                                         ],
+                      "primary_color": [
+                                           200,
+                                           200,
+                                           200
+                                       ],
+                      "name": "[FORGE]Ferretmaster",
+                      "index": 15
+                  }
+              ],
+    "endOfTime": 1671.5,
+    "save": {
+                "type": "replay",
+                "name": "2020-06-30-16-04-00.795Z-replay",
+                "utc_timestamp": 1593533040,
+                "valid_range": [
+                                   66200,
+                                   -1
+                               ]
+            }
+}

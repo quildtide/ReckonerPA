@@ -1,0 +1,353 @@
+{
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "armies": [
+                  {
+                      "players": [
+                                     "\u3010W\u3011Quality Housewife"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             100,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           18,
+                                           129
+                                       ],
+                      "name": "\u3010W\u3011Quality Housewife",
+                      "index": 0
+                  },
+                  {
+                      "players": [
+                                     "Spartako"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           100,
+                                           0
+                                       ],
+                      "name": "Spartako",
+                      "index": 1
+                  },
+                  {
+                      "players": [
+                                     "\u3010W\u3011 Mikoo"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             100,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           113,
+                                           52,
+                                           165
+                                       ],
+                      "name": "\u3010W\u3011 Mikoo",
+                      "index": 2
+                  },
+                  {
+                      "players": [
+                                     "Fhuj"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             100,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           128
+                                       ],
+                      "name": "Fhuj",
+                      "index": 3
+                  },
+                  {
+                      "players": [
+                                     "Lime Green banana"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             100,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           223,
+                                           0
+                                       ],
+                      "name": "Lime Green banana",
+                      "index": 4
+                  },
+                  {
+                      "players": [
+                                     "gargor 18"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             100,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           200,
+                                           200,
+                                           200
+                                       ],
+                      "name": "gargor 18",
+                      "index": 5
+                  },
+                  {
+                      "players": [
+                                     "arthur.calvayrac"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             0,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           0,
+                                           223
+                                       ],
+                      "name": "arthur.calvayrac",
+                      "index": 6
+                  },
+                  {
+                      "players": [
+                                     "SunTzu"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             113,
+                                             52,
+                                             165
+                                         ],
+                      "primary_color": [
+                                           59,
+                                           54,
+                                           182
+                                       ],
+                      "name": "SunTzu",
+                      "index": 7
+                  },
+                  {
+                      "players": [
+                                     "ST[KiwiJuice]"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             186,
+                                             85,
+                                             211
+                                         ],
+                      "primary_color": [
+                                           186,
+                                           85,
+                                           211
+                                       ],
+                      "name": "ST[KiwiJuice]",
+                      "index": 8
+                  },
+                  {
+                      "players": [
+                                     "[FRAP] Tirory"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             219,
+                                             217,
+                                             37
+                                         ],
+                      "primary_color": [
+                                           219,
+                                           217,
+                                           37
+                                       ],
+                      "name": "[FRAP] Tirory",
+                      "index": 9
+                  },
+                  {
+                      "players": [
+                                     "B3L4L"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           70,
+                                           70,
+                                           70
+                                       ],
+                      "name": "B3L4L",
+                      "index": 10
+                  },
+                  {
+                      "players": [
+                                     "HawkSachem"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             223,
+                                             0,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           92,
+                                           158
+                                       ],
+                      "name": "HawkSachem",
+                      "index": 11
+                  },
+                  {
+                      "players": [
+                                     "flanker117"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             0,
+                                             223,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           151,
+                                           251,
+                                           152
+                                       ],
+                      "name": "flanker117",
+                      "index": 12
+                  },
+                  {
+                      "players": [
+                                     "\u0421\u0430\u043d\u044f (2)"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             128,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           255,
+                                           144,
+                                           47
+                                       ],
+                      "name": "\u0421\u0430\u043d\u044f (2)",
+                      "index": 13
+                  },
+                  {
+                      "players": [
+                                     "Witt"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             113,
+                                             52,
+                                             165
+                                         ],
+                      "primary_color": [
+                                           147,
+                                           122,
+                                           219
+                                       ],
+                      "name": "Witt",
+                      "index": 14
+                  },
+                  {
+                      "players": [
+                                     "Matterhorn (1)"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             113,
+                                             52,
+                                             165
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           128,
+                                           128
+                                       ],
+                      "name": "Matterhorn (1)",
+                      "index": 15
+                  }
+              ],
+    "endOfTime": 1601.0999999999999,
+    "save": {
+                "type": "replay",
+                "name": "2020-07-01-17-17-11.288Z-replay",
+                "utc_timestamp": 1593623831,
+                "valid_range": [
+                                   80300,
+                                   -1
+                               ]
+            }
+}

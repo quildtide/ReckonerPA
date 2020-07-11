@@ -66,5 +66,9 @@ end
 function process_gamefeed(gamefeed_input)
     conn = LibPQ.Connection("dbname=reckoner user=reckoner")
 
-    process_gamefeed(gamefeed_input, conn)
+    try
+        process_gamefeed(gamefeed_input, conn)
+    finally
+        LibPQ.close(conn)
+    end
 end

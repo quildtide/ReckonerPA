@@ -1,0 +1,395 @@
+{
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "armies": [
+                  {
+                      "players": [
+                                     "[DC] Solumath"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             0,
+                                             223,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           223,
+                                           0
+                                       ],
+                      "name": "[DC] Solumath",
+                      "index": 0
+                  },
+                  {
+                      "players": [
+                                     "MorePrime"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             223,
+                                             0,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           92,
+                                           158
+                                       ],
+                      "name": "MorePrime",
+                      "index": 1
+                  },
+                  {
+                      "players": [
+                                     "XiJinPing the Pooh"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             128,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           210,
+                                           180,
+                                           140
+                                       ],
+                      "name": "XiJinPing the Pooh",
+                      "index": 2
+                  },
+                  {
+                      "players": [
+                                     "ETermin"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             200,
+                                             200,
+                                             200
+                                         ],
+                      "primary_color": [
+                                           151,
+                                           251,
+                                           152
+                                       ],
+                      "name": "ETermin",
+                      "index": 3
+                  },
+                  {
+                      "players": [
+                                     "Kingnoobthe5"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             128,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           0,
+                                           223
+                                       ],
+                      "name": "Kingnoobthe5",
+                      "index": 4
+                  },
+                  {
+                      "players": [
+                                     "Cozmix"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             223,
+                                             168,
+                                             178
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           168,
+                                           178
+                                       ],
+                      "name": "Cozmix",
+                      "index": 5
+                  },
+                  {
+                      "players": [
+                                     "ruhlcore"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             0,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           100,
+                                           149,
+                                           237
+                                       ],
+                      "name": "ruhlcore",
+                      "index": 6
+                  },
+                  {
+                      "players": [
+                                     "\u3010W\u3011Quality Housewife"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             151,
+                                             251,
+                                             152
+                                         ],
+                      "primary_color": [
+                                           59,
+                                           54,
+                                           182
+                                       ],
+                      "name": "\u3010W\u3011Quality Housewife",
+                      "index": 7
+                  },
+                  {
+                      "players": [
+                                     "Wahnheda"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             223,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           223,
+                                           223
+                                       ],
+                      "name": "Wahnheda",
+                      "index": 8
+                  },
+                  {
+                      "players": [
+                                     "lurisvk"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           0,
+                                           0
+                                       ],
+                      "name": "lurisvk",
+                      "index": 9
+                  },
+                  {
+                      "players": [
+                                     "The Surge Cell"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           255,
+                                           144,
+                                           47
+                                       ],
+                      "name": "The Surge Cell",
+                      "index": 10
+                  },
+                  {
+                      "players": [
+                                     "[RR] masterofallkings 7"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             176,
+                                             224,
+                                             230
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           0,
+                                           223
+                                       ],
+                      "name": "[RR] masterofallkings 7",
+                      "index": 11
+                  },
+                  {
+                      "players": [
+                                     "Utopia (1)"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             51,
+                                             151,
+                                             197
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           128,
+                                           128
+                                       ],
+                      "name": "Utopia (1)",
+                      "index": 12
+                  },
+                  {
+                      "players": [
+                                     "Draconisnox"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             0,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           186,
+                                           85,
+                                           211
+                                       ],
+                      "name": "Draconisnox",
+                      "index": 13
+                  },
+                  {
+                      "players": [
+                                     "vega40k"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             128,
+                                             0,
+                                             128
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           140,
+                                           107
+                                       ],
+                      "name": "vega40k",
+                      "index": 14
+                  },
+                  {
+                      "players": [
+                                     "Limsicle"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             206,
+                                             51,
+                                             122
+                                         ],
+                      "primary_color": [
+                                           200,
+                                           200,
+                                           200
+                                       ],
+                      "name": "Limsicle",
+                      "index": 15
+                  },
+                  {
+                      "players": [
+                                     "Arcade"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           210,
+                                           50,
+                                           44
+                                       ],
+                      "name": "Arcade",
+                      "index": 16
+                  },
+                  {
+                      "players": [
+                                     "\u3010W\u3011Zyroo"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             219,
+                                             217,
+                                             37
+                                         ],
+                      "primary_color": [
+                                           219,
+                                           217,
+                                           37
+                                       ],
+                      "name": "\u3010W\u3011Zyroo",
+                      "index": 17
+                  }
+              ],
+    "endOfTime": 1397.5999999999999,
+    "save": {
+                "type": "replay",
+                "name": "2020-06-29-17-38-42.801Z-replay",
+                "utc_timestamp": 1593452322,
+                "valid_range": [
+                                   95900,
+                                   -1
+                               ]
+            }
+}

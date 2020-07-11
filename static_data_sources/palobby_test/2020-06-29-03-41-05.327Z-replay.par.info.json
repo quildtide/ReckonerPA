@@ -1,0 +1,227 @@
+{
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "armies": [
+                  {
+                      "players": [
+                                     "[ICARUS] CyPunkPanda"
+                                 ],
+                      "econ": 3,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           0
+                                       ],
+                      "name": "[ICARUS] CyPunkPanda",
+                      "index": 0
+                  },
+                  {
+                      "players": [
+                                     "^3Options"
+                                 ],
+                      "econ": 3,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             139,
+                                             69,
+                                             19
+                                         ],
+                      "primary_color": [
+                                           139,
+                                           69,
+                                           19
+                                       ],
+                      "name": "^3Options",
+                      "index": 1
+                  },
+                  {
+                      "players": [
+                                     "[Wits]Zulu.io"
+                                 ],
+                      "econ": 3.0999999046325684,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             100,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           100,
+                                           0
+                                       ],
+                      "name": "[Wits]Zulu.io",
+                      "index": 2
+                  },
+                  {
+                      "players": [
+                                     "Miguel724"
+                                 ],
+                      "econ": 3.0999999046325684,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           219,
+                                           217,
+                                           37
+                                       ],
+                      "name": "Miguel724",
+                      "index": 3
+                  },
+                  {
+                      "players": [
+                                     "2"
+                                 ],
+                      "econ": 3,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             100,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           223,
+                                           0
+                                       ],
+                      "name": "2",
+                      "index": 4
+                  },
+                  {
+                      "players": [
+                                     "\uff53\uff4d\uff55\uff52\uff46\uff41\uff52\uff49\uff4e\uff4f"
+                                 ],
+                      "econ": 3.0999999046325684,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             200,
+                                             200,
+                                             200
+                                         ],
+                      "primary_color": [
+                                           51,
+                                           151,
+                                           197
+                                       ],
+                      "name": "\uff53\uff4d\uff55\uff52\uff46\uff41\uff52\uff49\uff4e\uff4f",
+                      "index": 5
+                  },
+                  {
+                      "players": [
+                                     "ST[KiwiJuice]"
+                                 ],
+                      "econ": 3.4999995231628418,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             186,
+                                             85,
+                                             211
+                                         ],
+                      "primary_color": [
+                                           186,
+                                           85,
+                                           211
+                                       ],
+                      "name": "ST[KiwiJuice]",
+                      "index": 6
+                  },
+                  {
+                      "players": [
+                                     "jerle-ape\u00f1o"
+                                 ],
+                      "econ": 3,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             151,
+                                             251,
+                                             152
+                                         ],
+                      "primary_color": [
+                                           151,
+                                           251,
+                                           152
+                                       ],
+                      "name": "jerle-ape\u00f1o",
+                      "index": 7
+                  },
+                  {
+                      "players": [
+                                     "DrDoctor_MD"
+                                 ],
+                      "econ": 3,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           223,
+                                           223
+                                       ],
+                      "name": "DrDoctor_MD",
+                      "index": 8
+                  },
+                  {
+                      "players": [
+                                     "Roscoe"
+                                 ],
+                      "econ": 3.0999999046325684,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             223,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           128
+                                       ],
+                      "name": "Roscoe",
+                      "index": 9
+                  }
+              ],
+    "endOfTime": 618,
+    "save": {
+                "type": "replay",
+                "name": "2020-06-29-03-41-05.327Z-replay",
+                "utc_timestamp": 1593402065,
+                "valid_range": [
+                                   63900,
+                                   -1
+                               ]
+            }
+}

@@ -1,0 +1,353 @@
+{
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "armies": [
+                  {
+                      "players": [
+                                     "Awassa"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             206,
+                                             51,
+                                             122
+                                         ],
+                      "primary_color": [
+                                           83,
+                                           119,
+                                           48
+                                       ],
+                      "name": "Awassa",
+                      "index": 0
+                  },
+                  {
+                      "players": [
+                                     "[A_PA_A] theiban"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             128,
+                                             0,
+                                             128
+                                         ],
+                      "primary_color": [
+                                           200,
+                                           200,
+                                           200
+                                       ],
+                      "name": "[A_PA_A] theiban",
+                      "index": 1
+                  },
+                  {
+                      "players": [
+                                     "LoftyBunny"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             18,
+                                             129
+                                         ],
+                      "primary_color": [
+                                           210,
+                                           50,
+                                           44
+                                       ],
+                      "name": "LoftyBunny",
+                      "index": 2
+                  },
+                  {
+                      "players": [
+                                     "Maroder"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           255,
+                                           144,
+                                           47
+                                       ],
+                      "name": "Maroder",
+                      "index": 3
+                  },
+                  {
+                      "players": [
+                                     "xplayerCZ"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             223,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           70,
+                                           70,
+                                           70
+                                       ],
+                      "name": "xplayerCZ",
+                      "index": 4
+                  },
+                  {
+                      "players": [
+                                     "eddiec.cavazos"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           223,
+                                           0
+                                       ],
+                      "name": "eddiec.cavazos",
+                      "index": 5
+                  },
+                  {
+                      "players": [
+                                     "DIONAKA"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             128,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           0
+                                       ],
+                      "name": "DIONAKA",
+                      "index": 6
+                  },
+                  {
+                      "players": [
+                                     "EllenT\u00e4ydellinen"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             176,
+                                             224,
+                                             230
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           168,
+                                           178
+                                       ],
+                      "name": "EllenT\u00e4ydellinen",
+                      "index": 7
+                  },
+                  {
+                      "players": [
+                                     "Anth\u00f8"
+                                 ],
+                      "econ": 1.0499999523162842,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             128,
+                                             128
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           128
+                                       ],
+                      "name": "Anth\u00f8",
+                      "index": 8
+                  },
+                  {
+                      "players": [
+                                     "Gold PooH"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             223,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           0,
+                                           223
+                                       ],
+                      "name": "Gold PooH",
+                      "index": 9
+                  },
+                  {
+                      "players": [
+                                     "BlueMunchkin!"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             223,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           0,
+                                           223
+                                       ],
+                      "name": "BlueMunchkin!",
+                      "index": 10
+                  },
+                  {
+                      "players": [
+                                     "Rom1"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             176,
+                                             224,
+                                             230
+                                         ],
+                      "primary_color": [
+                                           176,
+                                           224,
+                                           230
+                                       ],
+                      "name": "Rom1",
+                      "index": 11
+                  },
+                  {
+                      "players": [
+                                     "Alejandro41002"
+                                 ],
+                      "econ": 1.0499999523162842,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             255,
+                                             144,
+                                             47
+                                         ],
+                      "primary_color": [
+                                           59,
+                                           54,
+                                           182
+                                       ],
+                      "name": "Alejandro41002",
+                      "index": 12
+                  },
+                  {
+                      "players": [
+                                     "jaqemate"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             223,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           143,
+                                           188,
+                                           143
+                                       ],
+                      "name": "jaqemate",
+                      "index": 13
+                  },
+                  {
+                      "players": [
+                                     "muddy"
+                                 ],
+                      "econ": 1.0499999523162842,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             255,
+                                             144,
+                                             47
+                                         ],
+                      "primary_color": [
+                                           219,
+                                           217,
+                                           37
+                                       ],
+                      "name": "muddy",
+                      "index": 14
+                  },
+                  {
+                      "players": [
+                                     "LoisaOuEstLola?"
+                                 ],
+                      "econ": 1.4499995708465576,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             83,
+                                             119,
+                                             48
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           100,
+                                           0
+                                       ],
+                      "name": "LoisaOuEstLola?",
+                      "index": 15
+                  }
+              ],
+    "endOfTime": 1344.5,
+    "save": {
+                "type": "replay",
+                "name": "2020-06-29-20-26-51.836Z-replay",
+                "utc_timestamp": 1593462411,
+                "valid_range": [
+                                   100300,
+                                   -1
+                               ]
+            }
+}

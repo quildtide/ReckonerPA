@@ -1,0 +1,1 @@
+psql -c  "COPY(SELECT * FROM reckoner.matchrows2 ORDER BY time_start ASC) TO stdout with CSV HEADER" > 'basic-output.csv'

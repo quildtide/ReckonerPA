@@ -14,34 +14,36 @@ const DEFAULT_DUR = 24 * 60 * 60
 function get_update(lobbyids::Vector{LobbyId}, conn, timestamp_1::Timestamp, timestamp_2::Timestamp)::Dict{Tuple{LobbyId, Username}, PastComposite}
     output = Dict{Tuple{LobbyId, Username}, PastComposite}()
 
-    query::String = "   SELECT lobbyid , username, team_num, player_id, player_type
-                        FROM reckoner.armies a 
-                        INNER JOIN reckoner.matches m
-                        ON a.match_id = m.match_id
-                        WHERE server = 'pa inc'
-                        AND time_start BETWEEN $timestamp_1 AND $timestamp_2
-                        AND lobbyid IN ("
-    
-    for id in lobbyids
-        query = query * string(id) * ", "
-    end
-    
-    if length(lobbyids) > 0
-        query = query[1:end-2] * ");"
-    else
-        query = query * ");"
-    end
-
-    res = LibPQ.execute(conn, query)
-    
-    for i in res
-        username = i.username
-        if i.player_type == "aiDiff" && length(username) > 4
-            if username[1:4] == "AI: "
-                username = username[5:end]
-            end
+    if !isempty(lobbyids)
+        query::String = "   SELECT lobbyid , username, team_num, player_id, player_type
+                            FROM reckoner.armies a 
+                            INNER JOIN reckoner.matches m
+                            ON a.match_id = m.match_id
+                            WHERE server = 'pa inc'
+                            AND time_start BETWEEN $timestamp_1 AND $timestamp_2
+                            AND lobbyid IN ("
+        
+        for id in lobbyids
+            query = query * string(id) * ", "
         end
-        output[(i.lobbyid, username)] = (team_num = i.team_num, uberid = i.player_id)
+        
+        if length(lobbyids) > 0
+            query = query[1:end-2] * ");"
+        else
+            query = query * ");"
+        end
+
+        res = LibPQ.execute(conn, query)
+        
+        for i in res
+            username = i.username
+            if i.player_type == "aiDiff" && length(username) > 4
+                if username[1:4] == "AI: "
+                    username = username[5:end]
+                end
+            end
+            output[(i.lobbyid, username)] = (team_num = i.team_num, uberid = i.player_id)
+        end
     end
 
     output
@@ -55,31 +57,33 @@ end
 function get_ignore(lobbyids::Vector{LobbyId}, conn, timestamp_1::Timestamp, timestamp_2::Timestamp)::Set{LobbyId}
     output = Set{LobbyId}()
 
-    query::String = "   SELECT lobbyid
-                        FROM reckoner.matches 
-                        WHERE (source_replayfeed OR source_recorder)
-                        AND time_start BETWEEN $timestamp_1 AND $timestamp_2
-                        AND lobbyid IN ("
+    if !isempty(lobbyids)
+        query::String = "   SELECT lobbyid
+                            FROM reckoner.matches 
+                            WHERE (source_replayfeed OR source_recorder)
+                            AND time_start BETWEEN $timestamp_1 AND $timestamp_2
+                            AND lobbyid IN ("
 
-    # query::String = "   SELECT lobbyid
-    # FROM reckoner.matches 
-    # WHERE source_recorder
-    # AND lobbyid IN ("
-    
-    for id in lobbyids
-        query = query * string(id) * ", "
-    end
+        # query::String = "   SELECT lobbyid
+        # FROM reckoner.matches 
+        # WHERE source_recorder
+        # AND lobbyid IN ("
+        
+        for id in lobbyids
+            query = query * string(id) * ", "
+        end
 
-    if length(lobbyids) > 0
-        query = query[1:end-2] * ");"
-    else
-        query = query * ");"
-    end
+        if length(lobbyids) > 0
+            query = query[1:end-2] * ");"
+        else
+            query = query * ");"
+        end
 
-    res = LibPQ.execute(conn, query)
-    
-    for i in res
-        push!(output, i.lobbyid)
+        res = LibPQ.execute(conn, query)
+        
+        for i in res
+            push!(output, i.lobbyid)
+        end
     end
 
     output
@@ -93,26 +97,28 @@ end
 function get_sandbox(lobbyids::Vector{LobbyId}, conn, timestamp_1::Timestamp, timestamp_2::Timestamp)::Set{LobbyId}
     output = Set{LobbyId}()
 
-    query::String = "   SELECT lobbyid
-                        FROM reckoner.gamefeed 
-                        WHERE sandbox
-                        AND obs_time BETWEEN $timestamp_1 AND $timestamp_2
-                        AND lobbyid IN ("
-    
-    for id in lobbyids
-        query = query * string(id) * ", "
-    end
+    if !isempty(lobbyids)
+        query::String = "   SELECT lobbyid
+                            FROM reckoner.gamefeed 
+                            WHERE sandbox
+                            AND obs_time BETWEEN $timestamp_1 AND $timestamp_2
+                            AND lobbyid IN ("
+        
+        for id in lobbyids
+            query = query * string(id) * ", "
+        end
 
-    if length(lobbyids) > 0
-        query = query[1:end-2] * ");"
-    else
-        query = query * ");"
-    end
+        if length(lobbyids) > 0
+            query = query[1:end-2] * ");"
+        else
+            query = query * ");"
+        end
 
-    res = LibPQ.execute(conn, query)
-    
-    for i in res
-        push!(output, i.lobbyid)
+        res = LibPQ.execute(conn, query)
+        
+        for i in res
+            push!(output, i.lobbyid)
+        end
     end
 
     output
@@ -126,28 +132,30 @@ end
 function get_FFA(lobbyids::Vector{LobbyId}, conn, timestamp_1::Timestamp, timestamp_2::Timestamp)::Set{LobbyId}
     output = Set{LobbyId}()
 
-    query::String = "   SELECT lobbyid
-                        FROM reckoner.gamefeed 
-                        WHERE ffa AND NOT sandbox
-                        AND obs_time BETWEEN $timestamp_1 AND $timestamp_2
-                        AND lobbyid IN ("
-    
-    for id in lobbyids
-        query = query * string(id) * ", "
-    end
+    if !isempty(lobbyids)
+        query::String = "   SELECT lobbyid
+                            FROM reckoner.gamefeed 
+                            WHERE ffa AND NOT sandbox
+                            AND obs_time BETWEEN $timestamp_1 AND $timestamp_2
+                            AND lobbyid IN ("
+        
+        for id in lobbyids
+            query = query * string(id) * ", "
+        end
 
-    if length(lobbyids) > 0
-        query = query[1:end-2] * ");"
-    else
-        query = query * ");"
-    end
+        if length(lobbyids) > 0
+            query = query[1:end-2] * ");"
+        else
+            query = query * ");"
+        end
 
-    res = LibPQ.execute(conn, query)
-    
-    for i in res
-        push!(output, i.lobbyid)
-    end
+        res = LibPQ.execute(conn, query)
+        
+        for i in res
+            push!(output, i.lobbyid)
+        end
 
+    end
     output
 end
 
@@ -158,27 +166,29 @@ end
 
 function get_QBE(lobbyids::Vector{LobbyId}, conn, timestamp_1::Timestamp, timestamp_2::Timestamp)::Set{LobbyId}
     output = Set{LobbyId}()
-
-    query::String = "   SELECT lobbyid
-                        FROM reckoner.gamefeed 
-                        WHERE qbe
-                        AND obs_time BETWEEN $timestamp_1 AND $timestamp_2
-                        AND lobbyid IN ("
     
-    for id in lobbyids
-        query = query * string(id) * ", "
-    end
+    if !isempty(lobbyids)
+        query::String = "   SELECT lobbyid
+                            FROM reckoner.gamefeed 
+                            WHERE qbe
+                            AND obs_time BETWEEN $timestamp_1 AND $timestamp_2
+                            AND lobbyid IN ("
+        
+        for id in lobbyids
+            query = query * string(id) * ", "
+        end
 
-    if length(lobbyids) > 0
-        query = query[1:end-2] * ");"
-    else
-        query = query * ");"
-    end
+        if length(lobbyids) > 0
+            query = query[1:end-2] * ");"
+        else
+            query = query * ");"
+        end
 
-    res = LibPQ.execute(conn, query)
-    
-    for i in res
-        push!(output, i.lobbyid)
+        res = LibPQ.execute(conn, query)
+        
+        for i in res
+            push!(output, i.lobbyid)
+        end
     end
 
     output

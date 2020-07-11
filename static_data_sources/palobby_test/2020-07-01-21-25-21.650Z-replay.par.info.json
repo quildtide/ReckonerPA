@@ -1,0 +1,437 @@
+{
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "armies": [
+                  {
+                      "players": [
+                                     "DeadJohnny"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             151,
+                                             251,
+                                             152
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           0,
+                                           223
+                                       ],
+                      "name": "DeadJohnny",
+                      "index": 0
+                  },
+                  {
+                      "players": [
+                                     "jasperhilven"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             223,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           223,
+                                           0
+                                       ],
+                      "name": "jasperhilven",
+                      "index": 1
+                  },
+                  {
+                      "players": [
+                                     "Titan Arum"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             128,
+                                             128
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           128,
+                                           128
+                                       ],
+                      "name": "Titan Arum",
+                      "index": 2
+                  },
+                  {
+                      "players": [
+                                     "\u3010W\u3011GFXD"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             143,
+                                             188,
+                                             143
+                                         ],
+                      "primary_color": [
+                                           59,
+                                           54,
+                                           182
+                                       ],
+                      "name": "\u3010W\u3011GFXD",
+                      "index": 3
+                  },
+                  {
+                      "players": [
+                                     "NneaowwPlane"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             200,
+                                             200,
+                                             200
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           0
+                                       ],
+                      "name": "NneaowwPlane",
+                      "index": 4
+                  },
+                  {
+                      "players": [
+                                     "\u3010W\u3011Zyroo"
+                                 ],
+                      "econ": 1.2000000476837158,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             255,
+                                             144,
+                                             47
+                                         ],
+                      "primary_color": [
+                                           255,
+                                           144,
+                                           47
+                                       ],
+                      "name": "\u3010W\u3011Zyroo",
+                      "index": 5
+                  },
+                  {
+                      "players": [
+                                     "\u3010W\u3011Quality Housewife"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             223,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           18,
+                                           129
+                                       ],
+                      "name": "\u3010W\u3011Quality Housewife",
+                      "index": 6
+                  },
+                  {
+                      "players": [
+                                     "Kimlar"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             200,
+                                             200,
+                                             200
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           0,
+                                           0
+                                       ],
+                      "name": "Kimlar",
+                      "index": 7
+                  },
+                  {
+                      "players": [
+                                     "[BFG] Gargulia Bomb"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           200,
+                                           200,
+                                           200
+                                       ],
+                      "name": "[BFG] Gargulia Bomb",
+                      "index": 8
+                  },
+                  {
+                      "players": [
+                                     "slesovoy"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           139,
+                                           69,
+                                           19
+                                       ],
+                      "name": "slesovoy",
+                      "index": 9
+                  },
+                  {
+                      "players": [
+                                     "pea nuts"
+                                 ],
+                      "econ": 1.1000000238418579,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             59,
+                                             54,
+                                             182
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           140,
+                                           107
+                                       ],
+                      "name": "pea nuts",
+                      "index": 10
+                  },
+                  {
+                      "players": [
+                                     "Shaggy the Sexy"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             200,
+                                             200,
+                                             200
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           100,
+                                           0
+                                       ],
+                      "name": "Shaggy the Sexy",
+                      "index": 11
+                  },
+                  {
+                      "players": [
+                                     "Bamisate"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             0,
+                                             223,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           223,
+                                           223
+                                       ],
+                      "name": "Bamisate",
+                      "index": 12
+                  },
+                  {
+                      "players": [
+                                     "juan.perez.2011"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             59,
+                                             54,
+                                             182
+                                         ],
+                      "primary_color": [
+                                           100,
+                                           149,
+                                           237
+                                       ],
+                      "name": "juan.perez.2011",
+                      "index": 13
+                  },
+                  {
+                      "players": [
+                                     "Lombrizita"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             200,
+                                             200,
+                                             200
+                                         ],
+                      "primary_color": [
+                                           219,
+                                           217,
+                                           37
+                                       ],
+                      "name": "Lombrizita",
+                      "index": 14
+                  },
+                  {
+                      "players": [
+                                     "necronxxl"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             59,
+                                             54,
+                                             182
+                                         ],
+                      "primary_color": [
+                                           70,
+                                           70,
+                                           70
+                                       ],
+                      "name": "necronxxl",
+                      "index": 15
+                  },
+                  {
+                      "players": [
+                                     "Saturn's Rings"
+                                 ],
+                      "econ": 1.1000000238418579,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             128,
+                                             0,
+                                             0
+                                         ],
+                      "primary_color": [
+                                           176,
+                                           224,
+                                           230
+                                       ],
+                      "name": "Saturn's Rings",
+                      "index": 16
+                  },
+                  {
+                      "players": [
+                                     "Scolyar"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             100,
+                                             149,
+                                             237
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           0,
+                                           223
+                                       ],
+                      "name": "Scolyar",
+                      "index": 17
+                  },
+                  {
+                      "players": [
+                                     "Somppe"
+                                 ],
+                      "econ": 1.4000000953674316,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             223,
+                                             0,
+                                             223
+                                         ],
+                      "primary_color": [
+                                           113,
+                                           52,
+                                           165
+                                       ],
+                      "name": "Somppe",
+                      "index": 18
+                  },
+                  {
+                      "players": [
+                                     "084"
+                                 ],
+                      "econ": 1.4000000953674316,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             70,
+                                             70,
+                                             70
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           128
+                                       ],
+                      "name": "084",
+                      "index": 19
+                  }
+              ],
+    "endOfTime": 1483.7,
+    "save": {
+                "type": "replay",
+                "name": "2020-07-01-21-25-21.650Z-replay",
+                "utc_timestamp": 1593638721,
+                "valid_range": [
+                                   129000,
+                                   -1
+                               ]
+            }
+}

@@ -64,9 +64,7 @@ function update_namehist(key::Key, times::Vector{Timestamp}, conn::LibPQ.Connect
     nothing
 end
 
-function name_hist_to_postgres(input::NameHist)::Nothing
-    conn = LibPQ.Connection("dbname=reckoner user=reckoner")
-
+function name_hist_to_postgres(input::NameHist, conn)::Nothing
     name_pairs::Vector{Key} = collect(keys(input))
 
     query::String = "   SELECT player_type, player_id, username, times
@@ -107,4 +105,15 @@ function name_hist_to_postgres(input::NameHist)::Nothing
     LibPQ.execute(conn, "COMMIT;")
 
     nothing
+end
+
+
+function name_hist_to_postgres(input::NameHist)::Nothing
+    conn = LibPQ.Connection("dbname=reckoner user=reckoner")
+
+    try 
+        name_hist_to_postgres(input, conn)
+    finally
+        LibPQ.close(conn)
+    end
 end

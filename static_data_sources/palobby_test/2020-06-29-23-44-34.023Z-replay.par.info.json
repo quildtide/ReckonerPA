@@ -1,0 +1,185 @@
+{
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "armies": [
+                  {
+                      "players": [
+                                     "Awassa"
+                                 ],
+                      "econ": 1.1499998569488525,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             142,
+                                             107,
+                                             68
+                                         ],
+                      "primary_color": [
+                                           255,
+                                           144,
+                                           47
+                                       ],
+                      "name": "Awassa",
+                      "index": 0
+                  },
+                  {
+                      "players": [
+                                     "nasdragon"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             100,
+                                             149,
+                                             237
+                                         ],
+                      "primary_color": [
+                                           128,
+                                           0,
+                                           0
+                                       ],
+                      "name": "nasdragon",
+                      "index": 1
+                  },
+                  {
+                      "players": [
+                                     "Alejandro41002"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             255,
+                                             144,
+                                             47
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           0,
+                                           223
+                                       ],
+                      "name": "Alejandro41002",
+                      "index": 2
+                  },
+                  {
+                      "players": [
+                                     "[pXs] Grenadier"
+                                 ],
+                      "econ": 1.0499999523162842,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": false,
+                      "secondary_color": [
+                                             219,
+                                             217,
+                                             37
+                                         ],
+                      "primary_color": [
+                                           219,
+                                           217,
+                                           37
+                                       ],
+                      "name": "[pXs] Grenadier",
+                      "index": 3
+                  },
+                  {
+                      "players": [
+                                     "LoftyBunny"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             223,
+                                             18,
+                                             129
+                                         ],
+                      "primary_color": [
+                                           210,
+                                           50,
+                                           44
+                                       ],
+                      "name": "LoftyBunny",
+                      "index": 4
+                  },
+                  {
+                      "players": [
+                                     "Limsicle"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             143,
+                                             188,
+                                             143
+                                         ],
+                      "primary_color": [
+                                           223,
+                                           92,
+                                           158
+                                       ],
+                      "name": "Limsicle",
+                      "index": 5
+                  },
+                  {
+                      "players": [
+                                     "Arcade"
+                                 ],
+                      "econ": 1.0499999523162842,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             51,
+                                             151,
+                                             197
+                                         ],
+                      "primary_color": [
+                                           70,
+                                           70,
+                                           70
+                                       ],
+                      "name": "Arcade",
+                      "index": 6
+                  },
+                  {
+                      "players": [
+                                     "ofellini"
+                                 ],
+                      "econ": 1,
+                      "spec_tag": "",
+                      "ai": false,
+                      "defeated": true,
+                      "secondary_color": [
+                                             200,
+                                             200,
+                                             200
+                                         ],
+                      "primary_color": [
+                                           200,
+                                           200,
+                                           200
+                                       ],
+                      "name": "ofellini",
+                      "index": 7
+                  }
+              ],
+    "endOfTime": 1593.3,
+    "save": {
+                "type": "replay",
+                "name": "2020-06-29-23-44-34.023Z-replay",
+                "utc_timestamp": 1593474274,
+                "valid_range": [
+                                   55600,
+                                   -1
+                               ]
+            }
+}

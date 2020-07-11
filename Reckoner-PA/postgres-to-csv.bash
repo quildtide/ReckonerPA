@@ -18,9 +18,13 @@ SELECT player_type, \
     shared,\
     titans, \
     ranked, \
-    tourney \
+    tourney, \
+    win_chance, \
+    player_num, \
+    alpha, \
+    beta \
 FROM reckoner.matchrows \
 ORDER BY timestamp ASC) \
 TO STDOUT \
-WITH CSV HEADER;"\
+WITH CSV HEADER;" \
 > pa_output.csv

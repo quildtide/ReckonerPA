@@ -1,4 +1,5 @@
 import LibPQ
+import JSON
 
 include("replayfeed_common.jl")
 include("name_history.jl")

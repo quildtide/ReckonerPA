@@ -11,6 +11,21 @@ include("replayfeed_common.jl")
 const FeedMatch = Dict{String, Any}
 const ReplayFeed = Vector{Any}
 
+function rem_pte(patch::Integer)::Int64
+    patch
+end
+
+function rem_pte(patch::String)::Int64
+    out = tryparse(Int64, patch)
+
+    if out isa Nothing
+        tryparse(Int64, replace(patch, "-pte" => ""))
+    end
+
+    out
+end
+
+
 
 function update_match(match::FeedMatch, update::Dict{Tuple{LobbyId, Username}, PastComposite}, conn)::Vector{String}
     output = Vector{String}()
@@ -143,7 +158,7 @@ function insert_match(match::FeedMatch, conn)::Vector{String}
     lobbyid = lobbyid_transform(match["LobbyId"])
     time_start::Timestamp = floor(Timestamp, Dates.datetime2unix(Dates.DateTime(match["MatchBeginTimeString"], DATEFORMAT))) 
     match_id = generate_match_id(time_start, lobbyid)
-    patch = match["BuildVersion"]
+    patch = rem_pte(match["BuildVersion"])
     duration = match["Duration"]
 
     titans = "PAExpansion1" in match["ReplayInfoJson"]["required_content"]
@@ -413,7 +428,7 @@ function process_replayfeed(replayfeed::ReplayFeed, conn)
     LibPQ.execute(conn, "COMMIT;")
 end
 
-function get_replayfeed()
+function get_replayfeed(conn)
     url = "https://service.planetaryannihilation.net/GameClient/GetReplayList?MaxResults=9999"
 
     auth_url = "https://service.planetaryannihilation.net/GC/Authenticate"
@@ -439,8 +454,6 @@ function get_replayfeed()
 
     name_obs::Vector{Observance} = Vector{Observance}()
 
-    conn = LibPQ.Connection("dbname=reckoner user=reckoner")
-
     LibPQ.execute(conn, "BEGIN;")
     for i in observed_uberids
         names_url::String = "https://service.planetaryannihilation.net/GameClient/UserNames?TitleId=4&UberIds=$i"
@@ -461,3 +474,12 @@ function get_replayfeed()
     process_replayfeed(replayfeed, conn)
 end
 
+function get_replayfeed()
+    conn = LibPQ.Connection("dbname=reckoner user=reckoner")
+
+    try
+        get_replayfeed(conn)
+    finally
+        LibPQ.close(conn)
+    end
+end

@@ -7,7 +7,7 @@ include("./reckoner_common.jl")
 
 include("./get_superstats_backend.jl")
 
-function get_superstats()
+function get_superstats(conn)
     last_time = open("last_superstats_update") do infile
         last_time = parse(Int64, read(infile, String))
         (last_time)
@@ -30,7 +30,7 @@ function get_superstats()
 
     matches = reformat_superstats_data(data)
 
-    send_to_postgres(matches)
+    send_to_postgres(matches, conn)
 
     update_name_history(matches)
 
