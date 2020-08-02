@@ -300,47 +300,51 @@ function update_match(match::Match, conn::LibPQ.Connection)::Nothing
         match_id = $(match.match_id);"
     LibPQ.execute(conn, query)
 
-    for team in match.teams
-        query = 
-        "   UPDATE reckoner.teams
-            SET
-            win = $(team.win),
-            shared = $(team.shared),
-            size = $(team.size)
-            WHERE 
-            match_id = $(team.match_id)
-            AND team_num = $(team.team_num);"
-        LibPQ.execute(conn, query)
+    # for team in match.teams
+    #     query = 
+    #     "   UPDATE reckoner.teams
+    #         SET
+    #         win = $(team.win),
+    #         shared = $(team.shared),
+    #         size = $(team.size)
+    #         WHERE 
+    #         match_id = $(team.match_id)
+    #         AND team_num = $(team.team_num);"
+    #     LibPQ.execute(conn, query)
 
-        for army in team.armies
-            query = 
-            "   UPDATE reckoner.armies
-                SET
-                username = '$(army.username)',
-                player_type = '$(army.player_type)',
-                player_id = '$(army.uberid)',
-                eco10 = $(army.eco),
-                team_num = $(army.team_num)
-                WHERE 
-                match_id = $(army.match_id)
-                AND player_num = $(army.player_num);"
-            LibPQ.execute(conn, query)
-        end
-    end
+    #     for army in team.armies
+    #         query = 
+    #         "   UPDATE reckoner.armies
+    #             SET
+    #             username = '$(army.username)',
+    #             player_type = '$(army.player_type)',
+    #             player_id = '$(army.uberid)',
+    #             eco10 = $(army.eco),
+    #             team_num = $(army.team_num)
+    #             WHERE 
+    #             match_id = $(army.match_id)
+    #             AND player_num = $(army.player_num);"
+    #         LibPQ.execute(conn, query)
+    #     end
+    # end
+
+    nothing
 end
 
 function send_to_postgres(matches::Vector{Match}, conn::LibPQ.Connection)::Nothing
     match_ids::Vector{Int64} = [match.match_id for match in matches]
+    lobbyids::Vector{Int64} = [match.lobbyid for match in matches]
     query::String = "   SELECT match_id
                         FROM reckoner.matches
-                        INNER JOIN (
-                            SELECT $(pop!(match_ids)) AS temp
-                            "
+                        WHERE match_id IN ("
     for match_id in match_ids
-        query = query * "   UNION ALL SELECT $(match_id)\n"
+        query = query * "$(match_id),"
     end
-    query = query * "   ) AS q ON reckoner.matches.match_id = q.temp
-                        ORDER BY match_id;"
+    query = query[1:end-1] * ") OR lobbyid IN ("
+    for lobbyid in lobbyids
+        query = query * "$(lobbyid),"
+    end
+    query = query[1:end-1] * ") ORDER BY match_id ASC;"
 
     res = LibPQ.execute(conn, query)
 

@@ -83,6 +83,6 @@ CREATE MATERIALIZED VIEW reckoner.matchrows_mat AS
     SELECT * 
     FROM reckoner.matchrows
     WHERE SCORED;
-CREATE INDEX ON reckoner.matchrows_mat(match_id);
 CREATE INDEX ON reckoner.matchrows_mat(time_start);
 CREATE INDEX ON reckoner.matchrows_mat(player_type, player_id);
+CREATE UNIQUE INDEX ON reckoner.matchrows_mat(match_id, player_num);

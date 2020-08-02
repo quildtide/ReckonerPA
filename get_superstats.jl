@@ -35,6 +35,11 @@ function get_superstats(conn)
     update_name_history(matches)
 
     open("last_superstats_update", "w") do outfile
-        write(outfile, string(this_time))
+        write(outfile, string(this_time - 12000))
     end
+end
+
+function get_superstats()
+    conn = LibPQ.Connection("dbname=reckoner user=reckoner")
+    get_superstats(conn)
 end

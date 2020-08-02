@@ -1,0 +1,11 @@
+CREATE FUNCTION entropy(win_chance DOUBLE PRECISION, win BOOL) 
+    RETURNS DOUBLE PRECISION
+    AS $$
+        SELECT 
+            CASE
+                WHEN win THEN -ln(win_chance)
+                ELSE -ln(1 - win_chance)
+            END
+        AS entropy;
+    $$
+    LANGUAGE SQL;

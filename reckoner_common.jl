@@ -118,10 +118,10 @@ function eco_transformation(input::Number)::Int16
     out = trunc(10 * input)
 end
 
-function display_rank(win_chance::Float64)::Float64
-    #=  This function is written in Fortran. 
-        This function turns a benchmark win chance (what is used internally in Reckoner)
-        into a "display rank" that is usually in the magnitude of 4 digits.
-        =#
-    ccall((:win_chance_to_rank_, "./reckoner_fortran.so"), Float64, (Ref{Float64},), win_chance)
-end
+# function display_rank(win_chance::Float64)::Float64
+#     #=  This function is written in Fortran. 
+#         This function turns a benchmark win chance (what is used internally in Reckoner)
+#         into a "display rank" that is usually in the magnitude of 4 digits.
+#         =#
+#     ccall((:win_chance_to_rank_, "./reckoner_fortran.so"), Float64, (Ref{Float64},), win_chance)
+# end

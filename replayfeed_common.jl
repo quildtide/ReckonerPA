@@ -8,7 +8,7 @@ const PastComposite = NamedTuple{(:team_num, :uberid),Tuple{Int64,String}}
 
 const DATEFORMAT = Dates.DateFormat("mm/dd/yyyy HH:MM:SS p")
 
-const DEFAULT_DUR = 24 * 60 * 60
+const DEFAULT_DUR = 7 * 24 * 60 * 60
 
 
 function get_update(lobbyids::Vector{LobbyId}, conn, timestamp_1::Timestamp, timestamp_2::Timestamp)::Dict{Tuple{LobbyId, Username}, PastComposite}

@@ -2,6 +2,7 @@ include("get_superstats.jl")
 
 include("get_replayfeed.jl")
 
+include("evaluation/evaluate_matches.jl")
 
 while true
     print(Dates.now(), '\n')
@@ -20,9 +21,16 @@ while true
         get_replayfeed(conn)
     catch
         print("failed replayfeed update\n")
-        
+        LibPQ.close(conn)
+        conn = LibPQ.Connection("dbname=reckoner user=reckoner")
     end
     
+    try
+        evaluate_matches(conn)
+    catch
+        print("failed evaluate matches\n")
+        
+    end
     print("updated\n")
 
     LibPQ.close(conn)

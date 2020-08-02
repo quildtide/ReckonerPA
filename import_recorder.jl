@@ -51,7 +51,7 @@ function update_recorder_match(match, armies, is_qbe::Bool, update::Dict{Tuple{L
 
     lobbyid::LobbyId = lobbyid_transform(match.lobbyid)
     
-    timestamp::Timestamp = match.timestamp
+    timestamp::Timestamp = match.timestamp + (4 * 3600)
 
     match_id::MatchId = generate_match_id(timestamp, lobbyid)
     
@@ -169,7 +169,7 @@ function update_recorder_uberids(match, update::Dict{Tuple{LobbyId, Username}, P
 
     lobbyid::LobbyId = lobbyid_transform(match.lobbyid)
     
-    timestamp::Timestamp = match.timestamp
+    timestamp::Timestamp = match.timestamp + (4 * 3600)
 
     match_id::MatchId = generate_match_id(timestamp, lobbyid)
     
@@ -218,7 +218,7 @@ function insert_recorder_match(match, armies, is_qbe::Bool, conn)::Vector{String
     output = Vector{String}()
 
     lobbyid = lobbyid_transform(match.lobbyid)
-    time_start::Timestamp = match.timestamp
+    time_start::Timestamp = match.timestamp + (4 * 3600)
     match_id = generate_match_id(time_start, lobbyid)
     patch = match.version
     duration = match.duration
@@ -325,7 +325,7 @@ function insert_recorder_match_FFA(match, armies, is_qbe::Bool, conn)::Vector{St
     output = Vector{String}()
 
     lobbyid = lobbyid_transform(match.lobbyid)
-    time_start::Timestamp = match.timestamp
+    time_start::Timestamp = match.timestamp + (4 * 3600)
     match_id = generate_match_id(time_start, lobbyid)
     patch = match.version
     duration = match.duration
@@ -423,7 +423,7 @@ function process_matches(matches, conn, timestamp_1::Timestamp, timestamp_2::Tim
     lobbyids = [lobbyid_transform(i.lobbyid) for i in matches]
     ignore = get_ignore(lobbyids, conn)
 
-    update = get_update(lobbyids, conn, timestamp_1, timestamp_2)
+    update = get_update(lobbyids, conn, Int32(timestamp_1 - (5 * 3600)), timestamp_2)
     update_lobbyids = Set{LobbyId}()
     for i in keys(update)
         push!(update_lobbyids, i[1])
@@ -486,7 +486,7 @@ end
 
 function import_recorder()
     conn = LibPQ.Connection("dbname=reckoner user=reckoner")
-    merge_legacy_namehist(conn)
+    # merge_legacy_namehist(conn)
 
     max_time::Int64 = first(LibPQ.execute(conn, "SELECT MAX(timestamp) FROM reckoner.replayfeed;")).max
 

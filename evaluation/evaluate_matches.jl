@@ -4,9 +4,9 @@ import LibPQ
 
 include("reckonerPA_equations.jl")
 
-const EVAL_LIMIT = 4000
+const EVAL_LIMIT = 987654321
 
-function evaluate_matches(conn; refresh_view = true)
+function evaluate_matches(conn; refresh_view = true, mass_reset = false)
     query::String = "
                     SELECT
                         player_type,
@@ -93,42 +93,19 @@ function evaluate_matches(conn; refresh_view = true)
             beta,
             win_chance  
         FROM reckoner.matchrows
-        WHERE SCORED
-        AND (player_type, player_id) IN ("
-    for pid in players_seen
-        query *= "('$(sanitize(pid[1]))','$(sanitize(pid[2]))'),"
+        WHERE SCORED"
+
+    if (mass_reset)
+        query *= ";"
+    else
+        query *= " AND (player_type, player_id) IN ("
+        for pid in players_seen
+            query *= "('$(sanitize(pid[1]))','$(sanitize(pid[2]))'),"
+        end
+        query = query[1:end-1] * ");"
     end
-    query = query[1:end-1] * ");"
-    # query = "
-    #         SELECT
-    #             player_type,
-    #             player_id,
-    #             time_start as timestamp,
-    #             match_id,
-    #             team_num as team_id,
-    #             win,
-    #             team_size,
-    #             team_size_mean,
-    #             team_size_var,
-    #             team_count,
-    #             eco,
-    #             eco_mean,
-    #             eco_var,
-    #             all_dead,
-    #             shared,
-    #             titans,
-    #             ranked,
-    #             tourney,
-    #             win_chance,
-    #             player_num,
-    #             alpha,
-    #             beta,
-    #             win_chance  
-    #         FROM reckoner.matchrows
-    #         WHERE SCORED;"
 
     res = LibPQ.execute(conn, query)
-
     
     println("Checkpoint 3: scored matches fetched")
 
@@ -190,7 +167,7 @@ function evaluate_matches(conn; refresh_view = true)
     println("Checkpoint 6: committed scores")
 
     if refresh_view
-        LibPQ.execute(conn, "REFRESH MATERIALIZED VIEW reckoner.matchrows_mat;")
+        LibPQ.execute(conn, "REFRESH MATERIALIZED VIEW CONCURRENTLY reckoner.matchrows_mat;")
     end
 
     println("Checkpoint 7: refreshed materialized view")
@@ -202,14 +179,20 @@ function evaluate_matches()
     evaluate_matches(conn)
 end
 
+# function mass_evaluate_matches()
+#     conn = LibPQ.Connection("dbname=reckoner user=reckoner")
+
+#     query::String = "SELECT COUNT(*) AS count FROM reckoner.matchrows WHERE NOT SCORED;"
+#     size::Int64 = first(LibPQ.execute(conn, query)).count
+
+#     for i in 1:ceil(Int64, size / EVAL_LIMIT)
+#         evaluate_matches(conn, refresh_view = false, mass_reset)
+#     end
+# end
+
 function mass_evaluate_matches()
     conn = LibPQ.Connection("dbname=reckoner user=reckoner")
 
-    query::String = "SELECT COUNT(*) AS count FROM reckoner.matchrows WHERE NOT SCORED;"
-    size::Int64 = first(LibPQ.execute(conn, query)).count
-
-    for i in 1:ceil(Int64, size / EVAL_LIMIT)
-        evaluate_matches(conn, refresh_view = false)
-    end
+    evaluate_matches(conn, mass_reset = true)
 end
 
