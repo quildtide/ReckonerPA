@@ -48,7 +48,8 @@ function empty_matches()::PAMatches
         Vector{Int16}())
 end
 
-function get_player_matches(uberids::Vector{UInt64}, conn)::PlayerHist
+
+function get_player_matches(player_ids::Vector, conn, player_types::Vector{String})::PlayerHist
     query::String = "
         SELECT
             player_type,
@@ -76,15 +77,15 @@ function get_player_matches(uberids::Vector{UInt64}, conn)::PlayerHist
         FROM reckoner.matchrows_mat
         WHERE SCORED
         AND (player_type, player_id) IN ("
-    for id in uberids
-        query *= "('pa inc','$id'),"
+    for (type, id) in zip(player_types, player_ids)
+        query *= "('$(sanitize(type))','$(sanitize(id))'),"
     end
-    query = query[1:end-1] * ");"
+    query = query[1:end-1] * ") ORDER BY TIME_START ASC;"
     res = LibPQ.execute(conn, query)
 
     player_hist::PlayerHist = PlayerHist()
 
-    for uberid in uberids
+    for uberid in player_ids
         pid::PlayerId = ("pa inc", string(uberid))
         player_hist[pid] = empty_matches()
     end
@@ -101,6 +102,12 @@ function get_player_matches(uberids::Vector{UInt64}, conn)::PlayerHist
     player_hist
 end
 
-function get_player_matches(uberid::UInt64, conn)::PlayerHist
-   get_player_matches([uberid], conn)
+function get_player_matches(player_ids::Vector{UInt64}, conn)::PlayerHist
+    player_types = ["pa inc" for i in player_ids]
+    get_player_matches(player_ids, conn, player_types)
+end
+
+
+function get_player_matches(uberid::Any, conn, player_type = "pa inc")::PlayerHist
+   get_player_matches([uberid], conn, [player_type])
 end

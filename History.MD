@@ -136,3 +136,69 @@ Average entropy: 0.613308317523969
 \> 2 team Entropy: 0.4514647109292
 Dissonant 5v5 Entropy: 0.667121959944014
 Dissonant 1v1 Entropy: 0.543032636363027
+
+## Reckoner 0.03.01
+- Took the square root of weight for ratings
+
+## Reckoner 0.04.01
+- Switch to Glicko-style scaling on rating/challenge
+Average entropy: 0.763208892719514
+1v1 Average Entropy: 0.715561347065043
+5v5 Average Entropy: 0.653542046507067
+\> 2 team Entropy: 0.504132947296476
+Dissonant 5v5 Entropy: 0.679789391820379
+Dissonant 1v1 Entropy: 0.607416781929082
+
+## Reckoner 0.04.02
+- Hopefully fixed major bug with ratings
+Average entropy: 
+1v1 Average Entropy: 0.72915437055311
+5v5 Average Entropy: 0.634649865844899
+\> 2 team Entropy: 0.499680568779459
+Dissonant 5v5 Entropy: 0.661970777308727
+Dissonant 1v1 Entropy: 0.60319534074904
+
+## Reckoner 0.04.04
+- Remembered to account for weights in ratings
+Average entropy: 0.764845154200324
+1v1 Average Entropy: 0.71826166566137
+5v5 Average Entropy: 0.631181665765603
+\> 2 team Entropy: 0.503070506478398
+Dissonant 5v5 Entropy: 0.659205448751073
+Dissonant 1v1 Entropy: 0.601047462928053
+
+## Reckoner 0.04.05
+- Changed effective challenge formula to add 400 per additional player (on average) instead of 1500
+Average entropy: 0.760022994138388
+1v1 Average Entropy: 0.718726733217754
+5v5 Average Entropy: 0.632213402512628
+\> 2 team Entropy: 0.499530087970122
+Dissonant 5v5 Entropy: 0.657286894858018
+Dissonant 1v1 Entropy: 0.600803205371925
+
+## Reckoner 0.04.06
+- Decay reduced from 0.03 per day to 0.02
+Average entropy: 0.769241361223057
+1v1 Average Entropy: 0.723376641463256
+5v5 Average Entropy: 0.632447632849657
+\> 2 team Entropy: 0.502459177076728
+Dissonant 5v5 Entropy: 0.658011888434471
+Dissonant 1v1 Entropy: 0.58184885771394
+
+## Reckoner 0.04.07
+- Changed effective challenge formula to no longer use RMS (in order to handle negative ratings more properly)
+Average entropy: 0.698085771436492
+1v1 Average Entropy: 0.673666410050342
+5v5 Average Entropy: 0.61139621139639
+\> 2 team Entropy: 0.443611097396327
+Dissonant 5v5 Entropy: 0.648236980834276
+Dissonant 1v1 Entropy: 0.573888161629256
+
+## Reckoner 0.04.08
+- Bandage fix for initial rating not beginning at 1500
+Average entropy: 0.687944722925533
+1v1 Average Entropy: 0.667107170503864
+5v5 Average Entropy: 0.610142744171034
+\> 2 team Entropy: 0.441398934727108
+Dissonant 5v5 Entropy: 0.649567235097988
+Dissonant 1v1 Entropy: 0.572392729100571

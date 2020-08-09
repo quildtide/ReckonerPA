@@ -5,6 +5,7 @@ import Tables
 using Reckoner
 
 include("utility.jl")
+include("glicko_equations.jl")
 
 struct PAMatch <: AbstractMatch
     win_chance::Float64
@@ -31,7 +32,7 @@ struct PAMatch <: AbstractMatch
 end
 
 Reckoner.win_chance(m::PAMatch)::Float64 = m.win_chance
-Reckoner.challenge(m::PAMatch)::Beta{Float64} = Beta(m.alpha, m.beta)
+Reckoner.challenge(m::PAMatch)::Normal{Float64} = Normal(m.alpha, m.beta)
 Reckoner.timestamp(m::PAMatch)::Int64 = m.timestamp
 Reckoner.win(m::PAMatch)::Int16 = (if m.win 2 elseif (m.all_dead && m.team_count == 2) 1 else 0 end)
 Reckoner.team_id(m::PAMatch)::Int16 = m.team_id
@@ -96,7 +97,7 @@ end
 
 struct PAMatches <: AbstractMatches
     win_chance::Vector{Float64}
-    challenge::Vector{Beta{Float64}}
+    challenge::Vector{Normal{Float64}}
     timestamp::Vector{Int64}
     win::Vector{Bool}
     team_size::Vector{Int16}
@@ -130,7 +131,7 @@ function PAMatches(intable)::PAMatches
     cols = Tables.columns(intable)
    
     if !(:challenge in propertynames(cols))
-        challenge::Vector{Beta{Float64}} = Beta.(cols.alpha, cols.beta)
+        challenge::Vector{Normal{Float64}} = Normal.(cols.alpha, cols.beta)
     else
         challenge = cols.challenge
     end 
@@ -158,40 +159,23 @@ function Base.push!(t::PAMatches, s::PAMatch)
 end
 
 function merge(l::PAMatches, r::PAMatches)::PAMatches
-    l2 = l |> Tables.rowtable
-    r2 = r |> Tables.rowtable
-
-    vcat(l2, r2) |> PAMatches
+    if !(isempty(l.win) || isempty(r.win))
+        l2 = l |> Tables.rowtable
+        r2 = r |> Tables.rowtable
+        return vcat(l2, r2) |> PAMatches
+    elseif isempty(l.win)
+        return r
+    else
+        return l
+    end
 end
 
 function pa_aup(curr::PAMatch)::PAMatches
-    # def_alpha::Float64 = 2.5
-    # def_beta::Float64 = 2.5
-
-    # if curr.tourney
-    #     def_alpha = 4.0
-    #     def_beta = 1.5
-    # elseif curr.ranked
-    #     def_alpha = 3.5
-    #     def_beta = 1.5
-    # end
-
-    def_alpha::Float64 = 0.5
-    def_beta::Float64 = 1.0
-
-    # if curr.tourney
-    #     def_alpha = 3.0
-    #     def_beta = 1.25
-    # elseif curr.ranked
-    #     def_alpha = 2.0
-    #     def_beta = 1.25
-    # end
-
-    game_1::PAMatch = setproperties(curr, ( win_chance = (1.0 - 2^(-def_alpha)), 
-                                            alpha = def_alpha, beta = def_beta, 
+    game_1::PAMatch = setproperties(curr, ( win_chance = (.5), 
+                                            alpha = 1500, beta = 300, 
                                             win = true, unknown_eco = false, 
                                             all_dead = false, ranked = false, tourney = false))
-    game_2::PAMatch = setproperties(game_1, (win_chance = 2^(-def_beta), win = false))
+    game_2::PAMatch = setproperties(game_1, (win_chance = .5, win = false))
 
     PAMatches([game_1, game_2])
 end
@@ -207,7 +191,7 @@ end
 function time_penalty(timestamp_1::Int64, timestamp_2::Int64)::Float64
     # The time penalty is e^(rt) where r is -0.03 and t is in days
     # Thus, a game becomes worth 4% less towards a rank for every day.
-    rate::Float64 = -0.03
+    rate::Float64 = -0.02
     time::Float64 = (timestamp_1 - timestamp_2) / (24 * 60 * 60)
     penalty::Float64 = exp(rate * time)
 end
@@ -278,18 +262,12 @@ function pa_weight(curr::PAMatch, prev)::Float64
 end
 
 function pa_challenge_window(curr::AbstractMatch, prev)::Float64
-    challenge_1::Beta{Float64} = challenge(curr)
-    challenge_2::Beta{Float64} = challenge(prev)
+    challenge_1::Normal{Float64} = challenge(curr)
+    challenge_2::Normal{Float64} = challenge(prev)
 
-    # if sum(params(challenge_1)) < sum(params(challenge_2))
-    #     penalty::Float64 = cdf(challenge_1, mean(challenge_2))
-    # else
-    #     penalty = 1 - cdf(challenge_2, mean(challenge_1))
-    # end
+    challenge_diff::Normal{Float64} = Normal(mean(challenge_1) - mean(challenge_2), sqrt(var(challenge_1) + var(challenge_2)))
 
-    penalty::Float64 = cdf(challenge_1, mean(challenge_2))
-
-    penalty
+    cdf(challenge_diff, 0)
 end
 
 function pa_skill(wins::Vector{Int16}, weights::Vector{<:Real}, challenge_windows::Vector{<:Real})::Beta{Float64}
@@ -304,73 +282,65 @@ function pa_skill(wins::Vector{Int16}, weights::Vector{<:Real}, challenge_window
     Beta(a, b)
 end
 
-function pa_rating(wins::Vector{Int16}, weights::Vector{<:Real}, win_chances::Vector{<:Real})::Beta{Float64}
-
-    # a::Float64 = sum(weights .* (wins ./ 2.0) .* -log.(2, win_chances))
-    # b::Float64 = sum(weights .* (1.0 .- wins ./ 2.0) .* -log.(2, 1.0 .- win_chances))
-
-    a::Float64 = sum(weights .* (wins ./ 2.0) .* (1.0 .- win_chances))
-    b::Float64 = sum(weights .* (1.0 .- wins ./ 2.0) .* win_chances)
-
-    n::Float64 = sum(weights)
-    c::Float64 = a + b
-    
-    a = a + (n - c) * (a / c)
-    b = b + (n - c) * (b / c)
-
-    if (isnan(a) || isnan(b)) print(weights, "\n") end
-
-    if ((a <= 0) || (b <= 0)) print(a, ", ", b, "\n") end
-
-    Beta(a, b)
-end
-
-function pa_eff_challenge(ratings::Vector{Beta{Float64}}, teams::Vector{<:Integer}, eco::Vector{Float64})::Vector{Beta{Float64}}
+function pa_eff_challenge(ratings::Vector{Normal{Float64}}, teams::Vector{<:Integer}, eco::Vector{Float64})::Vector{Normal{Float64}}
     # Effectively measures the strength of the opponents "minus" the strength of teammates
     n::Int64 = length(ratings)
     
     m::Int64 = length(unique(teams))
     
-    av_sz::Float64 = n / m
+    # av_sz::Float64 = n / m
 
     # modded_ratings::Vector{Beta{Float64}} = Beta.(alpha.(ratings) .* sqrt.(eco), beta.(ratings) ./ sqrt.(eco))
     
-    modded_ratings::Vector{Beta{Float64}} = ratings
+    modded_ratings::Vector{Normal{Float64}} = [Normal(mean(i) - 1100, std(i)) for i in ratings]
 
-    team_totals::Vector{Beta{Float64}} = [update(modded_ratings[teams .== i]) for i in 1:m]
+    team_totals::Vector{Normal{Float64}} = [update(modded_ratings[teams .== i]) for i in 1:m]
 
-    challenges::Vector{Beta{Float64}} = Vector{Beta{Float64}}(undef, n)
+    challenges::Vector{Normal{Float64}} = Vector{Normal{Float64}}(undef, n)
 
     for i in 1:n
         opp::BitArray = 1:m .!= teams[i]
-        a_opp::Float64 = rms(alpha.(team_totals[opp]))
-        b_opp::Float64 = rms(beta.(team_totals[opp]))
+        mu_opp::Float64 = sum(mean.(team_totals[opp]))
+        var_opp::Float64 = sum(var.(team_totals[opp]))
 
         team::BitArray = (teams .== teams[i]) .& (1:n .!= i)
-        a_ally::Float64 = sum(alpha.(modded_ratings[team]))
-        b_ally::Float64 = sum(beta.(modded_ratings[team]))
+        mu_ally::Float64 = sum(mean.(modded_ratings[team])) + 400
+        var_ally::Float64 = sum(var.(modded_ratings[team]))
 
-        a_eff::Float64 = (a_opp + b_ally) * av_sz / (sum(team) + 1)
-        b_eff::Float64 = (b_opp + a_ally) * av_sz / (n - (sum(team) + 1))
+        mu_eff::Float64 = mu_opp - mu_ally + 1100
+        sigma_eff::Float64 = sqrt(var_opp + var_ally)
 
-        
-        if (!(a_eff > 0.0) || !(b_eff > 0.0))
-            println(ratings)
-            println(teams)
-            println("opp: $a_opp, $b_opp")
-            println("allies: $a_ally, $b_ally") 
-        end
-
-        challenges[i] = Beta(a_eff, b_eff)
+        challenges[i] = Normal(mu_eff, sigma_eff)
     end
 
     challenges
 end
 
-function Reckoner.eff_challenge(curr::Vector{PAMatch}, prev::Vector{PAMatches}, inst::ReckonerInstance{PAMatch, PAMatches} = reckoner_defaults)::Vector{Beta{Float64}}
-    benches::Vector{Beta{Float64}} = ratings(curr, prev, inst)
+function pa_display_rank(win_chance::Real)::Float64
+    win_chance
+end
+
+function Reckoner.rating(curr::PAMatch, prev::PAMatches, inst::ReckonerInstance{PAMatch, PAMatches} = reckoner_defaults)::Normal{Float64}
+    calc_weights::Vector{Float64} = weights(curr, prev, inst)
+
+    d2::Vector{Float64} = glicko_d2.(std.(prev.challenge), prev.win_chance)
+
+    rd2::Vector{Float64} = 1 ./ cumsum(calc_weights ./ d2)
+
+
+    mu::Float64 = 1260.1363072382787 + sum(calc_weights .* glicko_delta_r.(std.(prev.challenge), prev.win_chance, rd2, win(prev) ./ 2))
+
+    Normal(mu, sqrt(last(rd2)))
+end
+
+function Reckoner.ratings(curr::Vector{PAMatch}, prev::Vector{PAMatches}, inst::ReckonerInstance{PAMatch, PAMatches} = reckoner_defaults)::Vector{Normal{Float64}}
+    rating.(curr, prev, (inst,))
+end
+
+function Reckoner.eff_challenge(curr::Vector{PAMatch}, prev::Vector{PAMatches}, inst::ReckonerInstance{PAMatch, PAMatches} = reckoner_defaults)::Vector{Normal{Float64}}
+    benches::Vector{Normal{Float64}} = ratings(curr, prev, inst)
 
     inst.eff_challenge(benches, team_id.(curr), eco.(curr))
 end
 
-pa_reck = ReckonerInstance{PAMatch, PAMatches}(aup = pa_aup, weight = pa_weight, skill = pa_skill, rating = pa_rating, challenge_window = pa_challenge_window, eff_challenge = pa_eff_challenge)
+pa_reck = ReckonerInstance{PAMatch, PAMatches}(aup = pa_aup, weight = pa_weight, skill = pa_skill, challenge_window = pa_challenge_window, eff_challenge = pa_eff_challenge)

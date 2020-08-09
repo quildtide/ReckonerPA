@@ -31,7 +31,7 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
                         player_num 
                     FROM reckoner.matchrows
                     WHERE NOT SCORED
-                    ORDER BY time_start
+                    ORDER BY time_start ASC
                     LIMIT $EVAL_LIMIT;
                     "
     res = LibPQ.execute(conn, query)
@@ -137,10 +137,10 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
                 past_matches[i] = merge(past_matches[i], player_hist[game[i][2]])
             end
         end
-        challenges::Vector{Beta{Float64}} = eff_challenge(curr, past_matches, pa_reck)
+        challenges::Vector{Normal{Float64}} = eff_challenge(curr, past_matches, pa_reck)
         chances::Vector{Float64} = player_win_chances(curr, past_matches, pa_reck)
         
-        finished::Vector{PAMatch} = [setproperties(curr[i], (win_chance = chances[i], alpha = alpha(challenges[i]), beta = beta(challenges[i])))  for i in 1:length(challenges)]
+        finished::Vector{PAMatch} = [setproperties(curr[i], (win_chance = chances[i], alpha = mean(challenges[i]), beta = std(challenges[i])))  for i in 1:length(challenges)]
 
         for i in 1:length(curr)
             add_to_player_hist!(game[i][2], finished[i])
@@ -154,8 +154,8 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
         for row in Tables.rows(phist)
             query = " 
                 UPDATE reckoner.armies
-                SET alpha = $(alpha(row.challenge)),
-                    beta = $(beta(row.challenge)),
+                SET alpha = $(mean(row.challenge)),
+                    beta = $(std(row.challenge)),
                     win_chance = $(row.win_chance)
                 WHERE match_id = $(row.match_id)
                 AND player_num = $(row.player_num);"
@@ -192,6 +192,8 @@ end
 
 function mass_evaluate_matches()
     conn = LibPQ.Connection("dbname=reckoner user=reckoner")
+
+    LibPQ.execute(conn, "UPDATE reckoner.armies SET win_chance = NULL, alpha = NULL, beta = NULL;")
 
     evaluate_matches(conn, mass_reset = true)
 end
