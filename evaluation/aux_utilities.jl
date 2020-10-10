@@ -85,8 +85,8 @@ function get_player_matches(player_ids::Vector, conn, player_types::Vector{Strin
 
     player_hist::PlayerHist = PlayerHist()
 
-    for uberid in player_ids
-        pid::PlayerId = ("pa inc", string(uberid))
+    for (type, id) in zip(player_types, player_ids)
+        pid::PlayerId = (type, string(id))
         player_hist[pid] = empty_matches()
     end
 

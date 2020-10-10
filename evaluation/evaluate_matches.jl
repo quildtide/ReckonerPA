@@ -131,18 +131,21 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
             continue
         end
 
-        past_matches::Vector{PAMatches} = aup.(curr, [pa_reck])
-        for i in 1:length(curr)
+        past_matches::Vector{PAMatches} = [PAMatches() for i in curr]
+        n::Int64 = length(curr)
+        for i in 1:n
             if (game[i][2] in keys(player_hist)) 
-                past_matches[i] = merge(past_matches[i], player_hist[game[i][2]])
+                past_matches[i] = player_hist[game[i][2]]
             end
         end
         challenges::Vector{Normal{Float64}} = eff_challenge(curr, past_matches, pa_reck)
+
+        curr = [setproperties(curr[i], (alpha = mean(challenges[i]), beta = std(challenges[i]))) for i in 1:n]
         chances::Vector{Float64} = player_win_chances(curr, past_matches, pa_reck)
         
-        finished::Vector{PAMatch} = [setproperties(curr[i], (win_chance = chances[i], alpha = mean(challenges[i]), beta = std(challenges[i])))  for i in 1:length(challenges)]
+        finished::Vector{PAMatch} = [setproperties(curr[i], (win_chance = chances[i]))  for i in 1:n]
 
-        for i in 1:length(curr)
+        for i in 1:n
             add_to_player_hist!(game[i][2], finished[i])
         end
     end
@@ -190,11 +193,12 @@ end
 #     end
 # end
 
-function mass_evaluate_matches()
+function mass_evaluate_matches(reset::Bool = true)
     conn = LibPQ.Connection("dbname=reckoner user=reckoner")
 
-    LibPQ.execute(conn, "UPDATE reckoner.armies SET win_chance = NULL, alpha = NULL, beta = NULL;")
+    if reset
+        LibPQ.execute(conn, "UPDATE reckoner.armies SET win_chance = NULL, alpha = NULL, beta = NULL;")
+    end
 
     evaluate_matches(conn, mass_reset = true)
 end
-

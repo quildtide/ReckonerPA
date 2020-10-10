@@ -18,3 +18,4 @@ rms(vals) = sqrt(sum(vals .^ 2))
 update(priors::Vector{<:Beta})::Beta = Beta(sum(alpha.(priors)), sum(beta.(priors)))
 
 update(priors::Vector{<:Normal})::Normal = Normal(sum(mean.(priors)), sqrt(sum(var.(priors))))
+

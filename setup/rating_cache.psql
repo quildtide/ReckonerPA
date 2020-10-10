@@ -1,0 +1,13 @@
+CREATE TABLE rating_cache (
+    cache_time TIMESTAMP,
+    player_type VARCHAR,
+    player_id VARCHAR,
+    team_size INT,
+    team_size_mean DOUBLE PRECISION,
+    team_size_var DOUBLE PRECISION,
+    eco DOUBLE PRECISION,
+    eco_mean DOUBLE PRECISION,
+    eco_var DOUBLE PRECISION,
+    shared BOOL,
+    titans BOOL
+);

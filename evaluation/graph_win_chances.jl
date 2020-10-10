@@ -14,28 +14,28 @@ const UB = 5000
 
 function eval_win_chances(context::PAMatch, matches::PAMatches, time_seq::StepRange{Int64, Int64}, rank_seq::StepRange{Int64, Int64})::Array{Beta{Float64}, 2}
     out::Array{Beta{Float64}, 2} = [
-        skill(setproperties(context, (alpha = a, beta = 1, timestamp = t)), merge(matches, aup(setproperties(context, (timestamp = t)), pa_reck)), pa_reck) 
+        skill(setproperties(context, (alpha = a, beta = 1, timestamp = t)), matches, pa_reck) 
             for a in rank_seq, t in time_seq
     ]
 end
 
 function eval_ratings(context::PAMatch, matches::PAMatches, time_seq::StepRange{Int64, Int64})::Vector{Normal{Float64}}
     out::Vector{Normal{Float64}} = [
-        rating(setproperties(context, (timestamp = t)), merge(aup(setproperties(context, (timestamp = t)), pa_reck), matches), pa_reck)
+        rating(setproperties(context, (timestamp = t)), matches, pa_reck)
             for t in time_seq
     ]
 end
 
 function eval_match_weights(context::PAMatch, matches::PAMatches, time_seq::StepRange{Int64, Int64})::Vector{Vector{Float64}}
     out::Vector{Vector{Float64}} = [
-        weights(setproperties(context, (timestamp = t)), merge(aup(setproperties(context, (timestamp = t)), pa_reck), matches), pa_reck)
+        weights(setproperties(context, (timestamp = t)), matches, pa_reck)
             for t in time_seq
     ]
 end
 
 function eval_player(uberid::Any, time_1::Int64, time_2::Int64, time_gran::Int64, conn, player_type::String = "pa inc"
     )::Tuple{Vector{Normal{Float64}}, Array{Beta{Float64}, 2}, Vector{Vector{Float64}}, PAMatches}
-    team_size::Int32 = 1
+    team_size::Int32 = 5
     context::PAMatch = PAMatch((win_chance = 0.5, alpha=2.5, beta = 1, timestamp = time_1, 
                         win=false, team_id=1, team_size = team_size, team_size_mean = team_size, 
                         team_size_var = 0.0, team_count = 2, match_id = 0, eco = 1.0, 
@@ -52,7 +52,7 @@ function eval_player(uberid::Any, time_1::Int64, time_2::Int64, time_gran::Int64
     ratings::Vector{Normal{Float64}} = eval_ratings(context, matches, time_seq)
     winchances::Array{Beta{Float64}, 2} = eval_win_chances(context, matches, time_seq, rank_seq)
     
-    (ratings, winchances, match_weights, merge(aup(context, pa_reck), matches))
+    (ratings, winchances, match_weights, matches)
 end
 
 function plot_win_chances(uberid::Any, time_1::Int64, time_2::Int64, time_gran::Int64, conn, name::String, player_type::String = "pa inc")

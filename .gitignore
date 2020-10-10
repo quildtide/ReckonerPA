@@ -7,3 +7,4 @@ last_recorder_timestamp
 *.log
 static_data_sources/pastats/backup.db
 export/*
+test.json

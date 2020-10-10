@@ -50,6 +50,19 @@ end
 
 HTTP.@register(ROUTER, "GET", "/basic_rating/*", basic_rating)
 
+function full_rating(req::HTTP.Request)
+    
+    message = full_player_rating(HTTP.URIs.queryparams(HTTP.URIs.URI(req.target))["context"], conn)
+
+    # message = JSON.json(Dict("rating_means"=> Dict(8665259548474200874 => "Hello world")))
+
+    return HTTP.Response(200, message)
+end
+
+HTTP.@register(ROUTER, "GET", "/api/full_rating", full_rating)
+
 HTTP.serve(ROUTER, Sockets.IPv4("64.20.35.179"), 8085)
 
 # HTTP.serve(ROUTER, Sockets.localhost, 8085)
+
+println("READY")

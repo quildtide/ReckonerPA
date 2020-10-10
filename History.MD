@@ -202,3 +202,143 @@ Average entropy: 0.687944722925533
 \> 2 team Entropy: 0.441398934727108
 Dissonant 5v5 Entropy: 0.649567235097988
 Dissonant 1v1 Entropy: 0.572392729100571
+
+## Reckoner 0.05.01
+- Removed AUP and replaced with default rating, standard dev., and Glicko-based priors for win-loss
+Average entropy: 0.662049868457941
+1v1 Average Entropy: 0.658310713095136
+5v5 Average Entropy: 0.63745045518308
+\> 2 team Entropy: 0.49197915075962
+Dissonant 5v5 Entropy: 0.674073602059028
+Dissonant 1v1 Entropy: 0.593753825402063
+
+## Reckoner 0.05.02
+- Fixed using standard deviation in RD calculation instead of variance
+Average entropy: 0.639045410445681
+1v1 Average Entropy: 0.639717986752943
+5v5 Average Entropy: 0.638998022779991
+\> 2 team Entropy: 0.470086963505454
+Dissonant 5v5 Entropy: 0.674073602059028
+Dissonant 1v1 Entropy: 0.588924509844852
+
+## Reckoner 0.05.03
+- Changed effective challenge algorithm to work better with Elo/Glicko equations.
+- Added eco modifier support to effective challenge algorithm
+Average entropy: 0.632002657385826
+1v1 Average Entropy: 0.633476399618413
+5v5 Average Entropy: 0.631699062384424
+\> 2 team Entropy: 0.471458746033687
+Dissonant 5v5 Entropy: 0.660829047025424
+Dissonant 1v1 Entropy: 0.588942580817152
+
+## Reckoner 0.05.02
+- The effective challenge algorithm's output is now used properly by the expected win-loss function.
+Average entropy: 0.554689318901669
+1v1 Average Entropy: 0.556326409231978
+5v5 Average Entropy: 0.578229061595864
+\> 2 team Entropy: 0.459010152200976
+Dissonant 5v5 Entropy: 0.625266205955053
+Dissonant 1v1 Entropy: 0.386331009003604
+
+## Reckoner 0.05.03
+- The effective challenge algorithm changed to work with total team strength instead of average team strength
+Average entropy: 0.633051893949291
+
+## Reckoner 0.05.04
+- Effective challenge algorithm scales back to Normal(1500, 200) once again
+Average entropy: 0.551491163504181
+1v1 Average entropy: 0.550127834704238
+5v5 Average entropy: 0.604815673301443
+\>2 team Entropy: 0.464417890861863
+Dissonant's 5v5 Entropy: 0.640116934047973
+Dissonant 1v1 Entropy: 0.392261208091401
+
+## Reckoner 0.05.05
+- It's actually just extended Glicko, not Reckoner!
+Average entropy: 0.56464520331258
+1v1 Average entropy: 0.566092084342768
+5v5 Average entropy: 0.608619118318539
+\>2 team Entropy: 0.473056993170673
+Dissonant's 5v5 Entropy: 0.638398371302757
+Dissonant 1v1 Entropy: 0.427118294614986
+
+## Reckoner 0.05.06
+- Back to Reckoner
+- Strength of Glicko-based win chance prior moved from 10 observations to 1 observation
+Average entropy: 0.553763708808884
+1v1 Average entropy: 0.556117067866659
+5v5 Average entropy: 0.599023963953773
+\>2 team Entropy: 0.448116555116821
+Dissonant's 5v5 Entropy: 0.640333156175872
+Dissonant 1v1 Entropy: 0.375112333655721
+
+## Reckoner 0.05.07
+- Fixed eco modifier bug in effective challenge algorithm
+Average entropy: 0.558227837886215
+1v1 Average entropy: 0.561628438102546
+5v5 Average entropy: 0.599161223124245
+\>2 team Entropy: 0.446624278013074
+Dissonant's 5v5 Entropy: 0.639460701811167
+Dissonant 1v1 Entropy: 0.374509734650744
+
+
+## Reckoner 0.05.08
+- Strength of Glicko-based win chance prior reverted from 1 observation to 10 observation
+Average entropy: 0.556721484142076
+1v1 Average entropy: 0.556429080532981
+5v5 Average entropy: 0.605330662990302
+\>2 team Entropy: 0.46262494709686
+Dissonant's 5v5 Entropy: 0.639347782774956
+Dissonant 1v1 Entropy: 0.391323670599493
+
+## Reckoner 0.05.09
+- Rating updates now based on cross entropy instead of raw win chance
+Average entropy: 0.562478532812585
+1v1 Average entropy: 0.563459462092208
+5v5 Average entropy: 0.608460133790155
+\>2 team Entropy: 0.46252556299399
+Dissonant's 5v5 Entropy: 0.639347782774956
+Dissonant 1v1 Entropy: 0.410466580638292
+
+## Reckoner 0.05.10
+- Strength of Glicko-based win chance prior moved from 10 observations to 2 observations
+Average entropy: 0.562393653084781
+1v1 Average entropy: 0.563401986145524
+5v5 Average entropy: 0.608474417877464
+\>2 team Entropy: 0.462339561028738
+Dissonant's 5v5 Entropy: 0.639275828152754
+Dissonant 1v1 Entropy: 0.410911784236515
+
+## Reckoner 0.05.11
+- Rating updates reverted to using raw win chance instead of cross entropy
+Average entropy: 0.556640999468681
+1v1 Average entropy: 0.556368352869901
+5v5 Average entropy: 0.605267584951858
+\>2 team Entropy: 0.462532712616887
+Dissonant's 5v5 Entropy: 0.638876518316026
+Dissonant 1v1 Entropy: 0.39115684499099
+
+## Reckoner 0.05.12
+- Teams are now summed with base 10^(1/3) instead of 10^(1/4)
+Average entropy: 0.556214164239857
+1v1 Average entropy: 0.556257136317549
+5v5 Average entropy: 0.60409868943414
+\>2 team Entropy: 0.462466305568765
+Dissonant's 5v5 Entropy: 0.63866177578311
+Dissonant 1v1 Entropy: 0.3912039823468
+
+## Reckoner 0.05.12 2020-09-16 check-in
+- No changes yet, just comparing value stability since last check (approximately 2020-08-24)
+Average entropy: 0.556737902908173
+1v1 Average entropy: 0.557494871619504
+5v5 Average entropy: 0.602417379141053
+\>2 team Entropy: 0.46332429751334
+Dissonant's 5v5 Entropy: 0.638381038263439
+Dissonant 1v1 Entropy: 0.390880709137207
+
+Average Entropy by time period:
+2020-09-01 - 2020-09-16: 0.566454308587333
+2020-08-01 - 2020-09-01: 0.537610776683424
+2020-07-01 - 2020-08-01: 0.531991855773833
+2020-06-01 - 2020-07-01: 0.546418365238954
+2020-05-01 - 2020-06-01: 0.55886397392024

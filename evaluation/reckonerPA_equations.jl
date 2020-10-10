@@ -7,6 +7,9 @@ using Reckoner
 include("utility.jl")
 include("glicko_equations.jl")
 
+const DEF_MEAN = 1500
+const DEF_STD = 350
+
 struct PAMatch <: AbstractMatch
     win_chance::Float64
     alpha::Float64
@@ -148,6 +151,15 @@ function PAMatches(intable)::PAMatches
             check_bool_f.(cols.tourney), cols.unknown_eco, cols.player_num)
 end
 
+macro blank_arrays(copies::Int64)
+    Meta.eval(Meta.parse(("[],"^copies)[1:end-1]))
+end
+
+function PAMatches()::PAMatches
+    t = @blank_arrays 19
+    PAMatches(t...)
+end
+
 function Base.push!(t::PAMatches, s::PAMatch)
     props = fieldnames(PAMatches)
 
@@ -171,13 +183,15 @@ function merge(l::PAMatches, r::PAMatches)::PAMatches
 end
 
 function pa_aup(curr::PAMatch)::PAMatches
-    game_1::PAMatch = setproperties(curr, ( win_chance = (.5), 
-                                            alpha = 1500, beta = 300, 
-                                            win = true, unknown_eco = false, 
-                                            all_dead = false, ranked = false, tourney = false))
-    game_2::PAMatch = setproperties(game_1, (win_chance = .5, win = false))
+    # game_1::PAMatch = setproperties(curr, ( win_chance = (.5), 
+    #                                         alpha = 1500, beta = 300, 
+    #                                         win = true, unknown_eco = false, 
+    #                                         all_dead = false, ranked = false, tourney = false))
+    # game_2::PAMatch = setproperties(game_1, (win_chance = .5, win = false))
 
-    PAMatches([game_1, game_2])
+    # PAMatches([game_1, game_2])
+
+    PAMatches()
 end
 
 function cond_recip(val::Float64)::Float64
@@ -222,7 +236,7 @@ function eco_penalty(curr::PAMatch, prev)::Float64
     penalty *= cond_recip(log(curr.eco + 1.01) / log(prev.eco + 1.01))^0.7
 
     if (prev.eco_var > 0) penalty *= (0.5 / (0.5 + prev.eco_var)) end
-    if (prev.eco_var > 0) penalty *= (0.5 / (0.5 + curr.eco_var)) end
+    if (curr.eco_var > 0) penalty *= (0.5 / (0.5 + curr.eco_var)) end
 
     penalty
 end
@@ -270,16 +284,57 @@ function pa_challenge_window(curr::AbstractMatch, prev)::Float64
     cdf(challenge_diff, 0)
 end
 
-function pa_skill(wins::Vector{Int16}, weights::Vector{<:Real}, challenge_windows::Vector{<:Real})::Beta{Float64}
-
-    a::Float64 = sum(weights .* (wins ./ 2.0) .* challenge_windows)
-    b::Float64 = sum(weights .* (1.0 .- wins ./ 2.0) .* (1.0 .- challenge_windows))
+function pa_skill(wins::Vector{Int16}, weights::Vector{<:Real}, challenge_windows::Vector{<:Real}, prior::Beta{Float64})::Beta{Float64}
+    a::Float64 = alpha(prior) + sum(weights .* (wins ./ 2.0) .* challenge_windows)
+    b::Float64 = beta(prior) + sum(weights .* (1.0 .- wins ./ 2.0) .* (1.0 .- challenge_windows))
 
     if (isnan(a) || isnan(b)) print(weights, "\n") end
 
     if ((a <= 0) || (b <= 0)) print(a, ", ", b, "\n") end
 
     Beta(a, b)
+end
+
+
+
+function standardize(rating_center::Float64)
+    (rating_center - 1500) / 200
+end
+
+function unstandardize(aah::Float64)::Float64
+    aah * 200 + 1500
+end
+
+function unstandardize(aah::Normal{Float64})::Normal{Float64}
+    Normal(unstandardize(mean(aah)), std(aah))
+end
+
+function challenge_sum(ratings::Vector{Normal{Float64}}, base::Float64)::Normal{Float64}
+    n::Int64 = length(ratings)
+    mu::Float64 = log(base, sum(base.^mean.(ratings)))
+    sigma::Float64 = rms(std.(ratings))
+
+    Normal(mu, sigma)
+end
+
+function soft_log(base::Number, val::Number)::Float64
+    if val > 0
+        return log(base, val + 1)
+    else
+        return -log(base, -val + 1)
+    end
+end
+
+const TRB = 10^(1/3)
+
+function team_ratings(ratings::Vector{Normal{Float64}}, teams::Vector{<:Integer}, eco::Vector{Float64})::Vector{Normal{Float64}}
+    m::Int64 = length(unique(teams))
+
+    modded_ratings::Vector{Normal{Float64}} = Normal.(standardize.(mean.(ratings) .+ 800 .* log10.(max.(eco, 0.05))), std.(ratings))
+
+    team_totals::Vector{Normal{Float64}} = [unstandardize(challenge_sum(modded_ratings[teams .== i], TRB)) for i in 1:m]
+
+    team_totals
 end
 
 function pa_eff_challenge(ratings::Vector{Normal{Float64}}, teams::Vector{<:Integer}, eco::Vector{Float64})::Vector{Normal{Float64}}
@@ -292,25 +347,29 @@ function pa_eff_challenge(ratings::Vector{Normal{Float64}}, teams::Vector{<:Inte
 
     # modded_ratings::Vector{Beta{Float64}} = Beta.(alpha.(ratings) .* sqrt.(eco), beta.(ratings) ./ sqrt.(eco))
     
-    modded_ratings::Vector{Normal{Float64}} = [Normal(mean(i) - 1100, std(i)) for i in ratings]
+    modded_ratings::Vector{Normal{Float64}} = Normal.(standardize.(mean.(ratings) .+ 800 .* log10.(max.(eco, 0.05))), std.(ratings))
 
-    team_totals::Vector{Normal{Float64}} = [update(modded_ratings[teams .== i]) for i in 1:m]
+    team_totals::Vector{Normal{Float64}} = [challenge_sum(modded_ratings[teams .== i], TRB) for i in 1:m]
 
     challenges::Vector{Normal{Float64}} = Vector{Normal{Float64}}(undef, n)
 
     for i in 1:n
-        opp::BitArray = 1:m .!= teams[i]
-        mu_opp::Float64 = sum(mean.(team_totals[opp]))
-        var_opp::Float64 = sum(var.(team_totals[opp]))
+        opp::Normal{Float64} = challenge_sum(team_totals[1:m .!= teams[i]], 10^(1/2))
 
-        team::BitArray = (teams .== teams[i]) .& (1:n .!= i)
-        mu_ally::Float64 = sum(mean.(modded_ratings[team])) + 400
-        var_ally::Float64 = sum(var.(modded_ratings[team]))
+        allies::BitArray = (teams .== teams[i]) .& (1:n .!= i)
+        ally_n::Int64 = sum(allies)
+        mu_ally::Float64 = mean(team_totals[teams[i]]) - standardize(mean(ratings[i]))
+        var_ally::Float64 = 
+            if ally_n == 0
+                0
+            else 
+                sum(var.(modded_ratings[allies]))
+            end
 
-        mu_eff::Float64 = mu_opp - mu_ally + 1100
-        sigma_eff::Float64 = sqrt(var_opp + var_ally)
+        mu_eff::Float64 = mean(opp) - mu_ally
+        sigma_eff::Float64 = sqrt(var(opp) + var_ally)
 
-        challenges[i] = Normal(mu_eff, sigma_eff)
+        challenges[i] = Normal(mu_eff * 200 + 1500, sigma_eff)
     end
 
     challenges
@@ -320,27 +379,63 @@ function pa_display_rank(win_chance::Real)::Float64
     win_chance
 end
 
+
+
 function Reckoner.rating(curr::PAMatch, prev::PAMatches, inst::ReckonerInstance{PAMatch, PAMatches} = reckoner_defaults)::Normal{Float64}
-    calc_weights::Vector{Float64} = weights(curr, prev, inst)
 
-    d2::Vector{Float64} = glicko_d2.(std.(prev.challenge), prev.win_chance)
+    mu::Float64 = DEF_MEAN
 
-    rd2::Vector{Float64} = 1 ./ cumsum(calc_weights ./ d2)
+    if !isempty(prev.shared)
+        calc_weights::Vector{Float64} = weights(curr, prev, inst)
 
+        d2::Vector{Float64} = glicko_d2.(std.(prev.challenge), prev.win_chance)
+    
+        rd2::Float64= 1 ./ ((1 / DEF_STD^2) + sum(calc_weights ./ d2))
 
-    mu::Float64 = 1260.1363072382787 + sum(calc_weights .* glicko_delta_r.(std.(prev.challenge), prev.win_chance, rd2, win(prev) ./ 2))
+        mu += sum(calc_weights .* glicko_delta_r.(std.(prev.challenge), prev.win_chance, rd2, win(prev) ./ 2))
 
-    Normal(mu, sqrt(last(rd2)))
+        return Normal(mu, sqrt(last(rd2)))
+    end
+
+    Normal(mu, DEF_STD)
 end
 
 function Reckoner.ratings(curr::Vector{PAMatch}, prev::Vector{PAMatches}, inst::ReckonerInstance{PAMatch, PAMatches} = reckoner_defaults)::Vector{Normal{Float64}}
     rating.(curr, prev, (inst,))
 end
 
+function Reckoner.skill(curr::PAMatch, prev::PAMatches, rat::Normal{Float64}, inst::ReckonerInstance{PAMatch, PAMatches} = reckoner_defaults)::Beta{Float64}
+    calc_weights::Vector{Float64} = weights(curr, prev, inst)
+
+    calc_windows::Vector{Float64} = challenge_windows(curr, prev, inst)
+
+    c::Float64 = 10.0
+    a::Float64 = glicko_expval(mean(rat), curr.alpha, curr.beta) * c
+    b::Float64 = c - a
+
+    inst.skill(win(prev), calc_weights, calc_windows, Beta(a, b))
+end
+
+function Reckoner.skill(curr::PAMatch, prev::PAMatches, inst::ReckonerInstance{PAMatch, PAMatches} = reckoner_defaults)::Beta{Float64}
+    rat::Normal{Float64} = rating(curr, prev, inst)
+
+    skill(curr, prev, rat, inst)
+end
+
+function Reckoner.skills(curr::Vector{PAMatch}, prev::Vector{PAMatches}, rats::Vector{Normal{Float64}}, inst::ReckonerInstance{PAMatch, PAMatches} = reckoner_defaults)::Vector{Beta{Float64}}
+    skill.(curr, prev, rats, (inst,))
+end
+
 function Reckoner.eff_challenge(curr::Vector{PAMatch}, prev::Vector{PAMatches}, inst::ReckonerInstance{PAMatch, PAMatches} = reckoner_defaults)::Vector{Normal{Float64}}
     benches::Vector{Normal{Float64}} = ratings(curr, prev, inst)
 
     inst.eff_challenge(benches, team_id.(curr), eco.(curr))
+end
+
+function Reckoner.win_chances(curr::Vector{R}, prev::Vector{T}, rats::Vector{Normal{Float64}}, inst::ReckonerInstance{R,T} = reckoner_defaults)::Vector{Beta{Float64}} where {R, T}
+    local_skills::Vector{Beta{Float64}} = skills(curr, prev, rats, inst)
+
+    win_chances(local_skills, team_id.(curr), inst)
 end
 
 pa_reck = ReckonerInstance{PAMatch, PAMatches}(aup = pa_aup, weight = pa_weight, skill = pa_skill, challenge_window = pa_challenge_window, eff_challenge = pa_eff_challenge)
