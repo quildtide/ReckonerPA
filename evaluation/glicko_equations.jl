@@ -12,6 +12,10 @@ function glicko_delta_r(rd_j::Number, win_chance::Number, curr_rd2::Number, win:
     GLICKO_Q * curr_rd2 * glicko_g(rd_j) * (win - win_chance)
 end
 
+function reckoner_delta_r(rd_j::Number, win_chance::Number, win::Number)::Float64
+    GLICKO_Q * glicko_g(rd_j) * (win - win_chance)
+end
+
 function glicko_rd2(d2::Vector{T})::Float64 where T <: Number
     1 / sum( 1 ./ (d2))
 end

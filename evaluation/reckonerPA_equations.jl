@@ -32,6 +32,7 @@ struct PAMatch <: AbstractMatch
     tourney::Bool
     unknown_eco::Bool
     player_num::Int16
+    rating_sd::Float64
 end
 
 Reckoner.win_chance(m::PAMatch)::Float64 = m.win_chance
@@ -83,6 +84,7 @@ function PAMatch(inp)::PAMatch
     eco::Float64 = replace_missing(inp.eco, 1.0)
     eco_mean::Float64 = replace_missing(inp.eco_mean, 1.0)
     eco_var::Float64 = replace_missing(inp.eco_var, 0.0)
+    rating_sd::Float64 = replace_missing(inp.rating_sd, 350.0)
 
     unknown_eco::Bool = ismissing(inp.eco) | ismissing(inp.eco_mean) | ismissing(inp.eco_var)
 
@@ -95,7 +97,8 @@ function PAMatch(inp)::PAMatch
             eco_mean, eco_var,
             check_bool_f(inp.all_dead), check_bool_f(inp.shared),
             check_bool_t(inp.titans), check_bool_f(inp.ranked),
-            check_bool_f(inp.tourney), unknown_eco, inp.player_num)
+            check_bool_f(inp.tourney), unknown_eco, inp.player_num,
+            rating_sd)
 end
 
 struct PAMatches <: AbstractMatches
@@ -118,6 +121,7 @@ struct PAMatches <: AbstractMatches
     tourney::Vector{Bool}
     unknown_eco::Vector{Bool}
     player_num::Vector{Int16}
+    rating_sd::Vector{Float64}
 end
 
 Reckoner.win_chance(matches::PAMatches) = matches.win_chance
@@ -148,7 +152,8 @@ function PAMatches(intable)::PAMatches
             cols.eco_mean, cols.eco_var,
             check_bool_f.(cols.all_dead), check_bool_f.(cols.shared),
             check_bool_t.(cols.titans), check_bool_f.(cols.ranked),
-            check_bool_f.(cols.tourney), cols.unknown_eco, cols.player_num)
+            check_bool_f.(cols.tourney), cols.unknown_eco, cols.player_num,
+            cols.rating_sd)
 end
 
 macro blank_arrays(copies::Int64)
@@ -156,7 +161,7 @@ macro blank_arrays(copies::Int64)
 end
 
 function PAMatches()::PAMatches
-    t = @blank_arrays 19
+    t = @blank_arrays 20
     PAMatches(t...)
 end
 
@@ -284,9 +289,9 @@ function pa_challenge_window(curr::AbstractMatch, prev)::Float64
     cdf(challenge_diff, 0)
 end
 
-function pa_skill(wins::Vector{Int16}, weights::Vector{<:Real}, challenge_windows::Vector{<:Real}, prior::Beta{Float64})::Beta{Float64}
-    a::Float64 = alpha(prior) + sum(weights .* (wins ./ 2.0) .* challenge_windows)
-    b::Float64 = beta(prior) + sum(weights .* (1.0 .- wins ./ 2.0) .* (1.0 .- challenge_windows))
+function pa_skill(wins::Vector{Int16}, weights::Vector{<:Real}, challenge_windows::Vector{<:Real}, prior_a::Real, prior_b::Real)::Beta{Float64}
+    a::Float64 = prior_a + sum(weights .* (wins ./ 2.0) .* challenge_windows)
+    b::Float64 = prior_b + sum(weights .* (1.0 .- wins ./ 2.0) .* (1.0 .- challenge_windows))
 
     if (isnan(a) || isnan(b)) print(weights, "\n") end
 
@@ -390,11 +395,13 @@ function Reckoner.rating(curr::PAMatch, prev::PAMatches, inst::ReckonerInstance{
 
         d2::Vector{Float64} = glicko_d2.(std.(prev.challenge), prev.win_chance)
     
-        rd2::Float64= 1 ./ ((1 / DEF_STD^2) + sum(calc_weights ./ d2))
+        rd2::Float64 = 1 / ((1 / DEF_STD^2) + sum(calc_weights ./ d2))
 
-        mu += sum(calc_weights .* glicko_delta_r.(std.(prev.challenge), prev.win_chance, rd2, win(prev) ./ 2))
+        # mu = mu + log(10) * sum(calc_weights .* glicko_g.(std.(prev.challenge)) .* (win(prev) ./ 2 - prev.win_chance) ./ d2)\
 
-        return Normal(mu, sqrt(last(rd2)))
+        mu  += sum(calc_weights .* glicko_delta_r.(std.(prev.challenge), prev.win_chance, 1 ./ (1 ./ (DEF_STD.^2) .+  1 ./ d2), win(prev) ./ 2))
+
+        return Normal(mu, sqrt(rd2))
     end
 
     Normal(mu, DEF_STD)
@@ -413,7 +420,15 @@ function Reckoner.skill(curr::PAMatch, prev::PAMatches, rat::Normal{Float64}, in
     a::Float64 = glicko_expval(mean(rat), curr.alpha, curr.beta) * c
     b::Float64 = c - a
 
-    inst.skill(win(prev), calc_weights, calc_windows, Beta(a, b))
+    if a < 0.001
+        a = 0.001
+    end
+    
+    if b < 0.001
+        b = 0.001
+    end
+
+    inst.skill(win(prev), calc_weights, calc_windows, a, b)
 end
 
 function Reckoner.skill(curr::PAMatch, prev::PAMatches, inst::ReckonerInstance{PAMatch, PAMatches} = reckoner_defaults)::Beta{Float64}

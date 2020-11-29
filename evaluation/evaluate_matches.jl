@@ -28,7 +28,8 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
                         ranked,
                         tourney,
                         win_chance,
-                        player_num 
+                        player_num,
+                        rating_sd 
                     FROM reckoner.matchrows
                     WHERE NOT SCORED
                     ORDER BY time_start ASC
@@ -91,7 +92,8 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
             player_num,
             alpha,
             beta,
-            win_chance  
+            win_chance,
+            rating_sd  
         FROM reckoner.matchrows
         WHERE SCORED"
 
@@ -138,9 +140,10 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
                 past_matches[i] = player_hist[game[i][2]]
             end
         end
+        rats::Vector{Normal{Float64}} = ratings(curr, past_matches, pa_reck)
         challenges::Vector{Normal{Float64}} = eff_challenge(curr, past_matches, pa_reck)
 
-        curr = [setproperties(curr[i], (alpha = mean(challenges[i]), beta = std(challenges[i]))) for i in 1:n]
+        curr = [setproperties(curr[i], (alpha = mean(challenges[i]), beta = std(challenges[i]), rating_sd = params(rats[i])[2])) for i in 1:n]
         chances::Vector{Float64} = player_win_chances(curr, past_matches, pa_reck)
         
         finished::Vector{PAMatch} = [setproperties(curr[i], (win_chance = chances[i]))  for i in 1:n]
@@ -159,7 +162,8 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
                 UPDATE reckoner.armies
                 SET alpha = $(mean(row.challenge)),
                     beta = $(std(row.challenge)),
-                    win_chance = $(row.win_chance)
+                    win_chance = $(row.win_chance),
+                    rating_sd = $(row.rating_sd)
                 WHERE match_id = $(row.match_id)
                 AND player_num = $(row.player_num);"
             LibPQ.execute(conn, query)
@@ -197,7 +201,7 @@ function mass_evaluate_matches(reset::Bool = true)
     conn = LibPQ.Connection("dbname=reckoner user=reckoner")
 
     if reset
-        LibPQ.execute(conn, "UPDATE reckoner.armies SET win_chance = NULL, alpha = NULL, beta = NULL;")
+        LibPQ.execute(conn, "UPDATE reckoner.armies SET win_chance = NULL, alpha = NULL, beta = NULL, rating_sd = NULL;")
     end
 
     evaluate_matches(conn, mass_reset = true)

@@ -9,11 +9,11 @@ include("aux_utilities.jl")
 function simple_player_rating(uberid::UInt64, conn)::String
     player_hist::PlayerHist = get_player_matches(uberid, conn)
 
-    context::PAMatch = PAMatch((win_chance = 0.5, alpha=2.5, beta=1, timestamp=Int(trunc(time())), 
+    context::PAMatch = PAMatch((win_chance = 0.5, alpha=1500, beta=350, timestamp=Int(trunc(time())), 
                         win=false, team_id=1, team_size = 5, team_size_mean = 5.0, 
                         team_size_var = 0.0, team_count = 2, match_id = 0, eco = 1.0, 
                         eco_mean = 1.0, eco_var = 0.0, all_dead = false, shared = false, 
-                        titans = true, ranked = false, tourney = false, player_num = 1))
+                        titans = true, ranked = false, tourney = false, player_num = 1, rating_sd = 350.0))
     
     # locus::Vector{PAMatch} = gen_locus(context, [1, 1, 1, 1, 1, 2, 2, 2, 2, 2])
 
@@ -60,10 +60,10 @@ function full_player_rating(conn,
     eco_var::Float64 = var(ecos)
 
     base_context::PAMatch = PAMatch((win_chance = 0.5, alpha=1500, beta=350, timestamp=Int(trunc(time())), 
-                            win=false, team_id=1, team_size = 1, team_size_mean = team_size_mean, 
-                            team_size_var = 0.0, team_count = team_count, match_id = 0, eco = 1.0, 
-                            eco_mean = eco_mean, eco_var = eco_var, all_dead = false, shared = false, 
-                            titans = titans, ranked = false, tourney = false, player_num = 1))
+                        win=false, team_id=1, team_size = 5, team_size_mean = team_size_mean, 
+                        team_size_var = team_size_var, team_count = team_count, match_id = 0, eco = 1.0, 
+                        eco_mean = eco_mean, eco_var = eco_var, all_dead = false, shared = false, 
+                        titans = titans, ranked = false, tourney = false, player_num = 1, rating_sd = 350.0))
 
     indiv_contexts::Vector{PAMatch} = [setproperties(base_context, (team_id = teams[i], 
             team_size = team_sizes[teams[i]], eco = ecos[i], shared = shared[teams[i]])) for i in 1:n]

@@ -26,7 +26,7 @@ while true
     end
     
     try
-        evaluate_matches(conn)
+        # evaluate_matches(conn)
     catch
         print("failed evaluate matches\n")
         
