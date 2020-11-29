@@ -342,3 +342,7 @@ Average Entropy by time period:
 2020-07-01 - 2020-08-01: 0.531991855773833
 2020-06-01 - 2020-07-01: 0.546418365238954
 2020-05-01 - 2020-06-01: 0.55886397392024
+
+## Reckoner 0.6.1 2020-10-17 (retroactive entry 2020-11-29)
+- Changed rating summation formulas to be independent of game order
+

@@ -420,13 +420,10 @@ function Reckoner.skill(curr::PAMatch, prev::PAMatches, rat::Normal{Float64}, in
     a::Float64 = glicko_expval(mean(rat), curr.alpha, curr.beta) * c
     b::Float64 = c - a
 
-    if a < 0.001
-        a = 0.001
-    end
-    
-    if b < 0.001
-        b = 0.001
-    end
+    eps = 0.000001
+
+    a = max(a, eps)
+    b = max(b, eps)
 
     inst.skill(win(prev), calc_weights, calc_windows, a, b)
 end
