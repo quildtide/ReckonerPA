@@ -45,7 +45,9 @@ function empty_matches()::PAMatches
         Vector{Bool}(),
         Vector{Bool}(),
         Vector{Bool}(),
-        Vector{Int16}())
+        Vector{Int16}(),
+        Vector{Float64}()
+    )
 end
 
 
@@ -73,20 +75,22 @@ function get_player_matches(player_ids::Vector, conn, player_types::Vector{Strin
             win_chance,
             player_num,
             alpha,
-            beta
+            beta,
+            rating_sd
         FROM reckoner.matchrows_mat
         WHERE SCORED
         AND (player_type, player_id) IN ("
     for (type, id) in zip(player_types, player_ids)
         query *= "('$(sanitize(type))','$(sanitize(id))'),"
     end
-    query = query[1:end-1] * ") ORDER BY TIME_START ASC;"
+    query = query[1:end-1] * ");"
+    # query = query[1:end-1] * ") ORDER BY TIME_START ASC;"
     res = LibPQ.execute(conn, query)
 
     player_hist::PlayerHist = PlayerHist()
 
-    for uberid in player_ids
-        pid::PlayerId = ("pa inc", string(uberid))
+    for (type, id) in zip(player_types, player_ids)
+        pid::PlayerId = (type, string(id))
         player_hist[pid] = empty_matches()
     end
 

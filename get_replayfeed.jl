@@ -340,8 +340,13 @@ function insert_match_FFA(match::FeedMatch, conn)::Vector{String}
                 player_id = player_id * " QBE"
             end
         else
-            username = army["players"][1]
-            player_id = uberid_of[username]
+            if isempty(army["players"])
+                # Extremely rare edge case where the player fails to enter the game completely
+                continue 
+            else
+                username = army["players"][1]
+                player_id = uberid_of[username]
+            end
         end
         query = "   INSERT INTO reckoner.armies
                     (match_id, player_num, team_num,

@@ -87,7 +87,8 @@ CREATE TABLE reckoner.armies (
     team_num SMALLINT,
     commanders SMALLINT DEFAULT 1,
     FOREIGN KEY (match_id, team_num) REFERENCES reckoner.teams(match_id, team_num) ON UPDATE CASCADE,
-    win_chance FLOAT
+    win_chance FLOAT,
+    rating_sd FLOAT
 );
 CREATE INDEX armies_player_id ON reckoner.armies USING HASH(player_system, player_id);
 CREATE INDEX armies_index ON reckoner.armies(match_id, player_num);

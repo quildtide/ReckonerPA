@@ -8,3 +8,4 @@ last_recorder_timestamp
 static_data_sources/pastats/backup.db
 export/*
 site_pid.txt
+test.json
