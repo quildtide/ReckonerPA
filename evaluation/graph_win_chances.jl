@@ -9,8 +9,8 @@ include("aux_utilities.jl")
 
 ENV["GKSwstype"]="nul"
 
-const LB = -500
-const UB = 5000
+const LB = 0
+const UB = 6000
 
 function eval_win_chances(context::PAMatch, matches::PAMatches, time_seq::StepRange{Int64, Int64}, rank_seq::StepRange{Int64, Int64})::Array{Beta{Float64}, 2}
     out::Array{Beta{Float64}, 2} = [
@@ -36,11 +36,11 @@ end
 function eval_player(uberid::Any, time_1::Int64, time_2::Int64, time_gran::Int64, conn, player_type::String = "pa inc"
     )::Tuple{Vector{Normal{Float64}}, Array{Beta{Float64}, 2}, Vector{Vector{Float64}}, PAMatches}
     team_size::Int32 = 5
-    context::PAMatch = PAMatch((win_chance = 0.5, alpha=2.5, beta = 1, timestamp = time_1, 
+    context::PAMatch = PAMatch((win_chance = 0.5, alpha=1500, beta = 200, timestamp = time_1, 
                         win=false, team_id=1, team_size = team_size, team_size_mean = team_size, 
                         team_size_var = 0.0, team_count = 2, match_id = 0, eco = 1.0, 
                         eco_mean = 1.0, eco_var = 0.0, all_dead = false, shared = false, 
-                        titans = true, ranked = false, tourney = false, player_num = 1))
+                        titans = true, ranked = false, tourney = false, player_num = 1, rating_sd = 200))
 
     matches::PAMatches = first(values(get_player_matches(uberid, conn, player_type)))
 
@@ -74,23 +74,38 @@ function plot_win_chances(uberid::Any, time_1::Int64, time_2::Int64, time_gran::
     anim = Animation()
 
     for (i, t) in enumerate(time_seq)
+        # p = plot(rank_seq, exp_val[:, i], 
+        #         title = "$name: $(Date(unix2datetime(t)))\n($(@sprintf("%d", rat_mean[i])) ± $(@sprintf("%d", rat_span[i])))", 
+        #         xlims = [LB, UB],
+        #         ylims = [0.0, 1.0],
+        #         ribbon = (low_bound[:, i], high_bound[:, i]),
+        #         label = "Expected Win Chance",
+        #         legend = (0.10, 0.10),
+        #         size = (1600, 900),
+        #         xguide = "Effective Challenge Faced (Opponent Rating)",
+        #         yguide = "Expected Win Chance",
+        #         left_margin = 8.0 * mm)
+        # scatter!(p, loci, wins, 
+        #             markersize = max.(8 .* sqrt.(match_weights[i]), 1), 
+        #             markeralpha = min.(match_weights[i], 1.0),
+        #             label = "Observed Outcomes", 
+        #             markerstrokewidth = 0)
+        # scatter!(p, [rat_mean[i]], [.5], markersize = 8, label = "Rating", markerstrokewidth = 0)
         p = plot(rank_seq, exp_val[:, i], 
                 title = "$name: $(Date(unix2datetime(t)))\n($(@sprintf("%d", rat_mean[i])) ± $(@sprintf("%d", rat_span[i])))", 
                 xlims = [LB, UB],
                 ylims = [0.0, 1.0],
                 ribbon = (low_bound[:, i], high_bound[:, i]),
                 label = "Expected Win Chance",
-                legend = (0.10, 0.10),
-                size = (1600, 900),
-                xguide = "Effective Challenge Faced (Opponent Rating)",
-                yguide = "Expected Win Chance",
-                left_margin = 8.0 * mm)
-        scatter!(p, [rat_mean[i]], [.5], markersize = 8, label = "Rating", markerstrokewidth = 0)
+                legend = false,
+                size = (600, 400))
         scatter!(p, loci, wins, 
-                    markersize = max.(8 .* sqrt.(match_weights[i]), 1), 
-                    markeralpha = min.(match_weights[i], 1.0),
-                    label = "Observed Outcomes", 
-                    markerstrokewidth = 0)
+                markersize = max.(5 .* sqrt.(match_weights[i]), 1), 
+                markeralpha = min.(match_weights[i], 1.0),
+                label = "Observed Outcomes", 
+                markerstrokewidth = 0)
+        scatter!(p, [rat_mean[i]], [.5], markersize = 5, label = "Rating", markerstrokewidth = 0)
+        
         frame(anim, p)
     end
 

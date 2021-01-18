@@ -141,10 +141,10 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
             end
         end
         rats::Vector{Normal{Float64}} = ratings(curr, past_matches, pa_reck)
-        challenges::Vector{Normal{Float64}} = eff_challenge(curr, past_matches, pa_reck)
+        challenges::Vector{Normal{Float64}} = pa_reck.eff_challenge(rats, team_id.(curr), eco.(curr))
 
         curr = [setproperties(curr[i], (alpha = mean(challenges[i]), beta = std(challenges[i]), rating_sd = params(rats[i])[2])) for i in 1:n]
-        chances::Vector{Float64} = player_win_chances(curr, past_matches, pa_reck)
+        chances::Vector{Float64} = player_win_chances(curr, past_matches, rats, pa_reck)
         
         finished::Vector{PAMatch} = [setproperties(curr[i], (win_chance = chances[i]))  for i in 1:n]
 

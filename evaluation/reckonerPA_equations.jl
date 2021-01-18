@@ -280,6 +280,8 @@ function pa_weight(curr::PAMatch, prev)::Float64
 
 end
 
+logistic_cdf(dist, x) = 1 / (1 + exp(-(x - mean(dist)) / std(dist)))
+
 function pa_challenge_window(curr::AbstractMatch, prev)::Float64
     challenge_1::Normal{Float64} = challenge(curr)
     challenge_2::Normal{Float64} = challenge(prev)
@@ -386,25 +388,72 @@ end
 
 
 
+# function Reckoner.rating(curr::PAMatch, prev::PAMatches, inst::ReckonerInstance{PAMatch, PAMatches} = reckoner_defaults)::Normal{Float64}
+
+#     mu::Float64 = DEF_MEAN
+
+#     if !isempty(prev.shared)
+#         calc_weights::Vector{Float64} = weights(curr, prev, inst)
+
+#         d2::Vector{Float64} = glicko_d2.(std.(prev.challenge), prev.win_chance)
+    
+#         rd2::Float64 = 1 / ((1 / DEF_STD^2) + sum(calc_weights ./ d2))
+
+#         # mu = mu + log(10) * sum(calc_weights .* glicko_g.(std.(prev.challenge)) .* (win(prev) ./ 2 - prev.win_chance) ./ d2)\
+
+#         mu  += sum(calc_weights .* glicko_delta_r.(std.(prev.challenge), prev.win_chance, 1 ./ (1 ./ (DEF_STD.^2) .+  1 ./ d2), win(prev) ./ 2))
+
+#         return Normal(mu, sqrt(rd2))
+#     end
+
+#     Normal(mu, DEF_STD)
+# end
+
+est_rating(exp_wr, r_b) = -400 * log10(1 / exp_wr - 1) + r_b
+
 function Reckoner.rating(curr::PAMatch, prev::PAMatches, inst::ReckonerInstance{PAMatch, PAMatches} = reckoner_defaults)::Normal{Float64}
 
     mu::Float64 = DEF_MEAN
 
+    rat::Normal = Normal(mu, DEF_STD)
+    
+
     if !isempty(prev.shared)
         calc_weights::Vector{Float64} = weights(curr, prev, inst)
 
+        bound::Float64 = 350 * sqrt(2 + min(sum(calc_weights), 5000))
+
+        lb::Float64 = DEF_MEAN - bound
+        hb::Float64 = DEF_MEAN + bound
+
         d2::Vector{Float64} = glicko_d2.(std.(prev.challenge), prev.win_chance)
-    
         rd2::Float64 = 1 / ((1 / DEF_STD^2) + sum(calc_weights ./ d2))
 
-        # mu = mu + log(10) * sum(calc_weights .* glicko_g.(std.(prev.challenge)) .* (win(prev) ./ 2 - prev.win_chance) ./ d2)\
+        for i in 1:5
+            curr_mod = setproperties(curr, ( alpha = mu, beta = 0.05))
+            calc_windows::Vector{Float64} = challenge_windows(curr, prev, inst)
 
-        mu  += sum(calc_weights .* glicko_delta_r.(std.(prev.challenge), prev.win_chance, 1 ./ (1 ./ (DEF_STD.^2) .+  1 ./ d2), win(prev) ./ 2))
+            exp_wr = mean(inst.skill(win(prev), calc_weights, calc_windows, 1, 1))
+            if (exp_wr > .5)
+                lb = mu
+            elseif (exp_wr < .5)
+                hb = mu
+            else
+                break
+            end
+            new_est = est_rating(exp_wr, mu)
 
-        return Normal(mu, sqrt(rd2))
+            if (new_est > lb) && (new_est < hb)
+                mu = new_est
+            else
+                mu = (lb + hb) / 2
+            end
+        end
+
+        rat = Normal(mu, sqrt(rd2))
     end
 
-    Normal(mu, DEF_STD)
+    return rat
 end
 
 function Reckoner.ratings(curr::Vector{PAMatch}, prev::Vector{PAMatches}, inst::ReckonerInstance{PAMatch, PAMatches} = reckoner_defaults)::Vector{Normal{Float64}}
@@ -448,6 +497,12 @@ function Reckoner.win_chances(curr::Vector{R}, prev::Vector{T}, rats::Vector{Nor
     local_skills::Vector{Beta{Float64}} = skills(curr, prev, rats, inst)
 
     win_chances(local_skills, team_id.(curr), inst)
+end
+
+function Reckoner.player_win_chances(curr::Vector{R}, prev::Vector{T}, rats::Vector{Normal{Float64}}, inst::ReckonerInstance{R,T} = reckoner_defaults)::Vector{Float64} where {R, T}
+    local_skills::Vector{Beta{Float64}} = skills(curr, prev, rats, inst)
+
+    player_win_chances(local_skills, team_id.(curr), inst)
 end
 
 pa_reck = ReckonerInstance{PAMatch, PAMatches}(aup = pa_aup, weight = pa_weight, skill = pa_skill, challenge_window = pa_challenge_window, eff_challenge = pa_eff_challenge)

@@ -346,3 +346,7 @@ Average Entropy by time period:
 ## Reckoner 0.6.1 2020-10-17 (retroactive entry 2020-11-29)
 - Changed rating summation formulas to be independent of game order
 
+## Reckoner 0.7.1 2020-11-29
+- Implemented iterative algorithm to approximate rating at which a player has 50% win-loss
+
+## Reckoner 0
