@@ -12,7 +12,12 @@ end
 
 function auto_get_gamefeed()
     while true
-        get_gamefeed()
+        try
+            get_gamefeed()
+            println("Updated gamefeed $(Dates.now())")
+        catch
+            println("Failed to get gamefeed $(Dates.now())")
+        end
 
         sleep(3 * 60)
     end
