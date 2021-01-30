@@ -54,8 +54,10 @@ CREATE TABLE reckoner.matches (
     source_replayfeed BOOL DEFAULT FALSE,
     source_recorder BOOL DEFAULT FALSE,
     source_gamefeed BOOL DEFAULT FALSE,
+    source_local_bot BOOL DEFAULT FALSE,
     sandbox BOOL DEFAULT FALSE,
-    bounty FLOAT
+    bounty FLOAT,
+    is_2w BOOL
 );
 CREATE INDEX matches_match_id ON reckoner.matches(match_id);
 CREATE INDEX matches_lobbyid ON reckoner.matches USING HASH(lobbyid);

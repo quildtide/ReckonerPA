@@ -96,12 +96,16 @@ function match_id_generation(timestamp::Int32,player_names::Vector{String},
     match_id::Int64 = unsigned_to_signed(parse(UInt64, (key * stamp), base = 16))
 end
 
+manual_server_list = Set(["Anonemous2", "local"])
+
 function match_id_generation(timestamp::Int32,player_names::Vector{String},
     server::String, lobbyid::Int64)::Int64
     if (server == "uber" || server == "pa inc")
         key::String = string(signed_to_unsigned(lobbyid), base = 16, pad = 16)[9:16]
     elseif (server == "river")
         key = string(signed_to_unsigned(lobbyid), base = 16, pad = 16)[1:8]
+    elseif server in manual_server_list
+        key = string(XXhash.xxh32(server), base = 16, pad = 8)
     else
         key = string(XXhash.xxh32(string(sort(player_names))), base = 16, pad = 8)
     end
