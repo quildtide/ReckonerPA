@@ -208,28 +208,28 @@ function cond_recip(val::Float64)::Float64
 end
 
 function time_penalty(timestamp_1::Int64, timestamp_2::Int64)::Float64
-    # The time penalty is e^(rt) where r is -0.03 and t is in days
-    # Thus, a game becomes worth 4% less towards a rank for every day.
-    rate::Float64 = -0.02
+    # The time penalty is e^(rt) where r is -0.0175 and t is in days
+    # Thus, a game becomes worth 1.75% less towards a rank for every day.
+    rate::Float64 = -0.0175
     time::Float64 = (timestamp_1 - timestamp_2) / (24 * 60 * 60)
     penalty::Float64 = exp(rate * time)
 end
 
 function team_penalty(curr::PAMatch, prev)::Float64
-    n_curr::Int16 = round(Int16, curr.team_size_mean * curr.team_count)
-    n_prev::Int16 = round(Int16, prev.team_size_mean * prev.team_count)
+    n_curr = curr.team_size_mean * curr.team_count
+    n_prev = prev.team_size_mean * prev.team_count
 
     penalty::Float64 = 1.0
-    penalty *= cond_recip(log(curr.team_size + .3) / log(prev.team_size + .3))^0.6
-    penalty *= cond_recip(log(curr.team_size_mean + .3) / log(prev.team_size_mean + .3))^0.3
+    penalty *= cond_recip(log(curr.team_size + .3) / log(prev.team_size + .3))^0.5
+    penalty *= cond_recip(log(curr.team_size_mean + .3) / log(prev.team_size_mean + .3))^0.25
     penalty *= cond_recip(log(curr.team_count) / log(prev.team_count))^0.4
-    penalty *= cond_recip(log(n_curr) / log(n_prev))^0.4
+    penalty *= cond_recip(log(n_curr) / log(n_prev))^0.3
 
-    if ((curr.team_size == 1) && (prev.team_size != 1)) penalty *= 0.8 end
-    if ((curr.team_count == 2) ⊻ (prev.team_count == 2)) penalty *= 0.8 end
+    if ((curr.team_size == 1) && (prev.team_size != 1)) penalty *= 0.85 end
+    if ((curr.team_count == 2) ⊻ (prev.team_count == 2)) penalty *= 0.85 end
 
-    if (prev.team_size_var > 0) penalty *= (2 / (2 + prev.team_size_var)) end
-    if (curr.team_size_var > 0) penalty *= (2 / (2 + curr.team_size_var)) end
+    penalty *= (2 / (2 + prev.team_size_var))
+    penalty *= (2 / (2 + curr.team_size_var))
 
     penalty
 end
@@ -237,11 +237,11 @@ end
 function eco_penalty(curr::PAMatch, prev)::Float64
     penalty::Float64 = 1.0
 
-    penalty *= cond_recip(log(curr.eco + 1.01) / log(prev.eco + 1.01))^1.4
-    penalty *= cond_recip(log(curr.eco_mean + 1.01) / log(prev.eco_mean + 1.01))^0.7
+    penalty *= cond_recip(log(curr.eco + 1.5) / log(prev.eco + 1.5))^1.2
+    penalty *= cond_recip(log(curr.eco_mean + 1.5) / log(prev.eco_mean + 1.5))^0.4
 
-    if (prev.eco_var > 0) penalty *= (0.5 / (0.5 + prev.eco_var)) end
-    if (curr.eco_var > 0) penalty *= (0.5 / (0.5 + curr.eco_var)) end
+    penalty *= (0.7 / (0.7 + prev.eco_var))
+    penalty *= (0.7 / (0.7 + curr.eco_var))
 
     penalty
 end
@@ -262,11 +262,11 @@ function pa_weight(curr::PAMatch, prev)::Float64
 
     weight *= eco_penalty(curr, prev)
 
-    if ((curr.shared) ⊻ (prev.shared)) weight *= 0.6 end
+    if ((curr.shared) ⊻ (prev.shared)) weight *= 0.75 end
 
-    if ((curr.titans) ⊻ (prev.titans)) weight *= 0.8 end
+    if ((curr.titans) ⊻ (prev.titans)) weight *= 0.85 end
     
-    if (prev.unknown_eco) weight *= 0.75 end
+    if (prev.unknown_eco) weight *= 0.8 end
 
     if (prev.ranked) weight *= 1.5 end
 
