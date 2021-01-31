@@ -332,7 +332,7 @@ function soft_log(base::Number, val::Number)::Float64
     end
 end
 
-const TRB = 10^(1/3)
+const TRB = 10^(1/4)
 
 function team_ratings(ratings::Vector{Normal{Float64}}, teams::Vector{<:Integer}, eco::Vector{Float64})::Vector{Normal{Float64}}
     m::Int64 = length(unique(teams))
