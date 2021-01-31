@@ -238,7 +238,7 @@ function eco_penalty(curr::PAMatch, prev)::Float64
     penalty::Float64 = 1.0
 
     penalty *= cond_recip(log(curr.eco + 1.01) / log(prev.eco + 1.01))^1.4
-    penalty *= cond_recip(log(curr.eco + 1.01) / log(prev.eco + 1.01))^0.7
+    penalty *= cond_recip(log(curr.eco_mean + 1.01) / log(prev.eco_mean + 1.01))^0.7
 
     if (prev.eco_var > 0) penalty *= (0.5 / (0.5 + prev.eco_var)) end
     if (curr.eco_var > 0) penalty *= (0.5 / (0.5 + curr.eco_var)) end
