@@ -231,6 +231,8 @@ function team_penalty(curr::PAMatch, prev)::Float64
     penalty *= (2 / (2 + prev.team_size_var))
     penalty *= (2 / (2 + curr.team_size_var))
 
+    penalty *= 150 / (150 + (prev.beta / sqrt(n_prev - 1) / 100)^6)
+
     penalty
 end
 
@@ -271,10 +273,6 @@ function pa_weight(curr::PAMatch, prev)::Float64
     if (prev.ranked) weight *= 1.5 end
 
     if (prev.tourney) weight *= 2.0 end
-
-    if isnan(weight) print(curr, "\n") end
-
-    if (weight < 0) print(weight, "\n") end
 
     weight
 
