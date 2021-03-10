@@ -231,7 +231,7 @@ function team_penalty(curr::PAMatch, prev)::Float64
     penalty *= (2 / (2 + prev.team_size_var))
     penalty *= (2 / (2 + curr.team_size_var))
 
-    penalty *= 150 / (150 + (prev.beta / sqrt(n_prev - 1) / 100)^6)
+    penalty *= 150 / (150 + (std(challenge(prev)) / sqrt(n_prev - 1) / 100)^6)
 
     penalty
 end
