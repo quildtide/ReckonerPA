@@ -27,11 +27,11 @@ function import_local_bot_matches(conn)
 
         is_2w = time_start in second_wave
         is_qbe = time_start in qbe
-        is_team = time_start in qbe
+        is_team = time_start in team
 
         player_count = length(armies)
 
-        team_size = if is_team player_count ÷ 2 else player_count end
+        team_size = if is_team player_count ÷ 2 else 1 end
         team_count = Int32(player_count / team_size)
 
         match_id = match_id_generation(time_start, ["",""], "local", 0)
