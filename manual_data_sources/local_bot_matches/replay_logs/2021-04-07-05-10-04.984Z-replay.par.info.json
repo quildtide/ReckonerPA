@@ -1,0 +1,129 @@
+{
+    "armies": [
+                  {
+                      "personality": {
+                                         "percent_vehicle": 0.5,
+                                         "display_name": "Advanced Rush",
+                                         "percent_naval": 0.050000000000000003,
+                                         "personality_tags": [
+                                                                 "Default",
+                                                                 "PreventsWaste"
+                                                             ],
+                                         "micro_type": 2,
+                                         "percent_bot": 0.25,
+                                         "percent_orbital": 0,
+                                         "percent_air": 0.20000000000000001,
+                                         "fabber_to_factory_ratio_basic": 1,
+                                         "factory_alone_on_planet_mod": 0.5,
+                                         "metal_drain_check": 0.29999999999999999,
+                                         "energy_demand_check": 0.40000000000000002,
+                                         "min_basic_fabbers": 2,
+                                         "energy_drain_check": 0.29999999999999999,
+                                         "metal_demand_check": 0.71999999999999997,
+                                         "factory_build_delay_min": 0,
+                                         "go_for_the_kill": true,
+                                         "priority_scout_metal_spots": true,
+                                         "min_advanced_fabbers": 3,
+                                         "enable_commander_danger_responses": true,
+                                         "neural_data_mod": 1,
+                                         "unable_to_expand_delay": 0,
+                                         "per_expansion_delay": 0,
+                                         "adv_eco_mod": 0.25,
+                                         "adv_eco_mod_alone": 0.10000000000000001,
+                                         "fabber_to_factory_ratio_advanced": 1,
+                                         "fabber_alone_on_planet_mod": 2,
+                                         "basic_to_advanced_factory_ratio": 0,
+                                         "max_basic_fabbers": 20,
+                                         "max_advanced_fabbers": 50,
+                                         "starting_location_evaluation_radius": 400,
+                                         "name": "Advanced Rush"
+                                     },
+                      "index": 0,
+                      "name": "Grond",
+                      "ai": true,
+                      "defeated": true,
+                      "secondary_color": [
+                                             151,
+                                             251,
+                                             152
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           223,
+                                           0
+                                       ],
+                      "spec_tag": "",
+                      "econ": 1,
+                      "players": []
+                  },
+                  {
+                      "personality": {
+                                         "percent_vehicle": 0.1125,
+                                         "display_name": "!LOC:AIP Orbital",
+                                         "percent_naval": 0,
+                                         "personality_tags": [
+                                                                 "Default",
+                                                                 "PreventsWaste"
+                                                             ],
+                                         "micro_type": 2,
+                                         "percent_bot": 0.0625,
+                                         "percent_orbital": 0.77500000000000002,
+                                         "percent_air": 0.050000000000000003,
+                                         "fabber_to_factory_ratio_basic": 1,
+                                         "factory_alone_on_planet_mod": 0.5,
+                                         "metal_drain_check": 0.54000000000000004,
+                                         "energy_demand_check": 0.80000000000000004,
+                                         "min_basic_fabbers": 2,
+                                         "energy_drain_check": 0.65000000000000002,
+                                         "metal_demand_check": 0.70999999999999996,
+                                         "factory_build_delay_min": 0,
+                                         "go_for_the_kill": true,
+                                         "priority_scout_metal_spots": true,
+                                         "min_advanced_fabbers": 3,
+                                         "enable_commander_danger_responses": true,
+                                         "neural_data_mod": 1,
+                                         "unable_to_expand_delay": 0,
+                                         "per_expansion_delay": 0,
+                                         "adv_eco_mod": 1.3,
+                                         "adv_eco_mod_alone": 0.84999999999999998,
+                                         "fabber_to_factory_ratio_advanced": 1,
+                                         "fabber_alone_on_planet_mod": 2,
+                                         "basic_to_advanced_factory_ratio": 0,
+                                         "max_basic_fabbers": 20,
+                                         "max_advanced_fabbers": 50,
+                                         "starting_location_evaluation_radius": 400,
+                                         "name": "aipOrbital"
+                                     },
+                      "index": 1,
+                      "name": "ptanhkhoa",
+                      "ai": true,
+                      "defeated": false,
+                      "secondary_color": [
+                                             139,
+                                             69,
+                                             19
+                                         ],
+                      "primary_color": [
+                                           113,
+                                           52,
+                                           165
+                                       ],
+                      "spec_tag": "",
+                      "econ": 1,
+                      "players": []
+                  }
+              ],
+    "save": {
+                "valid_range": [
+                                   26500,
+                                   -1
+                               ],
+                "name": "2021-04-07-05-10-04.984Z-replay",
+                "utc_timestamp": 1617772204,
+                "type": "replay"
+            },
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "endOfTime": 1066.7
+}

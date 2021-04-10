@@ -349,4 +349,9 @@ Average Entropy by time period:
 ## Reckoner 0.7.1 2020-11-29
 - Implemented iterative algorithm to approximate rating at which a player has 50% win-loss
 
-## Reckoner 0
+## Reckoner 0.8.0 2021-02-15
+- Implemented hardcap on maximum rating movement when a player has few matches
+  
+Average entropy: 0.683490797446559
+1v1 Average entropy: 0.676086366021285
+5v5 Average entropy: 0.667547077040342

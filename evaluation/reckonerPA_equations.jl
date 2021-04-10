@@ -270,11 +270,13 @@ function pa_weight(curr::PAMatch, prev)::Float64
     
     if (prev.unknown_eco) weight *= 0.8 end
 
+    weight += 1.0 # simulate 0.9.0
+
     if (prev.ranked) weight *= 1.5 end
 
     if (prev.tourney) weight *= 2.0 end
 
-    weight
+    return weight
 
 end
 

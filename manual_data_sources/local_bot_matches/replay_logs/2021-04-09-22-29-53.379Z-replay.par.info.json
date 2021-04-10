@@ -1,0 +1,131 @@
+{
+    "armies": [
+                  {
+                      "personality": {
+                                         "percent_vehicle": 0.45000000000000001,
+                                         "display_name": "!LOC:Q-Uber Platoon",
+                                         "percent_naval": 0.050000000000000003,
+                                         "personality_tags": [
+                                                                 "queller",
+                                                                 "platoon"
+                                                             ],
+                                         "micro_type": 2,
+                                         "percent_bot": 0.25,
+                                         "percent_orbital": 0.050000000000000003,
+                                         "percent_air": 0.20000000000000001,
+                                         "fabber_to_factory_ratio_basic": 1,
+                                         "factory_alone_on_planet_mod": 0.5,
+                                         "metal_drain_check": 0.54000000000000004,
+                                         "energy_demand_check": 0.80000000000000004,
+                                         "min_basic_fabbers": 3,
+                                         "energy_drain_check": 0.71999999999999997,
+                                         "metal_demand_check": 0.80000000000000004,
+                                         "factory_build_delay_min": 0,
+                                         "go_for_the_kill": true,
+                                         "priority_scout_metal_spots": true,
+                                         "min_advanced_fabbers": 1,
+                                         "enable_commander_danger_responses": true,
+                                         "neural_data_mod": 1,
+                                         "unable_to_expand_delay": 0,
+                                         "per_expansion_delay": 0,
+                                         "adv_eco_mod": 1,
+                                         "adv_eco_mod_alone": 0,
+                                         "fabber_to_factory_ratio_advanced": 1,
+                                         "fabber_alone_on_planet_mod": 2,
+                                         "basic_to_advanced_factory_ratio": 0,
+                                         "max_basic_fabbers": 20,
+                                         "max_advanced_fabbers": 50,
+                                         "starting_location_evaluation_radius": 400,
+                                         "name": "qUberPlatoon",
+                                         "ai_path": "/pa/q_uber"
+                                     },
+                      "index": 0,
+                      "name": "dcramer",
+                      "ai": true,
+                      "defeated": true,
+                      "secondary_color": [
+                                             206,
+                                             51,
+                                             122
+                                         ],
+                      "primary_color": [
+                                           147,
+                                           122,
+                                           219
+                                       ],
+                      "spec_tag": "",
+                      "econ": 1,
+                      "players": []
+                  },
+                  {
+                      "personality": {
+                                         "percent_vehicle": 0.45000000000000001,
+                                         "display_name": "!LOC:Q-Uber 1v1",
+                                         "percent_naval": 0.050000000000000003,
+                                         "personality_tags": [
+                                                                 "queller",
+                                                                 "lateorbital"
+                                                             ],
+                                         "micro_type": 2,
+                                         "percent_bot": 0.25,
+                                         "percent_orbital": 0.050000000000000003,
+                                         "percent_air": 0.20000000000000001,
+                                         "fabber_to_factory_ratio_basic": 1,
+                                         "factory_alone_on_planet_mod": 0.5,
+                                         "metal_drain_check": 0.54000000000000004,
+                                         "energy_demand_check": 0.80000000000000004,
+                                         "min_basic_fabbers": 3,
+                                         "energy_drain_check": 0.71999999999999997,
+                                         "metal_demand_check": 0.80000000000000004,
+                                         "factory_build_delay_min": 0,
+                                         "go_for_the_kill": true,
+                                         "priority_scout_metal_spots": true,
+                                         "min_advanced_fabbers": 1,
+                                         "enable_commander_danger_responses": true,
+                                         "neural_data_mod": 1,
+                                         "unable_to_expand_delay": 0,
+                                         "per_expansion_delay": 0,
+                                         "adv_eco_mod": 1.5,
+                                         "adv_eco_mod_alone": 0,
+                                         "fabber_to_factory_ratio_advanced": 1,
+                                         "fabber_alone_on_planet_mod": 2,
+                                         "basic_to_advanced_factory_ratio": 0,
+                                         "max_basic_fabbers": 20,
+                                         "max_advanced_fabbers": 50,
+                                         "starting_location_evaluation_radius": 400,
+                                         "name": "qUber1v1",
+                                         "ai_path": "/pa/q_uber"
+                                     },
+                      "index": 1,
+                      "name": "Tank",
+                      "ai": true,
+                      "defeated": false,
+                      "secondary_color": [
+                                             151,
+                                             251,
+                                             152
+                                         ],
+                      "primary_color": [
+                                           113,
+                                           52,
+                                           165
+                                       ],
+                      "spec_tag": "",
+                      "econ": 1,
+                      "players": []
+                  }
+              ],
+    "save": {
+                "valid_range": [
+                                   10100,
+                                   -1
+                               ],
+                "name": "2021-04-09-22-29-53.379Z-replay",
+                "utc_timestamp": 1618007393,
+                "type": "replay"
+            },
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "endOfTime": 1178.5999999999999
+}

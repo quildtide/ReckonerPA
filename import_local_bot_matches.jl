@@ -31,7 +31,7 @@ function import_local_bot_matches(conn)
 
         player_count = length(armies)
 
-        team_size = if is_team 2 else player_count end
+        team_size = if is_team player_count ÷ 2 else player_count end
         team_count = Int32(player_count / team_size)
 
         match_id = match_id_generation(time_start, ["",""], "local", 0)
