@@ -75,7 +75,12 @@ function update_recorder_match(match, armies, is_qbe::Bool, update::Dict{Tuple{L
             usernames = vcat(usernames, i["players"])
             if length(i["players"]) > 0
                 curr_username = i["players"][1]
-                team_num = update[(lobbyid, curr_username)].team_num
+                if (lobbyid, curr_username) in keys(update)
+                    team_num = update[(lobbyid, curr_username)].team_num
+                else # abort
+                    return output
+                end
+
                 if !(team_num in keys(team_victory))
                     team_victory[team_num] = alive
                 elseif !(team_victory[team_num])
