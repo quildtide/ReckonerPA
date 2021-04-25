@@ -18,6 +18,13 @@ function import_local_bot_matches(conn)
     qbe = handle_record("qbe_record.csv")
     team = handle_record("team_record.csv")
 
+    modes = ["qbe", "s17", "2w"]
+    mode_ranges = Dict{String,Vector{Pair{Int64,Int64}}}(m=>Vector{Pair{Int64,Int64}}() for m in modes)
+    
+    for i in CSV.File(main_dir * "composite_record.csv")
+        push!(mode_ranges[i.mode],i.start=>i.end)
+    end
+
     function process_bot_match(filename)
         match = JSON.parsefile(match_dir * filename)
 
@@ -26,8 +33,24 @@ function import_local_bot_matches(conn)
         armies = match["armies"]
 
         is_2w = time_start in second_wave
-        is_qbe = time_start in qbe
+        is_qbe = is_2w || (time_start in qbe)
         is_team = time_start in team
+
+        if !is_2w
+            for (r_start, r_end) in mode_ranges["2w"]
+                if r_start ≤ time_start ≤ r_end
+                    is_2w = is_qbe = true
+                end
+            end
+        end
+
+        if !is_qbe
+            for (r_start, r_end) in mode_ranges["qbe"]
+                if r_start ≤ time_start ≤ r_end
+                    is_qbe = true
+                end
+            end
+        end
 
         player_count = length(armies)
 

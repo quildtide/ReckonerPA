@@ -1,0 +1,130 @@
+{
+    "armies": [
+                  {
+                      "personality": {
+                                         "percent_vehicle": 0.45000000000000001,
+                                         "display_name": "Legonis Machina (land/air)",
+                                         "percent_naval": 0.050000000000000003,
+                                         "personality_tags": [
+                                                                 "Default",
+                                                                 "PreventsWaste"
+                                                             ],
+                                         "micro_type": 2,
+                                         "percent_bot": 0.25,
+                                         "percent_orbital": 0.050000000000000003,
+                                         "percent_air": 0.34999999999999998,
+                                         "fabber_to_factory_ratio_basic": 1,
+                                         "factory_alone_on_planet_mod": 0.5,
+                                         "metal_drain_check": 0.75,
+                                         "energy_demand_check": 0.84999999999999998,
+                                         "min_basic_fabbers": 2,
+                                         "energy_drain_check": 0.84999999999999998,
+                                         "metal_demand_check": 0.75,
+                                         "factory_build_delay_min": 0,
+                                         "go_for_the_kill": true,
+                                         "priority_scout_metal_spots": true,
+                                         "min_advanced_fabbers": 3,
+                                         "percent_land": 0.55000000000000004,
+                                         "enable_commander_danger_responses": true,
+                                         "neural_data_mod": 1,
+                                         "unable_to_expand_delay": 0,
+                                         "per_expansion_delay": 0,
+                                         "adv_eco_mod": 1.3,
+                                         "adv_eco_mod_alone": 0.84999999999999998,
+                                         "fabber_to_factory_ratio_advanced": 1,
+                                         "fabber_alone_on_planet_mod": 2,
+                                         "basic_to_advanced_factory_ratio": 0,
+                                         "max_basic_fabbers": 20,
+                                         "max_advanced_fabbers": 50,
+                                         "starting_location_evaluation_radius": 400,
+                                         "name": "Legonis Machina (land/air)"
+                                     },
+                      "index": 0,
+                      "name": "Madrat",
+                      "ai": true,
+                      "defeated": false,
+                      "secondary_color": [
+                                             223,
+                                             140,
+                                             107
+                                         ],
+                      "primary_color": [
+                                           210,
+                                           180,
+                                           140
+                                       ],
+                      "spec_tag": "",
+                      "econ": 1,
+                      "players": []
+                  },
+                  {
+                      "personality": {
+                                         "percent_vehicle": 0.45000000000000001,
+                                         "display_name": "!LOC:Normal",
+                                         "percent_naval": 0.050000000000000003,
+                                         "personality_tags": [
+                                                                 "Default",
+                                                                 "SlowerExpansion"
+                                                             ],
+                                         "micro_type": 0,
+                                         "percent_bot": 0.25,
+                                         "percent_orbital": 0.050000000000000003,
+                                         "percent_air": 0.20000000000000001,
+                                         "fabber_to_factory_ratio_basic": 5,
+                                         "factory_alone_on_planet_mod": 1,
+                                         "metal_drain_check": 0.14000000000000001,
+                                         "energy_demand_check": 0.29999999999999999,
+                                         "min_basic_fabbers": 5,
+                                         "energy_drain_check": 0.25,
+                                         "metal_demand_check": 0.20999999999999999,
+                                         "factory_build_delay_min": 15,
+                                         "go_for_the_kill": true,
+                                         "priority_scout_metal_spots": true,
+                                         "min_advanced_fabbers": 3,
+                                         "enable_commander_danger_responses": true,
+                                         "neural_data_mod": 2,
+                                         "adv_eco_mod": 3,
+                                         "adv_eco_mod_alone": 3,
+                                         "factory_build_delay_max": 30,
+                                         "fabber_alone_on_planet_mod": 1,
+                                         "unable_to_expand_delay": 60,
+                                         "per_expansion_delay": 120,
+                                         "fabber_to_factory_ratio_advanced": 1,
+                                         "basic_to_advanced_factory_ratio": 0,
+                                         "max_basic_fabbers": 15,
+                                         "max_advanced_fabbers": 20,
+                                         "name": "Normal"
+                                     },
+                      "index": 1,
+                      "name": "Grond",
+                      "ai": true,
+                      "defeated": true,
+                      "secondary_color": [
+                                             147,
+                                             122,
+                                             219
+                                         ],
+                      "primary_color": [
+                                           113,
+                                           52,
+                                           165
+                                       ],
+                      "spec_tag": "",
+                      "econ": 1,
+                      "players": []
+                  }
+              ],
+    "save": {
+                "valid_range": [
+                                   26100,
+                                   -1
+                               ],
+                "name": "2021-04-21-06-47-33.681Z-replay",
+                "utc_timestamp": 1618987653,
+                "type": "replay"
+            },
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "endOfTime": 1754.9000000000001
+}

@@ -1,0 +1,131 @@
+{
+    "armies": [
+                  {
+                      "personality": {
+                                         "ai_path": "/pa/v-arcturus-v",
+                                         "name": "V_Betelgeuse_V",
+                                         "percent_vehicle": 0.20000000000000001,
+                                         "personality_tags": [
+                                                                 "Default",
+                                                                 "PreventsWaste"
+                                                             ],
+                                         "display_name": "!LOC:V_Betelgeuse_V",
+                                         "percent_naval": 0.40000000000000002,
+                                         "percent_air": 0.050000000000000003,
+                                         "factory_alone_on_planet_mod": 0.5,
+                                         "fabber_to_factory_ratio_basic": 1,
+                                         "percent_open_bot": 1,
+                                         "percent_bot": 0.10000000000000001,
+                                         "micro_type": 2,
+                                         "percent_orbital": 0.25,
+                                         "metal_drain_check": 0.40000000000000002,
+                                         "energy_demand_check": 0.90000000000000002,
+                                         "min_basic_fabbers": 3,
+                                         "energy_drain_check": 0.84999999999999998,
+                                         "metal_demand_check": 0.70999999999999996,
+                                         "factory_build_delay_min": 0,
+                                         "go_for_the_kill": true,
+                                         "priority_scout_metal_spots": true,
+                                         "min_advanced_fabbers": 0,
+                                         "enable_commander_danger_responses": true,
+                                         "neural_data_mod": 1.3500000000000001,
+                                         "unable_to_expand_delay": 0,
+                                         "per_expansion_delay": 0,
+                                         "adv_eco_mod": 1.75,
+                                         "adv_eco_mod_alone": 0.59999999999999998,
+                                         "fabber_to_factory_ratio_advanced": 1,
+                                         "fabber_alone_on_planet_mod": 2,
+                                         "basic_to_advanced_factory_ratio": 0,
+                                         "max_basic_fabbers": 100,
+                                         "max_advanced_fabbers": 30,
+                                         "starting_location_evaluation_radius": 400
+                                     },
+                      "index": 0,
+                      "name": "Thor",
+                      "ai": true,
+                      "defeated": false,
+                      "secondary_color": [
+                                             147,
+                                             122,
+                                             219
+                                         ],
+                      "primary_color": [
+                                           113,
+                                           52,
+                                           165
+                                       ],
+                      "spec_tag": "",
+                      "econ": 1,
+                      "players": []
+                  },
+                  {
+                      "personality": {
+                                         "percent_vehicle": 0.45000000000000001,
+                                         "display_name": "!LOC:Absurd",
+                                         "percent_naval": 0.050000000000000003,
+                                         "personality_tags": [
+                                                                 "Default",
+                                                                 "PreventsWaste"
+                                                             ],
+                                         "micro_type": 2,
+                                         "percent_bot": 0.25,
+                                         "percent_orbital": 0.050000000000000003,
+                                         "percent_air": 0.20000000000000001,
+                                         "fabber_to_factory_ratio_basic": 1,
+                                         "factory_alone_on_planet_mod": 0.5,
+                                         "metal_drain_check": 0.54000000000000004,
+                                         "energy_demand_check": 0.80000000000000004,
+                                         "min_basic_fabbers": 2,
+                                         "energy_drain_check": 0.65000000000000002,
+                                         "metal_demand_check": 0.70999999999999996,
+                                         "factory_build_delay_min": 0,
+                                         "go_for_the_kill": true,
+                                         "priority_scout_metal_spots": true,
+                                         "min_advanced_fabbers": 3,
+                                         "enable_commander_danger_responses": true,
+                                         "neural_data_mod": 1,
+                                         "unable_to_expand_delay": 0,
+                                         "per_expansion_delay": 0,
+                                         "adv_eco_mod": 1.3,
+                                         "adv_eco_mod_alone": 0.84999999999999998,
+                                         "fabber_to_factory_ratio_advanced": 1,
+                                         "fabber_alone_on_planet_mod": 2,
+                                         "basic_to_advanced_factory_ratio": 0,
+                                         "max_basic_fabbers": 20,
+                                         "max_advanced_fabbers": 50,
+                                         "starting_location_evaluation_radius": 400,
+                                         "name": "Absurd"
+                                     },
+                      "index": 1,
+                      "name": "Wrath",
+                      "ai": true,
+                      "defeated": true,
+                      "secondary_color": [
+                                             143,
+                                             188,
+                                             143
+                                         ],
+                      "primary_color": [
+                                           0,
+                                           223,
+                                           0
+                                       ],
+                      "spec_tag": "",
+                      "econ": 1,
+                      "players": []
+                  }
+              ],
+    "save": {
+                "valid_range": [
+                                   21900,
+                                   -1
+                               ],
+                "name": "2021-04-22-04-56-32.542Z-replay",
+                "utc_timestamp": 1619067392,
+                "type": "replay"
+            },
+    "required_content": [
+                            "PAExpansion1"
+                        ],
+    "endOfTime": 1034.2
+}
