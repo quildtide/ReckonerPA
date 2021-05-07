@@ -5,12 +5,9 @@ import Tables
 conn = LibPQ.Connection("dbname=reckoner user=reckoner")
 # LibPQ.execute(conn,"DELETE FROM reckoner.smurfs")
 
-data = CSV.File
-
-open("setup/smurfs.csv", "r") do f
-    global data = CSV.File(f, type = String)
+data = open("setup/smurfs.csv", "r") do f
+    CSV.File(f, type = String)
 end
-
 
 LibPQ.execute(conn, "BEGIN;")
 LibPQ.execute(conn, "DELETE FROM reckoner.smurfs WHERE alt_player_type != 'river';")
