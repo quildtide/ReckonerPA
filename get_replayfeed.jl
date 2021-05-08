@@ -25,8 +25,6 @@ function rem_pte(patch::String)::Int64
     out
 end
 
-
-
 function update_match(match::FeedMatch, update::Dict{Tuple{LobbyId, Username}, PastComposite}, conn)::Vector{String}
     output = Vector{String}()
 
@@ -212,14 +210,14 @@ function insert_match(match::FeedMatch, conn)::Vector{String}
             player_num = counter2
             username = sanitize(army["name"])
             
-            player_id = if "display_name" in keys(army["personality"])
+            player_id = if "name" in keys(army["personality"])
                             army["personality"]["name"]
                         elseif "personality_tag" in keys(army["personality"])
                             army["personality"]["personality_tag"]
                         else
                             "Unknown AI Replayfeed"
                         end
-            if match["qbe"]
+            if match["qbe"] || ("qbe" in keys(army["personality"]))
                 player_id = player_id * " QBE"
             end
             commanders = size
@@ -329,14 +327,14 @@ function insert_match_FFA(match::FeedMatch, conn)::Vector{String}
         commanders = size
         if army["ai"]
             username = sanitize(army["name"])
-            player_id = if "display_name" in keys(army["personality"])
+            player_id = if "name" in keys(army["personality"])
                             army["personality"]["name"]
                         elseif "personality_tag" in keys(army["personality"])
                             army["personality"]["personality_tag"]
                         else
                             "Unknown AI Replayfeed"
                         end
-            if match["qbe"]
+            if match["qbe"] || ("qbe" in keys(army["personality"]))
                 player_id = player_id * " QBE"
             end
         else
