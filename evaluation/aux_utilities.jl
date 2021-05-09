@@ -50,42 +50,42 @@ function empty_matches()::PAMatches
     )
 end
 
+function prepare_player_matches_ps(conn)
+    LibPQ.prepare(conn, "
+    SELECT
+        player_type,
+        player_id,
+        time_start as timestamp,
+        match_id,
+        team_num as team_id,
+        win,
+        team_size,
+        team_size_mean,
+        team_size_var,
+        team_count,
+        eco,
+        eco_mean,
+        eco_var,
+        all_dead,
+        shared,
+        titans,
+        ranked,
+        tourney,
+        win_chance,
+        player_num,
+        alpha,
+        beta,
+        rating_sd
+    FROM reckoner.matchrows_mat
+    WHERE SCORED
+    AND (player_type, player_id) = ANY (
+        SELECT a, b FROM UNNEST(\$1::VARCHAR[], \$2::VARCHAR[]) t(a,b)
+    )"
+    )
+end
 
-function get_player_matches(player_ids::Vector, conn, player_types::Vector{String})::PlayerHist
-    query::String = "
-        SELECT
-            player_type,
-            player_id,
-            time_start as timestamp,
-            match_id,
-            team_num as team_id,
-            win,
-            team_size,
-            team_size_mean,
-            team_size_var,
-            team_count,
-            eco,
-            eco_mean,
-            eco_var,
-            all_dead,
-            shared,
-            titans,
-            ranked,
-            tourney,
-            win_chance,
-            player_num,
-            alpha,
-            beta,
-            rating_sd
-        FROM reckoner.matchrows_mat
-        WHERE SCORED
-        AND (player_type, player_id) IN ("
-    for (type, id) in zip(player_types, player_ids)
-        query *= "('$(sanitize(type))','$(sanitize(id))'),"
-    end
-    query = query[1:end-1] * ");"
-    # query = query[1:end-1] * ") ORDER BY TIME_START ASC;"
-    res = LibPQ.execute(conn, query)
+function get_player_matches(prepared_statement, player_ids::Vector, player_types::Vector{String})::PlayerHist
+    res = LibPQ.execute(prepared_statement, (player_types, player_ids))
 
     player_hist::PlayerHist = PlayerHist()
 
@@ -106,12 +106,12 @@ function get_player_matches(player_ids::Vector, conn, player_types::Vector{Strin
     player_hist
 end
 
-function get_player_matches(player_ids::Vector{UInt64}, conn)::PlayerHist
+function get_player_matches(prepared_statement, player_ids::Vector{UInt64})::PlayerHist
     player_types = ["pa inc" for i in player_ids]
-    get_player_matches(player_ids, conn, player_types)
+    get_player_matches(prepared_statement, player_ids, player_types)
 end
 
 
-function get_player_matches(uberid::Any, conn, player_type = "pa inc")::PlayerHist
-   get_player_matches([uberid], conn, [player_type])
+function get_player_matches(prepared_statement, uberid, player_type::String = "pa inc")::PlayerHist
+   get_player_matches(prepared_statement, [uberid], [player_type])
 end

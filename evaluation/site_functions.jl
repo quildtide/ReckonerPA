@@ -6,8 +6,8 @@ import JSON
 
 include("aux_utilities.jl")
 
-function simple_player_rating(uberid::UInt64, conn)::String
-    player_hist::PlayerHist = get_player_matches(uberid, conn)
+function simple_player_rating(prepared_statement, uberid::UInt64)::String
+    player_hist::PlayerHist = get_player_matches(prepared_statement, uberid)
 
     context::PAMatch = PAMatch((win_chance = 0.5, alpha=1500, beta=350, timestamp=Int(trunc(time())), 
                         win=false, team_id=1, team_size = 5, team_size_mean = 5.0, 
@@ -44,7 +44,7 @@ function gen_teams(team_sizes::Vector{Int16})::Vector{Int16}
     teams
 end
 
-function full_player_rating(conn,
+function full_player_rating(prepared_statement,
         player_types::Vector{String}, player_ids::Vector{String},
         team_sizes::Vector{Int16}, ecos::Vector{Float64}, 
         unique_ids::Vector{String}, shared::Vector{Bool},
@@ -68,7 +68,7 @@ function full_player_rating(conn,
     indiv_contexts::Vector{PAMatch} = [setproperties(base_context, (team_id = teams[i], 
             team_size = team_sizes[teams[i]], eco = ecos[i], shared = shared[teams[i]])) for i in 1:n]
 
-    player_hists::PlayerHist = get_player_matches(player_ids, conn, player_types)
+    player_hists::PlayerHist = get_player_matches(prepared_statement, player_ids, player_types)
 
     prev_matches::Vector{PAMatches} = [player_hists[(player_types[i], player_ids[i])] for i in 1:n]
 
@@ -97,10 +97,10 @@ function full_player_rating(conn,
     out
 end
 
-function full_player_rating(input_json::String, conn)::String
+function full_player_rating(prepared_statement, input_json::String)::String
     input = JSON.parse(input_json)
 
-    JSON.json(full_player_rating(conn, Vector{String}(input["player_types"]), 
+    JSON.json(full_player_rating(prepared_statement, Vector{String}(input["player_types"]), 
             Vector{String}(input["player_ids"]), Vector{Int16}(input["team_sizes"]), 
             Vector{Float64}(input["ecos"]), Vector{String}(input["unique_ids"]), 
             Vector{Bool}(input["shared"]), input["titans"]))

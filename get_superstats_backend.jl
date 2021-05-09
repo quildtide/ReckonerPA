@@ -34,9 +34,8 @@ struct Match
     titans::Bool
     ranked::Bool
     tourney::Bool
-    mods::String
-    mod_versions::String
-    sources::String
+    mods::Vector{String}
+    mod_versions::Vector{String}
     system_name::String
     system_info::String
     server::String
@@ -48,11 +47,10 @@ function Base.isless(left::Match, right::Match)
 end
 
 function reformat_superstats_data(data::Array{Any,1})::Vector{Match}
-
     matches::Vector{Match} = Vector{Match}()
 
     for match in data
-        playernames::Vector{String} = [sanitize(i["displayName"]) for i in collect(Iterators.flatten([j["extendedPlayers"] for j in match["armies"]]))]
+        playernames::Vector{String} = [i["displayName"] for i in collect(Iterators.flatten([j["extendedPlayers"] for j in match["armies"]]))]
         time_start::Int32 = Int32(match["gameStartTime"] ÷ 1000)
         if match["isCustomServer"]
             server::String = match["lobbyId"][end-5:end]
@@ -71,14 +69,11 @@ function reformat_superstats_data(data::Array{Any,1})::Vector{Match}
         titans::Bool = match["isTitans"]
         ranked::Bool = match["isRanked"]
         tourney::Bool = match["tournamentInfo"]["isTournament"]
-        mod_ids::Vector{String} = [i["identifier"] for i in match["serverMods"]]
-        mods::String = format_array_postgres(sanitize.(mod_ids))
-        mod_versions::String = format_array_postgres([sanitize(i["version"]) for i in match["serverMods"]])
-        sources::String = format_array_postgres(["Super Stats",])
-        system_name::String = sanitize(match["systemInfo"]["name"])
+        mods::Vector{String} = [i["identifier"] for i in match["serverMods"]]
+        mod_versions::Vector{String} = [i["version"] for i in match["serverMods"]]
+        system_name::String = match["systemInfo"]["name"]
         system_info::String = sanitize(JSON.json(match["systemInfo"]["planets"]))
         teams::Vector{Team} = Vector{Team}()
-        
 
         teamIds::Vector{Int32} = Vector{Int32}()
         shared_list::Vector{Bool} = Vector{Bool}()
@@ -101,11 +96,12 @@ function reformat_superstats_data(data::Array{Any,1})::Vector{Match}
                     uberid_list = ["AI-Unknown",]
                 end
             else
-                uberid_list = [sanitize(player["uberId"]) for player in army["extendedPlayers"]]
+                uberid_list = [player["uberId"] for player in army["extendedPlayers"]]
             end
+
             commanders::Int16 = size(army["extendedPlayers"])[1]
             eco::Int16 = eco_transformation(army["econ_rate"])
-            username_list::Vector{String} = [sanitize(player["displayName"]) for player in army["extendedPlayers"]]
+            username_list::Vector{String} = [player["displayName"] for player in army["extendedPlayers"]]
             team_num::Union{Int16, Nothing} = findfirst(x -> x == army["teamId"], teamIds)
             if team_num isa Nothing # team_id not already assigned a team_num
                 push!(teamIds, army["teamId"]) # initialize new teamId entry
@@ -141,14 +137,10 @@ function reformat_superstats_data(data::Array{Any,1})::Vector{Match}
             push!(teams, new_team)
         end
 
-        
-
         new_match::Match = Match(match_id, lobbyid, duration, time_start, time_end, titans, ranked, tourney,
-            mods, mod_versions, sources, system_name, system_info, server, teams)
+            mods, mod_versions, system_name, system_info, server, teams)
         push!(matches, new_match)
     end
-
-    
 
     sort!(matches)
 end
@@ -232,106 +224,96 @@ function combine(left::Match, right::Match)::Match
             system_name, system_info, server, teams)
 end
 
-function insert_match(match::Match, conn::LibPQ.Connection)::Nothing
-    # print("insert match $(match.match_id)\n")
-    query::String = 
-    "   INSERT INTO reckoner.matches(
-        match_id, lobbyid, duration,
-        time_start, time_end, titans,
-        ranked, tourney, mods, mod_versions,
-        system_name, system_info,
-        server, source_superstats)
-        VALUES(
-        $(match.match_id), $(match.lobbyid),
-        $(match.duration), $(match.time_start),
-        $(match.time_end), $(match.titans),
-        $(match.ranked), $(match.tourney),
-        $(match.mods), $(match.mod_versions),
-        '$(match.system_name)',
-        '$(match.system_info)', '$(match.server)',
-        TRUE);    "
-    LibPQ.execute(conn, query)
+function send_to_postgres(matches::Vector{Match}, conn::LibPQ.Connection)::Nothing
 
-    for team in match.teams
-        query = 
-        "   INSERT INTO reckoner.teams(   
+    insert_match_ps = LibPQ.prepare(conn, "   
+        INSERT INTO reckoner.matches(
+            match_id, lobbyid, duration,
+            time_start, time_end, titans,
+            ranked, tourney, mods, mod_versions,
+            system_name, system_info,
+            server, source_superstats
+        ) VALUES(
+            \$1, \$2, \$3, \$4, \$5, \$6, \$7, \$8, 
+            \$9, \$10, \$11, \$12, \$13, TRUE
+        );"
+    )
+
+    insert_team_ps = LibPQ.prepare(conn, "
+        INSERT INTO reckoner.teams(   
             match_id, team_num, win,
-            shared, size)
-            VALUES(   
-            $(team.match_id), $(team.team_num),
-            $(team.win), $(team.shared), 
-            $(team.size));   "
-        LibPQ.execute(conn, query)
+            shared, size
+        ) VALUES(\$1, \$2, \$3, \$4, \$5);"
+    )
 
-        for army in team.armies
-            query = 
-            "   INSERT INTO reckoner.armies(
-                match_id, player_num, username,
-                player_type, player_id, eco10, team_num)
-                VALUES(
-                $(army.match_id), $(army.player_num),
-                '$(army.username)', '$(army.player_type)', 
-                '$(army.uberid)',
-                $(army.eco), $(army.team_num));  "
-            LibPQ.execute(conn, query)
+    insert_army_ps = LibPQ.prepare(conn, "   
+        INSERT INTO reckoner.armies(
+            match_id, player_num, username,
+            player_type, player_id, eco10, team_num
+        ) VALUES(
+            \$1, \$2, \$3, \$4,
+            \$5, \$6, \$7
+        );"
+    )
+
+    function insert_match(match::Match)
+        LibPQ.execute(insert_match_ps, (
+            match.match_id, match.lobbyid, 
+            match.duration, match.time_start,
+            match.time_end, match.titans,
+            match.ranked, match.tourney,
+            match.mods, match.mod_versions,
+            match.system_name, match.system_info,
+            match.server
+        ))
+    
+        for team in match.teams
+            LibPQ.execute(insert_team_ps, (
+                team.match_id, team.team_num,
+                team.win, team.shared, team.size
+            ))
+    
+            for army in team.armies
+                LibPQ.execute(insert_army_ps, (
+                    army.match_id, army.player_num,
+                    army.username, army.player_type,
+                    army.uberid, army.eco, army.team_num
+                ))
+            end
         end
     end
-end
 
-function update_match(match::Match, conn::LibPQ.Connection)::Nothing
-    print("update match $(match.match_id)\n")
-    query::String = 
-    "   UPDATE reckoner.matches
-        SET
-        lobbyid = $(match.lobbyid), 
-        duration = $(match.duration),
-        time_start = $(match.time_start), 
-        time_end = $(match.time_end), 
-        titans = $(match.titans),
-        ranked = $(match.ranked),
-        tourney = $(match.tourney),
-        mods = $(match.mods),
-        mod_versions = $(match.mod_versions),
-        source_superstats = TRUE,
-        system_name = '$(match.system_name)',
-        system_info = '$(match.system_info)',
-        server = '$(match.server)'
-        WHERE 
-        match_id = $(match.match_id);"
-    LibPQ.execute(conn, query)
+    update_match_ps = LibPQ.prepare(conn, "
+        UPDATE reckoner.matches
+            SET
+            lobbyid = \$1, 
+            duration = \$2,
+            time_start = \$3, 
+            time_end = \$4, 
+            titans = \$5,
+            ranked = \$6,
+            tourney = \$7,
+            mods = \$8,
+            mod_versions = \$9,
+            source_superstats = TRUE,
+            system_name = \$10,
+            system_info = \$11,
+            server = \$12
+            WHERE 
+            match_id = \$13;"
+    )
 
-    # for team in match.teams
-    #     query = 
-    #     "   UPDATE reckoner.teams
-    #         SET
-    #         win = $(team.win),
-    #         shared = $(team.shared),
-    #         size = $(team.size)
-    #         WHERE 
-    #         match_id = $(team.match_id)
-    #         AND team_num = $(team.team_num);"
-    #     LibPQ.execute(conn, query)
+    function update_match(match::Match)
+        LibPQ.execute(update_match_ps, (
+            match.lobbyid, match.duration,
+            match.time_start, match.time_end,
+            match.titans, match.ranked, match.tourney,
+            match.mods, match.mod_versions,
+            match.system_name, match.system_info,
+            match.server, match.match_id
+        ))
+    end
 
-    #     for army in team.armies
-    #         query = 
-    #         "   UPDATE reckoner.armies
-    #             SET
-    #             username = '$(army.username)',
-    #             player_type = '$(army.player_type)',
-    #             player_id = '$(army.uberid)',
-    #             eco10 = $(army.eco),
-    #             team_num = $(army.team_num)
-    #             WHERE 
-    #             match_id = $(army.match_id)
-    #             AND player_num = $(army.player_num);"
-    #         LibPQ.execute(conn, query)
-    #     end
-    # end
-
-    nothing
-end
-
-function send_to_postgres(matches::Vector{Match}, conn::LibPQ.Connection)::Nothing
     match_ids::Vector{Int64} = [match.match_id for match in matches]
     lobbyids::Vector{Int64} = [match.lobbyid for match in matches]
     query::String = "   SELECT match_id
@@ -365,18 +347,18 @@ function send_to_postgres(matches::Vector{Match}, conn::LibPQ.Connection)::Nothi
             if (-500 < (existing[i] - match.match_id) < 500) # if match already in database before inserts
                 not_existing = false
                 if (-500 < (match.match_id - last_match_id) < 500) # if match was put in database in last step
-                    update_match(combine(match, last_match), conn)
+                    update_match(combine(match, last_match))
                 else                    
-                    update_match(match, conn)
+                    update_match(match)
                 end
             end
         end
 
         if not_existing
             if (-500 < (match.match_id - last_match_id) < 500) # if match was put in database in last step
-                update_match(combine(match, last_match), conn)
+                update_match(combine(match, last_match))
             else # if match not already in database
-                insert_match(match, conn)
+                insert_match(match)
             end
         end
         last_match_id = match.match_id
