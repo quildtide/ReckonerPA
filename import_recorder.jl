@@ -15,13 +15,15 @@ function merge_legacy_namehist(conn)
 
     interval::Int64 = 2500
     index::Int64 = 58000
-    while index < (n + interval)
-        query::String = "   SELECT * FROM reckoner.namehist
-                            ORDER BY (uberid, name)
-                            LIMIT $(interval)
-                            OFFSET $(index);"
 
-        for i in LibPQ.execute(conn, query)
+    stmt_namehist_select = LibPQ.prepare(conn, "
+        SELECT * FROM reckoner.namehist
+        ORDER BY (uberid, name)
+        LIMIT \$1
+        OFFSET \$2;"
+    )
+    while index < (n + interval)
+        for i in stmt_namehist_select((interval, index))
             key::Key = ("pa inc", i.uberid, i.name)
             namehist[key] = SortedSet{Timestamp}(i.timestamp)
         end
@@ -46,384 +48,393 @@ function split_stringarr(input::String)::Vector{String}
     split(input[2:end-1], ',', keepempty = false)
 end
 
-function update_recorder_match(match, armies, is_qbe::Bool, update::Dict{Tuple{LobbyId, Username}, PastComposite}, conn)::Vector{String}
-    output = Vector{String}()
+function process_matches(matches, conn, timestamp_1::Timestamp, timestamp_2::Timestamp; match_time_range::Int64 = 1000)
+    stmt_find_ai_victor = LibPQ.prepare(conn, "
+        SELECT DISTINCT(team_num)
+        FROM reckoner.armies
+        WHERE player_id = \$1
+        OR player_id = 'AI-Unknown';"
+    )
 
-    lobbyid::LobbyId = lobbyid_transform(match.lobbyid)
-    
-    timestamp::Timestamp = match.timestamp + (4 * 3600)
+    stmt_find_matched_player = LibPQ.prepare(conn, "
+        SELECT username, player_id
+        FROM reckoner.armies
+        WHERE match_id BETWEEN (\$1::BIGINT - $match_time_range) AND (\$1 + $match_time_range)
+        AND player_type IN ('superstats', 'pa inc');"
+    )
 
-    match_id::MatchId = generate_match_id(timestamp, lobbyid)
-    
-    usernames = Vector{Username}()
-    known_uberids = Dict{Username, UberId}()
+    stmt_updt_playerid_human = LibPQ.prepare(conn, "   
+        UPDATE reckoner.armies
+        SET player_type = 'pa inc',
+        player_id = \$2
+        WHERE match_id BETWEEN (\$1::BIGINT - $match_time_range) AND (\$1 + $match_time_range)
+        AND username = \$3;"
+    )
 
-    all_dead::Bool = true
-    team_victory = Dict{TeamNum, Bool}()
-    ai_victor::String = "hello world"
-    known_victor::Bool = false
+    stmt_updt_playerid_ai = LibPQ.prepare(conn, "
+        UPDATE reckoner.armies
+        SET player_id = \$2
+        WHERE match_id BETWEEN (\$1::BIGINT - $match_time_range) AND (\$1 + $match_time_range)
+        AND player_type = 'aiDiff'
+        AND player_id = 'AI-Unknown';"
+    )
 
-    ai_types::Set{String} = Set{String}()
-    
-    for i in armies
-        alive = !(i["defeated"])
-        if alive
-            all_dead = false
-        end
+    stmt_updt_source_recorder_all_dead = LibPQ.prepare(conn, "   
+        UPDATE reckoner.matches
+        SET source_recorder = TRUE,
+        all_dead = \$2
+        WHERE match_id BETWEEN (\$1::BIGINT - $match_time_range) AND (\$1 + $match_time_range);"
+    )
 
-        if !i["ai"]
-            usernames = vcat(usernames, i["players"])
-            if length(i["players"]) > 0
-                curr_username = i["players"][1]
-                if (lobbyid, curr_username) in keys(update)
-                    team_num = update[(lobbyid, curr_username)].team_num
-                else # abort
-                    return output
-                end
+    stmt_updt_source_recorder = LibPQ.prepare(conn, "   
+        UPDATE reckoner.matches
+        SET source_recorder = TRUE
+        WHERE match_id BETWEEN (\$1::BIGINT - $match_time_range) AND (\$1 + $match_time_range);"
+    )
 
-                if !(team_num in keys(team_victory))
-                    team_victory[team_num] = alive
-                elseif !(team_victory[team_num])
-                    team_victory[team_num] = alive
-                end
-                if alive
-                    known_victor = true
-                end
-            end
-            
+    stmt_update_team_victory = LibPQ.prepare(conn, "
+        UPDATE reckoner.teams
+        SET win = \$3
+        WHERE match_id BETWEEN (\$1::BIGINT - $match_time_range) AND (\$1 + $match_time_range)
+        AND team_num = \$2;"
+    )
 
-            for j in i["players"]
-                push!(known_uberids, j => update[(lobbyid, j)].uberid)
-            end
-        else
-            ai_type =   if length(i["players"]) > 0
-                            fix_aidiff(i["players"][1])
-                        else
-                            "Unknown AI Recorder"
-                        end
-            if is_qbe
-                ai_type = ai_type * " QBE"
-            end
+    stmt_insert_match = LibPQ.prepare(conn, "
+        INSERT INTO reckoner.matches (
+            match_id, lobbyid, time_start,
+            duration, titans, all_dead, 
+            patch, source_recorder, server
+        ) VALUES (
+            \$1, \$2, \$3, \$4, \$5,
+            \$6, \$7, TRUE, 'pa inc'
+        );"
+    )
 
-            if alive
-                ai_victor = ai_type
-            end
-            push!(ai_types, ai_type)
-        end
-    end
+    stmt_insert_team = LibPQ.prepare(conn, "
+        INSERT INTO reckoner.teams (
+            match_id, team_num, win,
+            shared, size
+        ) VALUES (
+            \$1, \$2, \$3, \$4, \$5
+        );"
+    )
 
-    if !known_victor && !all_dead
-        query::String = "   SELECT DISTINCT(team_num)
-                            FROM reckoner.armies
-                            WHERE player_id = '$ai_victor'
-                            OR player_id = 'AI-Unknown';
-                            "
-        
-        res = LibPQ.execute(conn, query) |> Tables.rowtable
+    stmt_insert_army = LibPQ.prepare(conn, "
+        INSERT INTO reckoner.armies (
+            match_id, player_num, team_num,
+            username, player_type, player_id,
+            eco10, commanders
+        ) VALUES (
+            \$1, \$2, \$3, \$4, 
+            \$5, \$6, \$7, \$8
+        );"
+    )
 
-        if length(res) == 1
-            team_victory[res[1].team_num] = true
-        end
-    end
+    stmt_push_gamefeed_to_matches, stmt_get_namehist, stmt_get_ubernames = gen_replayfeed_common_stmts(conn)
 
-    if "-1" in values(known_uberids)
-        uberids = split_stringarr(match.uberids)
-        unpaired_uberids::Vector{UberId} = setdiff(uberids, values(known_uberids))
-        unpaired_usernames::Vector{Username} = usernames[[known_uberids[i] != "-1" for i in usernames]]
-
-        new_pairs = pair_uberids(unpaired_usernames, unpaired_uberids, timestamp, conn)
-
-        for i in unpaired_usernames
-            query = "   UPDATE reckoner.armies
-                        SET player_type = 'pa inc',
-                        player_id = '$(new_pairs[i])'
-                        WHERE match_id BETWEEN ($match_id - 500) AND ($match_id + 500)
-                        AND username = '$(sanitize(i))';"
-            push!(output, query)
-        end
-    end
-
-    if length(ai_types) == 1
-        query = "   UPDATE reckoner.armies
-                    SET player_id = '$(first(ai_types))'
-                    WHERE match_id BETWEEN ($match_id - 500) AND ($match_id + 500)
-                    AND player_type = 'aiDiff'
-                    AND player_id = 'AI-Unknown';"
-        push!(output, query)
-    end
-
-    query = "   UPDATE reckoner.matches
-                SET source_recorder = TRUE,
-                all_dead = $all_dead
-                WHERE match_id BETWEEN ($match_id - 500) AND ($match_id + 500);"
-    push!(output, query)
-
-    for i in keys(team_victory)
-        query = "   UPDATE reckoner.teams
-                    SET win = $(team_victory[i])
-                    WHERE match_id BETWEEN ($match_id - 500) AND ($match_id + 500)
-                    AND team_num = $i;"
-        push!(output, query)
-    end
-
-    output
-end
-
-function update_recorder_uberids(match, update::Dict{Tuple{LobbyId, Username}, PastComposite}, conn)::Vector{String}
-    output = Vector{String}()
-
-    lobbyid::LobbyId = lobbyid_transform(match.lobbyid)
-    
-    timestamp::Timestamp = match.timestamp + (4 * 3600)
-
-    match_id::MatchId = generate_match_id(timestamp, lobbyid)
-    
-    known_uberids = Dict{Username, UberId}()
-    unpaired_usernames::Vector{Username} = Vector{Username}()
-    
-    query::String = "   SELECT username, player_id
-                        FROM reckoner.armies
-                        WHERE match_id BETWEEN ($match_id - 500) AND ($match_id + 500)
-                        AND player_type IN ('superstats', 'pa inc');
-                        "
-
-    for i in LibPQ.execute(conn, query)
-        if i.player_id == "-1"
-            push!(unpaired_usernames, i.username)
-        else
-            push!(known_uberids, i.player_id)
-        end
-    end
-
-    if !(isempty(unpaired_usernames))
-        uberids = split_stringarr(match.uberids)
-        unpaired_uberids::Vector{UberId} = setdiff(uberids, values(known_uberids))
-
-        new_pairs = pair_uberids(unpaired_usernames, unpaired_uberids, timestamp, conn)
-    end
-
-    for i in unpaired_usernames
-        query = "   UPDATE reckoner.armies
-                    SET player_type = 'pa inc',
-                    player_id = '$(new_pairs[i])'
-                    WHERE match_id BETWEEN ($match_id - 500) AND ($match_id + 500)
-                    AND username = '$(sanitize(i))';"
-        push!(output, query)
-    end
-
-    query = "   UPDATE reckoner.matches
-                SET source_recorder = TRUE
-                WHERE match_id BETWEEN ($match_id - 500) AND ($match_id + 500);"
-    push!(output, query)
-
-    output
-end
-
-function insert_recorder_match(match, armies, is_qbe::Bool, conn)::Vector{String}
-    output = Vector{String}()
-
-    lobbyid = lobbyid_transform(match.lobbyid)
-    time_start::Timestamp = match.timestamp + (4 * 3600)
-    match_id = generate_match_id(time_start, lobbyid)
-    patch = match.version
-    duration = match.duration
-
-    titans = match.titans
-
-    all_dead = armies[1]["defeated"] && armies[2]["defeated"]
-
-    query::String = "   INSERT INTO reckoner.matches 
-                        (match_id, lobbyid, time_start,
-                        duration, titans, all_dead, 
-                        patch, source_recorder, server)
-                        VALUES
-                        ($match_id, $lobbyid, $time_start,
-                        $duration, $titans, $all_dead,
-                        $patch, TRUE, 'pa inc');
-                        "
-    push!(output, query)
-
-    usernames::Vector{Username} = Vector{Username}()
-    for army in armies
-        if !army["ai"]
-            usernames = vcat(usernames, army["players"]) 
-        end
-    end
-
-    uberids::Vector{UberId} = split_stringarr(match.uberids)
-
-    uberid_of::Dict{Username, UberId} = pair_uberids(usernames, uberids, time_start, conn)
-
-    counter = 1
-    counter2 = 1
-
-    for army in armies
-        size = max(length(army["players"]), 1)
-        shared = size > 1
-        win = !army["defeated"]
-        team_num = counter
-
-        query = "   INSERT INTO reckoner.teams
-                    (match_id, team_num, win,
-                    shared, size)
-                    VALUES
-                    ($match_id, $team_num, $win,
-                    $shared, $size);
-                    "
-        push!(output, query)
-
-        eco10 = round(Int16, 10 * army["econ"])
-        player_type = (if army["ai"] "aiDiff" else "pa inc" end)
-
-        if army["ai"]
-            player_num = counter2
-            username = "Lost AI Username ($player_num)"
-            player_id = if length(army["players"]) > 0
-                            fix_aidiff(army["players"][1])
-                        else
-                            "Unknown AI Recorder"
-                        end
-            if is_qbe
-                player_id = player_id * " QBE"
-            end
-            commanders = size
-
-            query = "   INSERT INTO reckoner.armies
-                        (match_id, player_num, team_num,
-                        username, player_type, player_id,
-                        eco10, commanders)
-                        VALUES
-                        ($match_id, $player_num, $team_num,
-                        '$username', '$player_type', '$player_id',
-                        $eco10, $commanders)
-                        "
-            push!(output, query)
-            counter2 += 1
-        else
-            for player in army["players"]
-                player_num = counter2
-                username = player
-                player_id = uberid_of[username]
-                commanders = size
-
-                query = "   INSERT INTO reckoner.armies
-                            (match_id, player_num, team_num,
-                            username, player_type, player_id,
-                            eco10, commanders)
-                            VALUES
-                            ($match_id, $player_num, $team_num,
-                            '$(sanitize(username))', '$player_type', '$player_id',
-                            $eco10, $commanders)
-                            "
-                push!(output, query)
-                counter2 += 1
-            end
-        end
-        
-        counter += 1
-    end
-
-    output
-end
-
-function insert_recorder_match_FFA(match, armies, is_qbe::Bool, conn)::Vector{String}
-    output = Vector{String}()
-
-    lobbyid = lobbyid_transform(match.lobbyid)
-    time_start::Timestamp = match.timestamp + (4 * 3600)
-    match_id = generate_match_id(time_start, lobbyid)
-    patch = match.version
-    duration = match.duration
-
-    titans = match.titans
-
-    all_dead::Bool = true
-    for army in armies
-        all_dead = army["defeated"]
-        if !army["defeated"]
-            break
-        end
-    end
-
-    query::String = "   INSERT INTO reckoner.matches 
-                        (match_id, lobbyid, time_start,
-                        duration, titans, all_dead, 
-                        patch, source_recorder, server)
-                        VALUES
-                        ($match_id, $lobbyid, $time_start,
-                        $duration, $titans, $all_dead,
-                        $patch, TRUE, 'pa inc');
-                        "
-    push!(output, query)
-
-    usernames::Vector{Username} = Vector{Username}()
-    for army in armies
-        if !army["ai"]
-            usernames = vcat(usernames, army["players"]) 
-        end
-    end
-
-    uberids::Vector{UberId} = split_stringarr(match.uberids)
-
-    uberid_of::Dict{Username, UberId} = pair_uberids(usernames, uberids, time_start, conn)
-
-    counter = 1
-
-    for army in armies
-        size = 1
-        shared = false
-        win = !army["defeated"]
-        team_num = counter
-
-        query = "   INSERT INTO reckoner.teams
-                    (match_id, team_num, win,
-                    shared, size)
-                    VALUES
-                    ($match_id, $team_num, $win,
-                    $shared, $size);
-                    "
-        push!(output, query)
-
-        eco10 = round(Int16, 10 * army["econ"])
-        player_type = (if army["ai"] "aiDiff" else "pa inc" end)
-
-        player_num = counter
-        commanders = size
-        if army["ai"]
-            username = "Lost AI Username ($player_num)"
-            player_id = if length(army["players"]) > 0
-                            fix_aidiff(army["players"][1])
-                        else
-                            "Unknown AI Recorder"
-                        end
-            if is_qbe
-                player_id = player_id * " QBE"
-            end
-        else
-            username = army["players"][1]
-            player_id = uberid_of[username]
-        end
-        query = "   INSERT INTO reckoner.armies
-                    (match_id, player_num, team_num,
-                    username, player_type, player_id,
-                    eco10, commanders)
-                    VALUES
-                    ($match_id, $player_num, $team_num,
-                    '$(sanitize(username))', '$player_type', '$player_id',
-                    $eco10, $commanders)
-                    "
-        push!(output, query)
-        
-        counter += 1
-    end
-
-    output
-end
-
-function process_matches(matches, conn, timestamp_1::Timestamp, timestamp_2::Timestamp)
     update_full_count = 0
     update_id_count = 0
     insert_count = 0
+    n_queries = 0
+
+    function update_recorder_match(match, armies, is_qbe::Bool, update::Dict{Tuple{LobbyId, Username}, PastComposite})
+        update_full_count += 1
+    
+        lobbyid::LobbyId = lobbyid_transform(match.lobbyid)
+        
+        timestamp::Timestamp = match.timestamp + (4 * 3600)
+    
+        match_id::MatchId = generate_match_id(timestamp, lobbyid)
+        
+        usernames = Vector{Username}()
+        known_uberids = Dict{Username, UberId}()
+    
+        all_dead::Bool = true
+        team_victory = Dict{TeamNum, Bool}()
+        ai_victor::String = "hello world"
+        known_victor::Bool = false
+    
+        ai_types::Set{String} = Set{String}()
+        
+        for i in armies
+            alive = !(i["defeated"])
+            if alive
+                all_dead = false
+            end
+    
+            if !i["ai"]
+                usernames = vcat(usernames, i["players"])
+                if length(i["players"]) > 0
+                    curr_username = i["players"][1]
+                    if (lobbyid, curr_username) in keys(update)
+                        team_num = update[(lobbyid, curr_username)].team_num
+                    else # abort
+                        return nothing
+                    end
+    
+                    if !(team_num in keys(team_victory))
+                        team_victory[team_num] = alive
+                    elseif !(team_victory[team_num])
+                        team_victory[team_num] = alive
+                    end
+                    if alive
+                        known_victor = true
+                    end
+                end
+                
+    
+                for j in i["players"]
+                    push!(known_uberids, j => update[(lobbyid, j)].uberid)
+                end
+            else
+                ai_type =   if length(i["players"]) > 0
+                                fix_aidiff(i["players"][1])
+                            else
+                                "Unknown AI Recorder"
+                            end
+                if is_qbe
+                    ai_type = ai_type * " QBE"
+                end
+    
+                if alive
+                    ai_victor = ai_type
+                end
+                push!(ai_types, ai_type)
+            end
+        end
+    
+        if !known_victor && !all_dead
+            res = stmt_find_ai_victor(ai_victor) |> Tables.rowtable
+    
+            if length(res) == 1
+                team_victory[res[1].team_num] = true
+            end
+        end
+    
+        if "-1" in values(known_uberids)
+            uberids = split_stringarr(match.uberids)
+            unpaired_uberids::Vector{UberId} = setdiff(uberids, values(known_uberids))
+            unpaired_usernames::Vector{Username} = usernames[[known_uberids[i] != "-1" for i in usernames]]
+    
+            new_pairs = pair_uberids(unpaired_usernames, unpaired_uberids, timestamp, stmt_get_namehist, stmt_get_ubernames)
+    
+            for i in unpaired_usernames
+                stmt_updt_playerid_human(match_id, new_pairs[i], i)
+                n_queries += 1
+            end
+        end
+    
+        if length(ai_types) == 1
+            stmt_updt_playerid_ai(match_id, first(ai_types))
+            n_queries += 1
+        end
+
+        stmt_updt_source_recorder_all_dead(match_id, all_dead)
+        n_queries += 1
+    
+        for i in keys(team_victory)
+            stmt_update_team_victory(match_id, i, team_victory[i])
+            n_queries += 1
+        end
+
+        return nothing
+    end
+    
+    function update_recorder_uberids(match)
+        update_id_count += 1
+    
+        lobbyid::LobbyId = lobbyid_transform(match.lobbyid)
+        
+        timestamp::Timestamp = match.timestamp + (4 * 3600)
+    
+        match_id::MatchId = generate_match_id(timestamp, lobbyid)
+        
+        known_uberids = Dict{Username, UberId}()
+        unpaired_usernames::Vector{Username} = Vector{Username}()
+    
+        for i in stmt_find_matched_player(match_id)
+            if i.player_id == "-1"
+                push!(unpaired_usernames, i.username)
+            else
+                push!(known_uberids, i.player_id)
+            end
+        end
+    
+        if !(isempty(unpaired_usernames))
+            uberids = split_stringarr(match.uberids)
+            unpaired_uberids::Vector{UberId} = setdiff(uberids, values(known_uberids))
+    
+            new_pairs = pair_uberids(unpaired_usernames, unpaired_uberids, timestamp, stmt_get_namehist, stmt_get_ubernames)
+        end
+    
+        for i in unpaired_usernames
+            stmt_updt_playerid_human(match_id, new_pairs[i], i)
+            n_queries += 1
+        end
+    
+        stmt_updt_source_recorder(match_id)
+        n_queries += 1
+    end
+    
+    function insert_recorder_match(match, armies, is_qbe::Bool)
+        insert_count += 1
+    
+        lobbyid = lobbyid_transform(match.lobbyid)
+        time_start::Timestamp = match.timestamp + (4 * 3600)
+        match_id = generate_match_id(time_start, lobbyid)
+        patch = match.version
+        duration = match.duration
+    
+        titans = match.titans
+    
+        all_dead = armies[1]["defeated"] && armies[2]["defeated"]
+
+        stmt_insert_match(
+            match_id, lobbyid, time_start, duration,
+            titans, all_dead, patch
+        )
+        n_queries += 1
+    
+        usernames::Vector{Username} = Vector{Username}()
+        for army in armies
+            if !army["ai"]
+                usernames = vcat(usernames, army["players"]) 
+            end
+        end
+    
+        uberids::Vector{UberId} = split_stringarr(match.uberids)
+    
+        uberid_of::Dict{Username, UberId} = pair_uberids(usernames, uberids, time_start, stmt_get_namehist, stmt_get_ubernames)
+    
+        counter = 1
+        counter2 = 1
+    
+        for army in armies
+            size = max(length(army["players"]), 1)
+            shared = size > 1
+            win = !army["defeated"]
+            team_num = counter
+
+            stmt_insert_team(match_id, team_num, win, shared, size)
+            n_queries += 1
+    
+            eco10 = round(Int16, 10 * army["econ"])
+            player_type = (if army["ai"] "aiDiff" else "pa inc" end)
+    
+            if army["ai"]
+                player_num = counter2
+                username = "Lost AI Username ($player_num)"
+                player_id = if length(army["players"]) > 0
+                                fix_aidiff(army["players"][1])
+                            else
+                                "Unknown AI Recorder"
+                            end
+                if is_qbe
+                    player_id = player_id * " QBE"
+                end
+                commanders = size
+
+                stmt_insert_army(
+                    match_id, player_num, team_num, username,
+                    player_type, player_id, eco10, commanders
+                )
+                n_queries += 1
+                counter2 += 1
+            else
+                for player in army["players"]
+                    player_num = counter2
+                    username = player
+                    player_id = uberid_of[username]
+                    commanders = size
+    
+                    stmt_insert_army(
+                        match_id, player_num, team_num, username,
+                        player_type, player_id, eco10, commanders
+                    )
+                    n_queries += 1
+                    counter2 += 1
+                end
+            end
+            
+            counter += 1
+        end
+    end
+    
+    function insert_recorder_match_FFA(match, armies, is_qbe::Bool)
+        insert_count += 1
+    
+        lobbyid = lobbyid_transform(match.lobbyid)
+        time_start::Timestamp = match.timestamp + (4 * 3600)
+        match_id = generate_match_id(time_start, lobbyid)
+        patch = match.version
+        duration = match.duration
+    
+        titans = match.titans
+    
+        all_dead::Bool = true
+        for army in armies
+            all_dead = army["defeated"]
+            if !army["defeated"]
+                break
+            end
+        end
+
+        stmt_insert_match(
+            match_id, lobbyid, time_start, duration,
+            titans, all_dead, patch
+        )
+        n_queries += 1
+    
+        usernames::Vector{Username} = Vector{Username}()
+        for army in armies
+            if !army["ai"]
+                usernames = vcat(usernames, army["players"]) 
+            end
+        end
+    
+        uberids::Vector{UberId} = split_stringarr(match.uberids)
+    
+        uberid_of::Dict{Username, UberId} = pair_uberids(usernames, uberids, time_start, stmt_get_namehist, stmt_get_ubernames)
+    
+        counter = 1
+    
+        for army in armies
+            size = 1
+            shared = false
+            win = !army["defeated"]
+            team_num = counter
+
+            stmt_insert_team(match_id, team_num, win, shared, size)
+            n_queries += 1
+    
+            eco10 = round(Int16, 10 * army["econ"])
+            player_type = (if army["ai"] "aiDiff" else "pa inc" end)
+    
+            player_num = counter
+            commanders = size
+            if army["ai"]
+                username = "Lost AI Username ($player_num)"
+                player_id = if length(army["players"]) > 0
+                                fix_aidiff(army["players"][1])
+                            else
+                                "Unknown AI Recorder"
+                            end
+                if is_qbe
+                    player_id = player_id * " QBE"
+                end
+            else
+                username = army["players"][1]
+                player_id = uberid_of[username]
+            end
+
+            stmt_insert_army(
+                match_id, player_num, team_num, username,
+                player_type, player_id, eco10, commanders
+            )
+            n_queries += 1
+            counter += 1
+        end
+    end
 
     lobbyids = [lobbyid_transform(i.lobbyid) for i in matches]
     ignore = get_ignore(lobbyids, conn)
@@ -437,8 +448,8 @@ function process_matches(matches, conn, timestamp_1::Timestamp, timestamp_2::Tim
     sandbox = get_sandbox(lobbyids, conn)
     ffa = get_FFA(lobbyids, conn)
     qbe = get_QBE(lobbyids, conn)
-
-    queries = Vector{String}()
+    
+    LibPQ.execute(conn, "BEGIN;")
     for match in matches
         lobbyid = lobbyid_transform(match.lobbyid)
 
@@ -456,61 +467,59 @@ function process_matches(matches, conn, timestamp_1::Timestamp, timestamp_2::Tim
             armies = JSON.parse(match.armies)
 
             if lobbyid in update_lobbyids
-                queries = vcat(queries, update_recorder_match(match, armies, is_qbe, update, conn))
-                update_full_count += 1
-                push!(queries, push_gamefeed_to_matches(lobbyid, match.timestamp))
+                update_recorder_match(match, armies, is_qbe, update)
+                stmt_push_gamefeed_to_matches(lobbyid, match.timestamp)
+                n_queries += 1
             elseif length(armies) == 2
-                queries = vcat(queries, insert_recorder_match(match, armies, is_qbe, conn))
-                insert_count += 1
-                push!(queries, push_gamefeed_to_matches(lobbyid, match.timestamp))
+                insert_recorder_match(match, armies, is_qbe)
+                stmt_push_gamefeed_to_matches(lobbyid, match.timestamp)
+                n_queries += 1
             elseif lobbyid in ffa
-                queries = vcat(queries, insert_recorder_match_FFA(match, armies, is_qbe, conn))
-                insert_count += 1
-                push!(queries, push_gamefeed_to_matches(lobbyid, match.timestamp))
+                insert_recorder_match_FFA(match, armies, is_qbe)
+                stmt_push_gamefeed_to_matches(lobbyid, match.timestamp)
+                n_queries += 1
             end
         elseif lobbyid in update_lobbyids
-            queries = vcat(queries, update_recorder_uberids(match, update, conn))
-            update_id_count += 1
-            push!(queries, push_gamefeed_to_matches(lobbyid, match.timestamp))
+            update_recorder_uberids(match)
+            stmt_push_gamefeed_to_matches(lobbyid, match.timestamp)
+            n_queries += 1
         end
     end
 
-    print("$update_full_count matches updated\n",
-            "$update_id_count matches id-verified\n",
-            "$insert_count matches inserted\n",
-            "$(length(queries)) total queries\n")
-
-    LibPQ.execute(conn, "BEGIN;")
-
-    for query in queries
-        LibPQ.execute(conn, query)
-    end
+    print(
+        "$update_full_count matches updated\n",
+        "$update_id_count matches id-verified\n",
+        "$insert_count matches inserted\n",
+        "$n_queries total queries\n"
+    )
 
     LibPQ.execute(conn, "COMMIT;")
 end
 
-function import_recorder()
+function import_recorder(interval::Int64 = 12500)
     conn = LibPQ.Connection("dbname=reckoner user=reckoner")
     # merge_legacy_namehist(conn)
 
-    max_time::Int64 = first(LibPQ.execute(conn, "SELECT MAX(timestamp) FROM reckoner.replayfeed;")).max
+    max_time::Int64 = first(LibPQ.execute(conn, 
+        "SELECT MAX(timestamp) FROM reckoner.replayfeed;"
+    )).max
 
     last_time::Timestamp = open("last_recorder_timestamp") do infile
         last_time = parse(Int64, read(infile, String))
     end
 
-    interval::Int64 = 12500
+    stmt_get_replayfeed = LibPQ.prepare(conn, "
+        SELECT *
+        FROM reckoner.replayfeed
+        WHERE timestamp > \$1
+        ORDER BY timestamp ASC
+        LIMIT $interval;"
+    )
+
     while last_time < max_time
         last_time -= 1800
 
-        query::String = "   SELECT *
-                            FROM reckoner.replayfeed
-                            WHERE timestamp > $last_time
-                            ORDER BY timestamp ASC
-                            LIMIT $(interval)
-                            ;"
-
-        res = LibPQ.execute(conn, query) |> Tables.rowtable
+        res = stmt_get_replayfeed(last_time) |> Tables.rowtable
 
         process_matches(res, conn, last_time, res[end].timestamp)
 

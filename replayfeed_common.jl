@@ -199,31 +199,52 @@ function get_QBE(lobbyids::Vector{LobbyId}, conn)::Set{LobbyId}
     get_QBE(lobbyids, conn, Timestamp(now - (DEFAULT_DUR)), now)
 end
 
-function push_gamefeed_to_matches(lobbyid::LobbyId, timestamp::Timestamp)::String
-    "
-    UPDATE reckoner.matches m
-    SET system_name = g.system_name,
-    system_info_gamefeed = g.system_info_gamefeed,
-    mods = g.mods,
-    bounty = g.bounty,
-    sandbox = g.sandbox,
-    source_gamefeed = TRUE
-    FROM (
-        SELECT system_name, 
-        system_info_gamefeed,
-        mods,
-        bounty,
-        sandbox
-        FROM reckoner.gamefeed
-        WHERE lobbyid = $lobbyid
-        AND obs_time BETWEEN $(timestamp - DEFAULT_DUR) AND $(timestamp + DEFAULT_DUR))
-    AS g
-    WHERE m.lobbyid = $lobbyid
-    AND time_start BETWEEN $(timestamp - DEFAULT_DUR) AND $(timestamp + DEFAULT_DUR);
-    "
+function gen_replayfeed_common_stmts(conn)
+    stmt_push_gamefeed_to_matches = LibPQ.prepare(conn, "
+        UPDATE reckoner.matches m
+        SET system_name = g.system_name,
+        system_info_gamefeed = g.system_info_gamefeed,
+        mods = g.mods,
+        bounty = g.bounty,
+        sandbox = g.sandbox,
+        source_gamefeed = TRUE
+        FROM (
+            SELECT system_name, 
+            system_info_gamefeed,
+            mods,
+            bounty,
+            sandbox
+            FROM reckoner.gamefeed
+            WHERE lobbyid = \$1
+            AND obs_time BETWEEN (\$2 - $DEFAULT_DUR) AND (\$2 + $DEFAULT_DUR)
+        ) AS g
+        WHERE m.lobbyid = \$1
+        AND time_start BETWEEN (\$2 - $DEFAULT_DUR) AND (\$2 + $DEFAULT_DUR);"
+    )
+
+    stmt_get_namehist = LibPQ.prepare(conn, "
+        SELECT player_id, username, times
+        FROM reckoner.name_history
+        WHERE player_id = ANY(\$1)
+        AND username = ANY(\$2);"
+    )
+
+    stmt_get_ubernames = LibPQ.prepare(conn, "
+        SELECT uberid, ubername
+        FROM reckoner.ubernames
+        WHERE uberid = ANY(\$1)
+        AND ubername = ANY(\$2);"
+    )
+
+    return (
+        stmt_push_gamefeed_to_matches,
+        stmt_get_namehist,
+        stmt_get_ubernames
+    )
 end
 
-function pair_uberids(usernames::Vector{Username}, uberids::Vector{UberId}, now::Timestamp, conn)::Dict{Username, UberId}
+function pair_uberids(usernames::Vector{Username}, uberids::Vector{UberId}, now::Timestamp, stmt_get_namehist, stmt_get_ubernames)::Dict{Username, UberId}
+
     if length(usernames) == 0 || length(uberids) == 0
         return Dict{Username, UberId}()
     end
@@ -233,14 +254,7 @@ function pair_uberids(usernames::Vector{Username}, uberids::Vector{UberId}, now:
     end
 
     output = Dict{Username, UberId}()
-
-    query::String = "   SELECT player_id, username, times
-                        FROM reckoner.name_history
-                        WHERE player_id IN ($(query_vector_postgres(uberids)))
-                        AND username IN ($(query_vector_postgres(usernames)));
-                        "
-
-    res = Tables.columntable(LibPQ.execute(conn, query))
+    res = Tables.columntable(stmt_get_namehist(uberids, usernames))
 
     if length(usernames) == length(res.username) == length(unique(res.username)) == length(unique(res.player_id))
         # 1-to-1 correspondence
@@ -253,14 +267,8 @@ function pair_uberids(usernames::Vector{Username}, uberids::Vector{UberId}, now:
         push!(temp_set, (res.username[i], res.player_id[i]))
     end
 
-    query = "   SELECT uberid, ubername
-                FROM reckoner.ubernames
-                WHERE uberid IN ($(query_vector_postgres(uberids)))
-                AND ubername IN ($(query_vector_postgres(usernames)));
-                "
-
     res = (username = collect(res.username), player_id = collect(res.player_id), times = collect(res.times))
-    for i in LibPQ.execute(conn, query)
+    for i in stmt_get_ubernames(uberids, usernames)
         if !((i.ubername, i.uberid) in temp_set)
             push!(res.player_id, i.uberid)
             push!(res.username, i.ubername)

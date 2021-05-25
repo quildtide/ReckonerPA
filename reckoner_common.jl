@@ -1,10 +1,13 @@
 import XXhash
 import Dates
 import LibPQ
+import LibPQ: _array_element
 
 const Timestamp = Int32
 const Uberid = String
 const Username = String
+
+LibPQ._array_element(el::AbstractString) = "\"$(replace(el, "\"" => "\\\""))\""
 
 function sanitize(input::String)::String
     out::String = replace(input, "'" => "''")

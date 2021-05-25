@@ -42,40 +42,37 @@ function merge_name_hist(left::NameHist, right::NameHist)::NameHist
     left
 end
 
-function insert_namehist(key::Key, times::Vector{Timestamp}, conn::LibPQ.Connection)::Nothing
-    query::String = "   INSERT INTO reckoner.name_history
-                        (player_type, player_id, username, times)
-                        VALUES ('$(key[1])', '$(sanitize(key[2]))', '$(sanitize(key[3]))', $(format_array_postgres(times)));"
-
-    LibPQ.execute(conn, query)
-        
-    nothing
-end
-
-function update_namehist(key::Key, times::Vector{Timestamp}, conn::LibPQ.Connection)::Nothing
-    query::String = "   UPDATE reckoner.name_history
-                        SET times = $(format_array_postgres(times))
-                        WHERE player_type = '$(key[1])'
-                        AND player_id = '$(sanitize(key[2]))'
-                        AND username = '$(sanitize(key[3]))';"
-
-    LibPQ.execute(conn, query)
-
-    nothing
-end
-
 function name_hist_to_postgres(input::NameHist, conn)::Nothing
+    stmt_select_namehist = LibPQ.prepare(conn, "
+        SELECT player_type, player_id, username, times
+        FROM reckoner.name_history
+        WHERE (player_type, player_id, username) = ANY (
+            SELECT a, b, c 
+            FROM UNNEST(
+                \$1::VARCHAR[], 
+                \$2::VARCHAR[], 
+                \$3::VARCHAR[]
+            ) t(a,b,c)
+        );"
+    )
+
+    stmt_insert_namehist = LibPQ.prepare(conn, "
+        INSERT INTO reckoner.name_history
+        (player_type, player_id, username, times)
+        VALUES (\$1, \$2, \$3, \$4);"
+    )
+
+    stmt_update_namehist = LibPQ.prepare(conn, "
+        UPDATE reckoner.name_history
+        SET times = \$4
+        WHERE player_type = \$1
+        AND player_id = \$2
+        AND username = \$3;"
+    )
+
     name_pairs::Vector{Key} = collect(keys(input))
 
-    query::String = "   SELECT player_type, player_id, username, times
-                        FROM reckoner.name_history
-                        WHERE "
-    for pair in name_pairs
-        query = query * "(player_type = '$(pair[1])' AND player_id = '$(sanitize(pair[2]))' AND username = '$(sanitize(pair[3]))') OR "
-    end
-    query = query[1:end-4] * ";"
-
-    res = LibPQ.execute(conn, query)
+    res = stmt_select_namehist([i[1] for i in name_pairs], [i[2] for i in name_pairs], [i[3] for i in name_pairs])
 
     table_res = Tables.rowtable(res)
 
@@ -96,9 +93,9 @@ function name_hist_to_postgres(input::NameHist, conn)::Nothing
 
     for (key, times) in name_hist
         if key in existing
-            update_namehist(key, collect(times), conn)
+            stmt_update_namehist(key[1], key[2], key[3], collect(times))
         else
-            insert_namehist(key, collect(times), conn)
+            stmt_insert_namehist(key[1], key[2], key[3], collect(times))
         end
     end
 
