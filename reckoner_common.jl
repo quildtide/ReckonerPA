@@ -1,5 +1,6 @@
 import XXhash
 import Dates
+import LibPQ
 
 const Timestamp = Int32
 const Uberid = String
@@ -129,3 +130,7 @@ end
 #         =#
 #     ccall((:win_chance_to_rank_, "./reckoner_fortran.so"), Float64, (Ref{Float64},), win_chance)
 # end
+
+function (stmt::LibPQ.Statement)(args...; kwargs...)
+    LibPQ.execute(stmt, args...; kwargs...)
+end
