@@ -5,7 +5,11 @@ include("get_replayfeed.jl")
 include("evaluation/evaluate_matches.jl")
 
 while true
-    print(Dates.now(), '\n')
+    try
+        print(Dates.now(), '\n')
+    catch
+        println("failed to get Dates.now()")
+    end
 
     conn = LibPQ.Connection("dbname=reckoner user=reckoner")
 
