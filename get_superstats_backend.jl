@@ -28,9 +28,9 @@ end
 struct Match
     match_id::Int64
     lobbyid::Int64
-    duration::String
+    duration::Union{String, Missing}
     time_start::Int32
-    time_end::Union{Int32, String}
+    time_end::Union{Int32, Missing}
     titans::Bool
     ranked::Bool
     tourney::Bool
@@ -60,11 +60,11 @@ function reformat_superstats_data(data::Array{Any,1})::Vector{Match}
         match_id::Int64 = match_id_generation(time_start, playernames, server, match["lobbyId"])
         lobbyid::Int64 = lobbyid_transformation(match["lobbyId"])
         if match["gameEndTime"] != false
-            time_end::Union{Int32, String} = Int32(match["gameEndTime"] ÷ 1000)
-            duration::String = string(match["gameEndTime"] - match["gameStartTime"])
+            time_end::Union{Int32, Missing} = Int32(match["gameEndTime"] ÷ 1000)
+            duration::Union{String, Missing} = string(match["gameEndTime"] - match["gameStartTime"])
         else
-            time_end = "NULL"
-            duration = "NULL"
+            time_end = missing
+            duration = missing
         end
         titans::Bool = match["isTitans"]
         ranked::Bool = match["isRanked"]
@@ -83,9 +83,9 @@ function reformat_superstats_data(data::Array{Any,1})::Vector{Match}
         for army in match["armies"]
             if army["ai"] == true
                 if (typeof(army["aiDiff"]) == String)
-                    uberid_list::Vector{String} = [sanitize(army["aiDiff"]),]
-                    if (("com.pa.quitch.AIBugfixEnhancement" in mod_ids) |
-                        ("com.pa.quitch.AIBugfixEnhancement-dev" in mod_ids))
+                    uberid_list::Vector{String} = [army["aiDiff"],]
+                    if (("com.pa.quitch.AIBugfixEnhancement" in mods) |
+                        ("com.pa.quitch.AIBugfixEnhancement-dev" in mods))
                         uberid_list[1] *= " QBE"
                     end
                 else
@@ -132,8 +132,8 @@ function reformat_superstats_data(data::Array{Any,1})::Vector{Match}
         for team_num in 1:(size(teamIds)[1])
             win::Bool = (match["winner"] == teamIds[team_num])
             shared::Bool = shared_list[team_num]
-            size::Int16 = teamsize_list[team_num]
-            new_team::Team = Team(match_id, team_num, win, shared, size, armies[team_num])
+            team_size::Int16 = teamsize_list[team_num]
+            new_team::Team = Team(match_id, team_num, win, shared, team_size, armies[team_num])
             push!(teams, new_team)
         end
 
@@ -192,17 +192,17 @@ function combine(left::Match, right::Match)::Match
     match_id::Int64 = min(left.match_id, right.match_id)
     lobbyid::Int64 = left.lobbyid
     time_start::Int32 = min(left.time_start, right.time_start)
-    time_end::Union{Int32,String} = ( if ( typeof(left.time_end) == typeof(right.time_end) == String ) 
+    time_end::Union{Int32,Missing} = ( if ( typeof(left.time_end) == typeof(right.time_end) == String ) 
                             max(left.time_end, right.time_end)
                         elseif (typeof(left.time_end) == String)
                             left.time_end
                         elseif (typeof(right.time_end) == String)
                             right.time_end
                         else
-                            "NULL"
+                            missing
                         end
                     )
-    duration::String = (if (typeof(time_end) == Int32) string(time_end - time_start) else "NULL" end)
+    duration::Union{String,Missing} = (if (typeof(time_end) == Int32) string(time_end - time_start) else missing end)
     titans::Bool = left.titans || right.titans
     ranked::Bool = left.ranked || right.ranked
     tourney::Bool = left.tourney || right.tourney
@@ -389,7 +389,7 @@ function update_name_history(matches::Vector{Match})::Nothing
                 if !(army.uberid isa Nothing)
                     new_obs = Observance(army.player_type, army.uberid, army.username, match.time_start)
                     push!(obs, new_obs)
-                    if typeof(match.time_end) != String
+                    if typeof(match.time_end) != Missing
                         new_obs_2 = Observance(army.player_type, army.uberid, army.username, match.time_end)
                         push!(obs, new_obs_2)
                     end

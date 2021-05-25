@@ -217,7 +217,7 @@ function insert_match(match::FeedMatch, conn)::Vector{String}
                         else
                             "Unknown AI Replayfeed"
                         end
-            if match["qbe"] || ("qbe" in keys(army["personality"]))
+            if match["qbe"] || ("qbe" in keys(army["personality"]) && army["personality"]["qbe"])
                 player_id = player_id * " QBE"
             end
             commanders = size
@@ -334,7 +334,7 @@ function insert_match_FFA(match::FeedMatch, conn)::Vector{String}
                         else
                             "Unknown AI Replayfeed"
                         end
-            if match["qbe"] || ("qbe" in keys(army["personality"]))
+            if match["qbe"] || ("qbe" in keys(army["personality"]) && army["personality"]["qbe"])
                 player_id = player_id * " QBE"
             end
         else
