@@ -131,6 +131,14 @@ end
 #     ccall((:win_chance_to_rank_, "./reckoner_fortran.so"), Float64, (Ref{Float64},), win_chance)
 # end
 
-function (stmt::LibPQ.Statement)(args...; kwargs...)
-    LibPQ.execute(stmt, args...; kwargs...)
+function (stmt::LibPQ.Statement)(; kwargs...)
+    LibPQ.execute(stmt; kwargs...)
+end
+
+function (stmt::LibPQ.Statement)(parameters::Union{AbstractVector, Tuple}; kwargs...)
+    LibPQ.execute(stmt, parameters; kwargs...)
+end
+
+function (stmt::LibPQ.Statement)(parameters...; kwargs...)
+    LibPQ.execute(stmt, parameters; kwargs...)
 end
