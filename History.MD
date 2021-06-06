@@ -355,3 +355,11 @@ Average Entropy by time period:
 Average entropy: 0.683490797446559
 1v1 Average entropy: 0.676086366021285
 5v5 Average entropy: 0.667547077040342
+
+## Reckoner 0.9.0 2021-05-28 checkin
+- Approximate test for next major version:
+
+Average Entropy: 0.613030495259788
+Average Entropy 1v1: 0.62649432901597
+Average Entropy 5v5: 0.630580277131086
+\>2 team Entropy: 0.448764701059171
