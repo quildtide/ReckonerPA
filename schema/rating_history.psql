@@ -1,0 +1,22 @@
+CREATE TABLE reckoner.rating_history (
+    player_type VARCHAR,
+    player_id VARCHAR,
+    time_updated TIMESTAMP,
+    reckoner_version VARCHAR,
+    rating_core FLOAT,
+    rating_1v1 FLOAT,
+    rating_team FLOAT,
+    rating_ffa FLOAT,
+    rating_multiteam FLOAT,
+    sd_1v1 FLOAT,
+    sd_team FLOAT,
+    sd_ffa FLOAT,
+    sd_multiteam FLOAT
+);
+
+CREATE MATERIALIZED VIEW reckoner.last_rating AS
+    SELECT DISTINCT ON (player_type, player_id)
+        *
+    FROM reckoner.rating_history
+    ORDER BY player_type, player_id, time_updated DESC
+;
