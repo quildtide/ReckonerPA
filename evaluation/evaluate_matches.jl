@@ -1,9 +1,10 @@
 using Reckoner
-
+import Dates: now
 import LibPQ
 
 include("../reckoner_common.jl")
 include("reckonerPA_equations.jl")
+include("rating_history.jl")
 
 const EVAL_LIMIT = 987654321
 
@@ -105,6 +106,8 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
     end
 
     res = stmt_scored_matches(first.(players_seen), last.(players_seen))
+
+    eval_time = Dates.now()
     
     println("Checkpoint 3: scored matches fetched")
 
@@ -151,6 +154,39 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
     end
 
     println("Checkpoint 5: scoring complete")
+
+    stmt_cache_rating = LibPQ.prepare(conn, "
+        INSERT INTO reckoner.rating_history (
+            player_type, player_id, time_updated,
+            reckoner_version, rating_core,
+            rating_1v1, rating_team,
+            rating_ffa, rating_multiteam,
+            sd_1v1, sd_team, 
+            sd_ffa, sd_multiteam
+        ) VALUES (
+            \$1, \$2, \$3, \$4, \$5, 
+            \$6, \$7, \$8, \$9,
+            \$10, \$11, \$12, \$13
+        );"
+    )
+
+    LibPQ.execute(conn, "BEGIN;")
+
+    for (playerid, match_hist) in player_hist
+        rhr = calc_rating_hist(match_hist, eval_time, playerid[1], playerid[2])
+
+        stmt_cache_rating(
+            playerid[1], playerid[2], eval_time,
+            rhr.reckoner_version, rhr.rating_core,
+            rhr.rating_1v1, rhr.rating_team,
+            rhr.rating_ffa, rhr.rating_multiteam,
+            rhr.sd_1v1, rhr.sd_team,
+            rhr.sd_ffa, rhr.sd_multiteam
+        )
+    end
+    LibPQ.execute(conn, "COMMIT;")
+
+    println("Checkpoint 5.5: rating caching complete")
 
     stmt_update_rating = LibPQ.prepare(conn, "
         UPDATE reckoner.armies
