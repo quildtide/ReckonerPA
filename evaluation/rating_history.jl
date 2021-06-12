@@ -5,7 +5,7 @@ import LibPQ
 include("aux_utilities.jl")
 include("reckonerPA_equations.jl")
 
-DEF_RECKONER_VER = "0.9.0"
+const DEF_RECKONER_VER = "0.9.1"
 
 struct RatingHistRow <: Tables.AbstractRow
     player_type::String
