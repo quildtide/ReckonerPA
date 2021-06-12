@@ -11,11 +11,11 @@ const DATEFORMAT = Dates.DateFormat("mm/dd/yyyy HH:MM:SS p")
 const DEFAULT_DUR = 7 * 24 * 60 * 60
 
 
-function get_update(lobbyids::Vector{LobbyId}, conn, timestamp_1::Timestamp, timestamp_2::Timestamp)::Dict{Tuple{LobbyId, Username}, PastComposite}
-    output = Dict{Tuple{LobbyId, Username}, PastComposite}()
+function get_update(lobbyids::Vector{LobbyId}, conn, timestamp_1::Timestamp, timestamp_2::Timestamp)::Dict{LobbyId, Dict{Username, PastComposite}}
+    output = Dict{LobbyId, Dict{Username, PastComposite}}()
 
     if !isempty(lobbyids)
-        query::String = "   SELECT lobbyid , username, team_num, player_id, player_type
+        query::String = "   SELECT lobbyid, username, a.team_num, player_id, player_type, commanders
                             FROM reckoner.armies a 
                             INNER JOIN reckoner.matches m
                             ON a.match_id = m.match_id
@@ -42,14 +42,18 @@ function get_update(lobbyids::Vector{LobbyId}, conn, timestamp_1::Timestamp, tim
                     username = username[5:end]
                 end
             end
-            output[(i.lobbyid, username)] = (team_num = i.team_num, uberid = i.player_id)
+            if i.lobbyid in keys(output)
+                output[i.lobbyid][username] = (team_num = i.team_num, uberid = i.player_id)
+            else
+                output[i.lobbyid] = Dict(username=>(team_num = i.team_num, uberid = i.player_id))
+            end
         end
     end
 
     output
 end
 
-function get_update(lobbyids::Vector{LobbyId}, conn)::Dict{Tuple{LobbyId, Username}, PastComposite}
+function get_update(lobbyids::Vector{LobbyId}, conn)::Dict{LobbyId, Dict{Username, PastComposite}}
     now::Timestamp = floor(Timestamp, time())
     get_update(lobbyids, conn, Timestamp(now - (DEFAULT_DUR)), now)
 end

@@ -2,6 +2,7 @@ using Reckoner
 
 import LibPQ
 
+include("../reckoner_common.jl")
 include("reckonerPA_equations.jl")
 
 const EVAL_LIMIT = 987654321
@@ -68,46 +69,42 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
     
     println("Checkpoint 2: unscored matches processed")
 
-    query = "
-        SELECT
-            player_type,
-            player_id,
-            time_start as timestamp,
-            match_id,
-            team_num as team_id,
-            win,
-            team_size,
-            team_size_mean,
-            team_size_var,
-            team_count,
-            eco,
-            eco_mean,
-            eco_var,
-            all_dead,
-            shared,
-            titans,
-            ranked,
-            tourney,
-            win_chance,
-            player_num,
-            alpha,
-            beta,
-            win_chance,
-            rating_sd  
-        FROM reckoner.matchrows
-        WHERE SCORED"
-
-    if (mass_reset)
-        query *= ";"
-    else
-        query *= " AND (player_type, player_id) IN ("
-        for pid in players_seen
-            query *= "('$(sanitize(pid[1]))','$(sanitize(pid[2]))'),"
-        end
-        query = query[1:end-1] * ");"
+    if !mass_reset
+        stmt_scored_matches = LibPQ.prepare(conn, "
+            SELECT
+                player_type,
+                player_id,
+                time_start as timestamp,
+                match_id,
+                team_num as team_id,
+                win,
+                team_size,
+                team_size_mean,
+                team_size_var,
+                team_count,
+                eco,
+                eco_mean,
+                eco_var,
+                all_dead,
+                shared,
+                titans,
+                ranked,
+                tourney,
+                win_chance,
+                player_num,
+                alpha,
+                beta,
+                win_chance,
+                rating_sd  
+            FROM reckoner.matchrows
+            WHERE SCORED
+            AND (player_type, player_id) = ANY (
+            SELECT a, b FROM UNNEST(\$1::VARCHAR[], \$2::VARCHAR[]) t(a,b)
+            );"
+        )
     end
 
-    res = LibPQ.execute(conn, query)
+    res = stmt_scored_matches(first.(players_seen), last.(players_seen))
     
     println("Checkpoint 3: scored matches fetched")
 
@@ -155,18 +152,24 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
 
     println("Checkpoint 5: scoring complete")
 
+    stmt_update_rating = LibPQ.prepare(conn, "
+        UPDATE reckoner.armies
+        SET alpha = \$1,
+            beta = \$2,
+            win_chance = \$3,
+            rating_sd = \$4
+        WHERE match_id = \$5
+        AND player_num = \$6;"
+    )
+
     LibPQ.execute(conn, "BEGIN;")
     for phist in values(player_hist)
         for row in Tables.rows(phist)
-            query = " 
-                UPDATE reckoner.armies
-                SET alpha = $(mean(row.challenge)),
-                    beta = $(std(row.challenge)),
-                    win_chance = $(row.win_chance),
-                    rating_sd = $(row.rating_sd)
-                WHERE match_id = $(row.match_id)
-                AND player_num = $(row.player_num);"
-            LibPQ.execute(conn, query)
+            stmt_update_rating(
+                mean(row.challenge), std(row.challenge),
+                row.win_chance, row.rating_sd,
+                row.match_id, row.player_num
+            )
         end
     end
     LibPQ.execute(conn, "COMMIT;")

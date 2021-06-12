@@ -99,7 +99,7 @@ function process_replayfeed(replayfeed::ReplayFeed, conn; match_time_range::Int6
 
     stmt_push_gamefeed_to_matches, stmt_get_namehist, stmt_get_ubernames = gen_replayfeed_common_stmts(conn)
 
-    function update_match(match::FeedMatch, update::Dict{Tuple{LobbyId, Username}, PastComposite})
+    function update_match(match::FeedMatch, player_metadata::Dict{Username, PastComposite})
         lobbyid = lobbyid_transform(match["LobbyId"])
         
         timestamp::Timestamp = floor(Timestamp, Dates.datetime2unix(Dates.DateTime(match["MatchBeginTimeString"], DATEFORMAT))) 
@@ -116,11 +116,28 @@ function process_replayfeed(replayfeed::ReplayFeed, conn; match_time_range::Int6
             usernames = vcat(usernames, i["players"])
     
             for j in i["players"]
-                push!(known_uberids, j => update[(lobbyid, j)].uberid)
+                push!(known_uberids, j => player_metadata[j].uberid)
             end
             
             curr_username = if (i["ai"]) i["name"] else i["players"][1] end
-            team_num = update[(lobbyid, curr_username)].team_num
+
+            if curr_username in keys(player_metadata)
+                team_num = player_metadata[curr_username].team_num
+            else
+                name_components = split(curr_username, " ")
+                candidate_names = [
+                    name_components[1], 
+                    name_components[1] * name_components[2],
+                    name_components[1] * name_components[2] * name_components[3]
+                ]
+                for candidate in candidate_names
+                    if candidate in keys(player_metadata)
+                        team_num = player_metadata[candidate].team_num
+                        break
+                    end
+                end
+            end
+
             alive = !(i["defeated"])
             if !(team_num in keys(team_victory))
                 team_victory[team_num] = alive
@@ -409,7 +426,7 @@ function process_replayfeed(replayfeed::ReplayFeed, conn; match_time_range::Int6
 
         if !("error" in keys(match["ReplayInfoJson"]))
             if lobbyid in update_lobbyids
-                update_match(match, update)
+                update_match(match, update[lobbyid])
             elseif length(match["ReplayInfoJson"]["armies"]) == 2
                 insert_match(match)
             elseif lobbyid in ffa

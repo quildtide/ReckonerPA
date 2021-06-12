@@ -47,6 +47,9 @@ function Base.isless(left::Match, right::Match)
 end
 
 function reformat_superstats_data(data::Array{Any,1})::Vector{Match}
+    _handle_uberid(uberid::String) = uberid
+    _handle_uberid(::Bool) = "-1"
+    
     matches::Vector{Match} = Vector{Match}()
 
     for match in data
@@ -96,7 +99,7 @@ function reformat_superstats_data(data::Array{Any,1})::Vector{Match}
                     uberid_list = ["AI-Unknown",]
                 end
             else
-                uberid_list = [player["uberId"] for player in army["extendedPlayers"]]
+                uberid_list = [_handle_uberid(player["uberId"]) for player in army["extendedPlayers"]]
             end
 
             commanders::Int16 = size(army["extendedPlayers"])[1]

@@ -7,7 +7,11 @@ const Timestamp = Int32
 const Uberid = String
 const Username = String
 
-LibPQ._array_element(el::AbstractString) = "\"$(replace(el, "\"" => "\\\""))\""
+function LibPQ._array_element(el::AbstractString)
+    el = replace(el, "\\" => "\\\\")
+    el = replace(el, "\"" => "\\\"")
+    return "\"$el\""
+end
 
 function sanitize(input::String)::String
     out::String = replace(input, "'" => "''")
