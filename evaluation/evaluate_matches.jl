@@ -103,16 +103,20 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
             SELECT a, b FROM UNNEST(\$1::VARCHAR[], \$2::VARCHAR[]) t(a,b)
             );"
         )
-    end
-
-    res = stmt_scored_matches(first.(players_seen), last.(players_seen))
-
-    eval_time = Dates.now()
     
-    println("Checkpoint 3: scored matches fetched")
 
-    for row in res
-        add_to_player_hist!((row.player_type, row.player_id), PAMatch(row))
+        res = stmt_scored_matches(first.(players_seen), last.(players_seen))
+
+        eval_time = Dates.now()
+        
+        println("Checkpoint 3: scored matches fetched")
+
+        for row in res
+            add_to_player_hist!((row.player_type, row.player_id), PAMatch(row))
+        end
+    else
+        eval_time = Dates.now()
+        println("Checkpoint 3: scored matches skipped (mass reset)")
     end
 
     println("Checkpoint 4: scored matches processed")
@@ -213,7 +217,10 @@ function evaluate_matches(conn; refresh_view = true, mass_reset = false)
     println("Checkpoint 6: committed scores")
 
     if refresh_view
-        LibPQ.execute(conn, "REFRESH MATERIALIZED VIEW CONCURRENTLY reckoner.matchrows_mat;")
+        LibPQ.execute(conn, "
+            REFRESH MATERIALIZED VIEW CONCURRENTLY reckoner.last_rating;
+            REFRESH MATERIALIZED VIEW CONCURRENTLY reckoner.matchrows_mat;"
+        )
     end
 
     println("Checkpoint 7: refreshed materialized view")
