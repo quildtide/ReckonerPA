@@ -20,3 +20,4 @@ CREATE MATERIALIZED VIEW reckoner.last_rating AS
     FROM reckoner.rating_history
     ORDER BY player_type, player_id, time_updated DESC
 ;
+CREATE UNIQUE INDEX ON reckoner.last_rating(player_type, player_id);
