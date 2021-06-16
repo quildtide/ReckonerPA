@@ -363,3 +363,6 @@ Average Entropy: 0.613030495259788
 Average Entropy 1v1: 0.62649432901597
 Average Entropy 5v5: 0.630580277131086
 \>2 team Entropy: 0.448764701059171
+
+## Reckoner 0.9.1 2021-06-12
+- Reduce constant game weight from +1.0 to +0.25
