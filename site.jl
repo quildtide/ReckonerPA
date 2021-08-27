@@ -1,6 +1,6 @@
 import HTTP
 import Sockets
-import Dates: datetime2unix
+import Dates
 
 include("evaluation/site_functions.jl")
 include("reckoner_common.jl")
@@ -15,6 +15,20 @@ const STMT_RATING_CACHE = LibPQ.prepare(conn, "
     SELECT * FROM reckoner.last_rating
     WHERE player_type = ANY(\$1)
     AND player_id = ANY(\$2)
+")
+
+const STMT_REPORTER = LibPQ.prepare(conn, "
+    INSERT INTO reckoner.reporter (
+        reporter_name, reporter_id,
+        reporter_army_index, send_timestamp, 
+        receive_timestamp, lobby_id,
+        sandbox, dynamic_alliances, 
+        commanders, alliance_id,
+        alliance_length, ai
+    ) VALUES (
+        \$1, \$2, \$3, \$4, \$5, \$6,
+        \$7, \$8, \$9, \$10, \$11, \$12
+    )
 ")
 
 function hallo(req::HTTP.Request)
@@ -100,6 +114,27 @@ function cached_rating(req::HTTP.Request)
     return HTTP.Response(200, JSON.json(out))
 end
 HTTP.@register(ROUTER, "GET", "/api/cached_rating", cached_rating)
+
+function reporter(req::HTTP.Request)
+    report = JSON.parse(IOBuffer(HTTP.payload(req)))
+
+    STMT_REPORTER(
+        report["reporter_name"],
+        report["reporter_id"],
+        report["army_index"],
+        Dates.unix2datetime(report["report_timestamp"]/1000),
+        Dates.now(Dates.UTC),
+        report["lobby_id"],
+        report["sandbox"],
+        report["dynamic_alliances"],
+        JSON.json(report["commanders"]),
+        report["alliance_id"],
+        report["alliance_length"],
+        report["ai"]
+    )
+    return HTTP.Response(200, "kthnxbai")
+end
+HTTP.@register(ROUTER, "POST", "/api/reporter", reporter)
 
 HTTP.serve(ROUTER, Sockets.IPv4("64.20.35.179"), 8085)
 

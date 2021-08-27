@@ -1,0 +1,14 @@
+CREATE TABLE reckoner.reporter (
+    reporter_name VARCHAR,
+    reporter_id VARCHAR,
+    reporter_army_index INT,
+    send_timestamp TIMESTAMP,
+    receive_timestamp TIMESTAMP,
+    lobby_id VARCHAR,
+    sandbox BOOLEAN,
+    dynamic_alliances BOOLEAN,
+    commanders JSONB,
+    alliance_id INT[],
+    alliance_length INT[],
+    ai BOOLEAN[]
+);
