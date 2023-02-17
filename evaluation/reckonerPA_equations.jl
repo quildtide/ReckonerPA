@@ -10,7 +10,7 @@ include("glicko_equations.jl")
 const DEF_MEAN = 1500
 const DEF_STD = 350
 
-struct PAMatch <: AbstractMatch
+struct PAMatch <: AbstractReckonerMatch
     win_chance::Float64
     alpha::Float64
     beta::Float64
@@ -101,7 +101,7 @@ function PAMatch(inp)::PAMatch
             rating_sd)
 end
 
-struct PAMatches <: AbstractMatches
+struct PAMatches <: AbstractReckonerMatches
     win_chance::Vector{Float64}
     challenge::Vector{Normal{Float64}}
     timestamp::Vector{Int64}
