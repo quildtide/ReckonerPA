@@ -43,7 +43,7 @@ function echo_req(req::HTTP.Request)
     return HTTP.Response(200, message)
 end
 
-HTTP.@register(ROUTER, "GET", "/echo/*", echo_req)
+HTTP.Handlers.register!(ROUTER, "GET", "/echo/*", echo_req)
 
 function reckoner_chan(req::HTTP.Request)
     message::String = 
@@ -56,7 +56,7 @@ function reckoner_chan(req::HTTP.Request)
     return HTTP.Response(200, message)
 end
 
-HTTP.@register(ROUTER, "GET", "/", reckoner_chan)
+HTTP.Handlers.register!(ROUTER, "GET", "/", reckoner_chan)
 
 
 function basic_rating(req::HTTP.Request)
@@ -70,7 +70,7 @@ function basic_rating(req::HTTP.Request)
     return HTTP.Response(200, message)
 end
 
-HTTP.@register(ROUTER, "GET", "/basic_rating/*", basic_rating)
+HTTP.Handlers.register!(ROUTER, "GET", "/basic_rating/*", basic_rating)
 
 function full_rating(req::HTTP.Request)
     
@@ -81,7 +81,7 @@ function full_rating(req::HTTP.Request)
     return HTTP.Response(200, message)
 end
 
-HTTP.@register(ROUTER, "GET", "/api/full_rating", full_rating)
+HTTP.Handlers.register!(ROUTER, "GET", "/api/full_rating", full_rating)
 
 function cached_rating(req::HTTP.Request)
     context = JSON.parse(HTTP.URIs.queryparams(HTTP.URIs.URI(req.target))["context"])
@@ -113,7 +113,7 @@ function cached_rating(req::HTTP.Request)
 
     return HTTP.Response(200, JSON.json(out))
 end
-HTTP.@register(ROUTER, "GET", "/api/cached_rating", cached_rating)
+HTTP.Handlers.register!(ROUTER, "GET", "/api/cached_rating", cached_rating)
 
 function reporter(req::HTTP.Request)
     report = JSON.parse(IOBuffer(HTTP.payload(req)))
@@ -134,7 +134,7 @@ function reporter(req::HTTP.Request)
     )
     return HTTP.Response(200, "kthnxbai")
 end
-HTTP.@register(ROUTER, "POST", "/api/reporter", reporter)
+HTTP.Handlers.register!(ROUTER, "POST", "/api/reporter", reporter)
 
 HTTP.serve(ROUTER, Sockets.IPv4("64.20.35.179"), 8085)
 
