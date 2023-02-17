@@ -136,6 +136,18 @@ function reporter(req::HTTP.Request)
 end
 HTTP.Handlers.register!(ROUTER, "POST", "/api/reporter", reporter)
 
+function uberid_api(req::HTTP.Request)
+    params = HTTP.URIs.queryparampairs(HTTP.URIs.URI(req.target))
+    API_URL = "https://service.planetaryannihilation.net/GameClient/UserNames"
+
+    pa_resp = HTTP.get(API_URL; query = params)
+    our_resp = HTTP.Response(200, pa_resp.body)
+    HTTP.Messages.setheader(our_resp, "Access-Control-Allow-Origin" => "*")
+
+    return our_resp
+end
+HTTP.Handlers.register!(ROUTER, "GET", "/proxy_api/UserNames", uberid_api)
+
 HTTP.serve(ROUTER, Sockets.IPv4("64.20.35.179"), 8085)
 
 # HTTP.serve(ROUTER, Sockets.localhost, 8085)
